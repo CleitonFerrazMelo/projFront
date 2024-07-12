@@ -7,17 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
+using projFront.Services;
 
 namespace projFront.Controllers
 {
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IUsuarioServices _usuarioServices;
 
-        public UsuariosController(AppDbContext context)
+        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices)
         {
             _context = context;
+            _usuarioServices = usuarioServices;
         }
+
 
         // GET: Usuarios
         public async Task<IActionResult> Index()
@@ -148,10 +152,11 @@ namespace projFront.Controllers
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
-                _context.Usuarios.Remove(usuario);
+                _usuarioServices.ValidarDelecao(usuario);
+                //_context.Usuarios.Remove(usuario);
             }
             
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

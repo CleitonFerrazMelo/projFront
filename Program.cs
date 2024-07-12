@@ -1,12 +1,18 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
+using projFront.Repository;
+using projFront.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 var connection = builder.Configuration["ConexaoSqlite:SqliteConnectionString"];
+
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+builder.Services.AddScoped<IUsuarioServices, UsuarioServices>();
 
 builder.Services.AddDbContext<AppDbContext>(x => 
     x.UseSqlite(connection));
