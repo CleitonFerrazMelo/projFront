@@ -152,7 +152,9 @@ namespace projFront.Controllers
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario != null)
             {
-                _usuarioServices.ValidarDelecao(usuario);
+                string mensagem = _usuarioServices.ValidarDelecao(usuario);
+                if (!string.IsNullOrEmpty(mensagem))
+                    return Problem(mensagem);
                 //_context.Usuarios.Remove(usuario);
             }
             

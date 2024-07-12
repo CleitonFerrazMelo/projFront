@@ -152,7 +152,9 @@ namespace projFront.Controllers
             var banco = await _context.Bancos.FindAsync(id);
             if (banco != null)
             {
-                _bancoServices.ValidarDelecao(banco);
+                string mensagem = _bancoServices.ValidarDelecao(banco);
+                if (!string.IsNullOrEmpty(mensagem))
+                    return Problem(mensagem);
                 //_context.Bancos.Remove(banco);
             }
             

@@ -7,17 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
+using projFront.Services;
 
 namespace projFront.Controllers
 {
     public class EmpresasController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IEmpresaServices _empresaServices;
 
-        public EmpresasController(AppDbContext context)
+        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices)
         {
             _context = context;
+            _empresaServices = empresaServices;
         }
+
 
         // GET: Empresas
         public async Task<IActionResult> Index()
@@ -148,10 +152,13 @@ namespace projFront.Controllers
             var empresa = await _context.Empresas.FindAsync(id);
             if (empresa != null)
             {
-                _context.Empresas.Remove(empresa);
+                string mensagem  = _empresaServices.ValidarDelecao(empresa);
+                if (!string.IsNullOrEmpty(mensagem))
+                    return Problem(mensagem);
+                //_context.Empresas.Remove(empresa);
             }
             
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

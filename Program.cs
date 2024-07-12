@@ -18,6 +18,10 @@ builder.Services.AddScoped<IBancoServices, BancoServices>();
 
 builder.Services.AddScoped<IBancoRepository, BancoRepository>();
 
+builder.Services.AddScoped<IEmpresaServices, EmpresaServices>();
+
+builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
+
 builder.Services.AddDbContext<AppDbContext>(x => 
     x.UseSqlite(connection));
 
