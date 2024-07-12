@@ -16,7 +16,7 @@ namespace projFront.Services
         {
             string mensagem = string.Empty;
 
-            _usuarioRepository.DeletarUsuario(usuario);
+            _usuarioRepository.Deletar(usuario);
             return mensagem;
         }
     }

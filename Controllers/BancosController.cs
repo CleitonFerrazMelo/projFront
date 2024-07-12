@@ -7,17 +7,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
+using projFront.Services;
 
 namespace projFront.Controllers
 {
     public class BancosController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IBancoServices _bancoServices;
 
-        public BancosController(AppDbContext context)
+        public BancosController(AppDbContext context, IBancoServices bancoServices)
         {
             _context = context;
+            _bancoServices = bancoServices;
         }
+
 
         // GET: Bancos
         public async Task<IActionResult> Index()
@@ -148,10 +152,11 @@ namespace projFront.Controllers
             var banco = await _context.Bancos.FindAsync(id);
             if (banco != null)
             {
-                _context.Bancos.Remove(banco);
+                _bancoServices.ValidarDelecao(banco);
+                //_context.Bancos.Remove(banco);
             }
             
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

@@ -3,18 +3,17 @@ using projFront.Models;
 
 namespace projFront.Repository
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class BancoRepository: IBancoRepository
     {
         public readonly AppDbContext _repo;
 
-        public UsuarioRepository(AppDbContext repo)
+        public BancoRepository(AppDbContext repo)
         {
             _repo = repo;
         }
-
-        public void Deletar(Usuario usuario)
+        public void Deletar(Banco banco)
         {
-            _repo.Remove(usuario);
+            _repo.Remove(banco);
             _repo.SaveChanges();
         }
     }
