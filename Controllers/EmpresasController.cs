@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
 using projFront.Services;
+using projFront.ViewModels;
 
 namespace projFront.Controllers
 {
@@ -15,20 +17,29 @@ namespace projFront.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IEmpresaServices _empresaServices;
+        private readonly IMapper _mapper;
 
-        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices)
+        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices, IMapper mapper)
         {
             _context = context;
             _empresaServices = empresaServices;
+            _mapper = mapper;
         }
 
 
         // GET: Empresas
         public async Task<IActionResult> Index()
         {
-              return _context.Empresas != null ? 
-                          View(await _context.Empresas.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.Empresas'  is null.");
+
+            IEnumerable<EmpresaViewModel> listaEmpresaViewModel = null;
+
+            if (_context.Bancos != null)
+            {
+                var listaBancos = await _context.Bancos.ToListAsync();
+                listaEmpresaViewModel = _mapper.Map<IEnumerable<EmpresaViewModel>>(listaBancos);
+            }
+
+            return View(listaEmpresaViewModel);
         }
 
         // GET: Empresas/Details/5

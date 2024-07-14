@@ -8,6 +8,7 @@ namespace projFront.ViewModels.Mappings
         public MapeamentoVMtoModel()
         {
             CreateMap<Banco, BancoViewModel>().ReverseMap();
+            CreateMap<Empresa, EmpresaViewModel>().ReverseMap();
         }
     }
 }
