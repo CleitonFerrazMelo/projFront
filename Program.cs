@@ -3,12 +3,15 @@ using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Repository;
 using projFront.Services;
+using projFront.ViewModels.Mappings;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
 var connection = builder.Configuration["ConexaoSqlite:SqliteConnectionString"];
+
+builder.Services.AddAutoMapper(typeof(MapeamentoVMtoModel));
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
