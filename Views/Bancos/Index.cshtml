@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<projFront.ViewModels.BancoViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cadastro de Bancos";
 }
 
-<h1>Index</h1>
+<h1>Cadastro de Bancos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Criar Novo Banco</a>
 </p>
 <table class="table">
     <thead>
@@ -55,9 +55,9 @@
                 @Html.DisplayFor(modelItem => item.PixNumero)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Deletar</a>
+                <a asp-action="Edit" asp-route-id="@item.Id"> <img class="icones_buttons_index" src="/images/editar.png" />  </a> 
+                <a asp-action="Details" asp-route-id="@item.Id"><img class="icones_buttons_index" src="/images/details.png" /></a> 
+                    <a asp-action="Delete" asp-route-id="@item.Id"><img class="icones_buttons_index" src="/images/delete.png" /></a>
             </td>
         </tr>
 }

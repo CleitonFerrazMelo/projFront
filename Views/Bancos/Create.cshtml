@@ -1,56 +1,58 @@
-﻿@model projFront.Models.Banco
+﻿@model projFront.ViewModels.BancoViewModel
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Novo Banco</h1>
 
-<h4>Banco</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+
+    <div class="col-md-10">
+    <form asp-action="Create" class="row gy-2 gx-3 align-items-center">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+        <div class="col-auto col-sm-8">
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" />
                 <span asp-validation-for="Nome" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="col-auto col-sm-4">
                 <label asp-for="Agencia" class="control-label"></label>
                 <input asp-for="Agencia" class="form-control" />
                 <span asp-validation-for="Agencia" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="col-auto col-sm-8" >
                 <label asp-for="TipoConta" class="control-label"></label>
                 <input asp-for="TipoConta" class="form-control" />
                 <span asp-validation-for="TipoConta" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="col-auto col-sm-4" >
                 <label asp-for="NumeroConta" class="control-label"></label>
                 <input asp-for="NumeroConta" class="form-control" />
                 <span asp-validation-for="NumeroConta" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="form-group col-auto col-sm-6">
                 <label asp-for="PixChave" class="control-label"></label>
                 <input asp-for="PixChave" class="form-control" />
                 <span asp-validation-for="PixChave" class="text-danger"></span>
             </div>
-            <div class="form-group">
+        <div class="form-group col-auto col-sm-6">
                 <label asp-for="PixNumero" class="control-label"></label>
                 <input asp-for="PixNumero" class="form-control" />
                 <span asp-validation-for="PixNumero" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <input type="submit" value="Criar Banco" class="btn btn-success" />
+            <a class="btn btn-warning" asp-action="Index">Voltar</a>
             </div>
         </form>
     </div>
-</div>
+
+
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    
 </div>
 
 @section Scripts {
