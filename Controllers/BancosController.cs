@@ -56,8 +56,9 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
+            var bancoViewModel = _mapper.Map<BancoViewModel>(banco);
 
-            return View(banco);
+            return View(bancoViewModel);
         }
 
         // GET: Bancos/Create
@@ -95,7 +96,9 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-            return View(banco);
+            var bancoViewModel = _mapper.Map<BancoViewModel>(banco);
+
+            return View(bancoViewModel);
         }
 
         // POST: Bancos/Edit/5
@@ -148,7 +151,9 @@ namespace projFront.Controllers
                 return NotFound();
             }
 
-            return View(banco);
+            var bancoViewModel = _mapper.Map<BancoViewModel>(banco);
+
+            return View(bancoViewModel);
         }
 
         // POST: Bancos/Delete/5

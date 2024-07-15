@@ -1,7 +1,7 @@
 ﻿@model projFront.ViewModels.BancoViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Criar Banco";
 }
 
 <h1>Novo Banco</h1>
@@ -31,18 +31,18 @@
                 <input asp-for="NumeroConta" class="form-control" />
                 <span asp-validation-for="NumeroConta" class="text-danger"></span>
             </div>
-        <div class="form-group col-auto col-sm-6">
+        <div class="col-auto col-sm-6">
                 <label asp-for="PixChave" class="control-label"></label>
                 <input asp-for="PixChave" class="form-control" />
                 <span asp-validation-for="PixChave" class="text-danger"></span>
             </div>
-        <div class="form-group col-auto col-sm-6">
+        <div class="col-auto col-sm-6">
                 <label asp-for="PixNumero" class="control-label"></label>
                 <input asp-for="PixNumero" class="form-control" />
                 <span asp-validation-for="PixNumero" class="text-danger"></span>
             </div>
-            <br />
-            <div class="form-group">
+
+        <div class="mt-80">
             <input type="submit" value="Criar Banco" class="btn btn-success" />
             <a class="btn btn-warning" asp-action="Index">Voltar</a>
             </div>
