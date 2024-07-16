@@ -74,15 +74,17 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Agencia,TipoConta,NumeroConta,PixChave,PixNumero")] Banco banco)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Agencia,TipoConta,NumeroConta,PixChave,PixNumero")] BancoViewModel bancoVM)
         {
             if (ModelState.IsValid)
             {
+                Banco banco = _mapper.Map<Banco>(bancoVM);
                 _context.Add(banco);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(banco);
+            
+            return View(bancoVM);
         }
 
         // GET: Bancos/Edit/5
