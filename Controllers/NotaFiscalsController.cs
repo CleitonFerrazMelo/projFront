@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
-using projFront.ViewModels;
+using projFront.Repository;
+using projFront.Services;
 
 namespace projFront.Controllers
 {
     public class NotaFiscalsController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly IMapper _mapper;
+        private readonly INotaFiscalServices _notaFiscalServices;
 
-        public NotaFiscalsController(AppDbContext context, IMapper mapper)
+        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices)
         {
             _context = context;
-            _mapper = mapper;
+            _notaFiscalServices = notaFiscalServices;
         }
 
         // GET: NotaFiscals
@@ -62,16 +62,15 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Cnpj,IncricaoEstadual,Endereco,Numero,Bairro,NomeCidade,Uf,Cep,NumeroTelefone,DescricaoServico,ValorTotal,Banco,Agencia,Conta,PixChave,PixNumero,IdEmpresa,DataEmissao,FaturaSerie,FaturaNumero,MensagemFisco")] NotaFiscalViewModel notaFiscalVM)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Cnpj,IncricaoEstadual,Endereco,Numero,Bairro,NomeCidade,Uf,Cep,NumeroTelefone,DescricaoServico,ValorTotal,Banco,Agencia,Conta,PixChave,PixNumero,IdEmpresa,DataEmissao,FaturaSerie,FaturaNumero,MensagemFisco")] NotaFiscal notaFiscal)
         {
             if (ModelState.IsValid)
             {
-                NotaFiscal notaFiscal = _mapper.Map<NotaFiscal>(notaFiscalVM);
                 _context.Add(notaFiscal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(notaFiscalVM);
+            return View(notaFiscal);
         }
 
         // GET: NotaFiscals/Edit/5
@@ -155,12 +154,25 @@ namespace projFront.Controllers
             var notaFiscal = await _context.NotaFiscal.FindAsync(id);
             if (notaFiscal != null)
             {
-                _context.NotaFiscal.Remove(notaFiscal);
+                string mensagem = _notaFiscalServices.ValidarDelecao(notaFiscal);
+                if (!string.IsNullOrEmpty(mensagem))
+                    return Problem(mensagem);
+                //_context.NotaFiscal.Remove(notaFiscal);
             }
             
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        // POST: NotaFiscals/RetornarUltimaNota/5
+        [HttpPost, ActionName("RetornarUltimaNota")]
+        [ValidateAntiForgeryToken]
+        public NotaFiscal? RetornarUltimaNota(string cnpj)
+        {            
+            var notaFiscal = _notaFiscalServices.RetornarUltimaNota(cnpj);            
+            return notaFiscal;
+        }
+        
 
         private bool NotaFiscalExists(int id)
         {
