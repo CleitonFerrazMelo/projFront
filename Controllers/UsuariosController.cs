@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
 using projFront.Services;
+using projFront.ViewModels;
 
 namespace projFront.Controllers
 {
@@ -15,11 +17,13 @@ namespace projFront.Controllers
     {
         private readonly AppDbContext _context;
         private readonly IUsuarioServices _usuarioServices;
+        private readonly IMapper _mapper;
 
-        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices)
+        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices, IMapper mapper)
         {
             _context = context;
             _usuarioServices = usuarioServices;
+            _mapper = mapper;
         }
 
 
@@ -62,15 +66,16 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Senha")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Senha")] UsuarioViewModel usuarioVM)
         {
             if (ModelState.IsValid)
             {
+                Usuario usuario = _mapper.Map<Usuario>(usuarioVM); 
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuario);
+            return View(usuarioVM);
         }
 
         // GET: Usuarios/Edit/5

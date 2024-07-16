@@ -72,15 +72,17 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Cnpj,Ie,Endereco,Numero,Bairro,NomeCidade,Cep,FaturaSerie,FaturaUltimoNumero,MensagemFisco")] Empresa empresa)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Cnpj,Ie,Endereco,Numero,Bairro,NomeCidade,Cep,FaturaSerie,FaturaUltimoNumero,MensagemFisco")] EmpresaViewModel empresaVM)
         {
             if (ModelState.IsValid)
             {
+                Empresa empresa = _mapper.Map<Empresa>(empresaVM);
                 _context.Add(empresa);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(empresa);
+            
+            return View(empresaVM);
         }
 
         // GET: Empresas/Edit/5
@@ -96,7 +98,9 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-            return View(empresa);
+            var empresaViewModel = _mapper.Map<EmpresaViewModel>(empresa);
+
+            return View(empresaViewModel);
         }
 
         // POST: Empresas/Edit/5

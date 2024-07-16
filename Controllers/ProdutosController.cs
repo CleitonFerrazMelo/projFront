@@ -2,21 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
+using projFront.ViewModels;
 
 namespace projFront.Controllers
 {
     public class ProdutosController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ProdutosController(AppDbContext context)
+        public ProdutosController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Produtos
@@ -58,15 +62,17 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Codigo,Descricao,Quantidade,Valor")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Codigo,Descricao,Quantidade,Valor")] ProdutoViewModel produtoVM)
         {
             if (ModelState.IsValid)
             {
+                Produto produto = _mapper.Map<Produto>(produtoVM);
                 _context.Add(produto);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(produto);
+
+            return View(produtoVM);
         }
 
         // GET: Produtos/Edit/5
