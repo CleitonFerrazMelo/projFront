@@ -25,6 +25,10 @@ builder.Services.AddScoped<IEmpresaServices, EmpresaServices>();
 
 builder.Services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 
+builder.Services.AddScoped<INotaFiscalServices, NotaFiscalServices>();
+
+builder.Services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
+
 builder.Services.AddDbContext<AppDbContext>(x => 
     x.UseSqlite(connection));
 
