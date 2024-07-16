@@ -47,8 +47,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-
-            return View(produto);
+            ProdutoViewModel produtoVM = _mapper.Map<ProdutoViewModel>(produto);
+            return View(produtoVM);
         }
 
         // GET: Produtos/Create
@@ -88,7 +88,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-            return View(produto);
+            ProdutoViewModel produtoVM = _mapper.Map<ProdutoViewModel>(produto);
+            return View(produtoVM);
         }
 
         // POST: Produtos/Edit/5

@@ -57,8 +57,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-
-            return View(empresa);
+            EmpresaViewModel empresaVM = _mapper.Map<EmpresaViewModel>(empresa);
+            return View(empresaVM);
         }
 
         // GET: Empresas/Create

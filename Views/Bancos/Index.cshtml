@@ -12,6 +12,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
@@ -30,12 +31,17 @@
             <th>
                 @Html.DisplayNameFor(model => model.PixNumero)
             </th>
-            <th></th>
+            
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
+                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>
@@ -54,11 +60,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PixNumero)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id" > <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a> 
-                <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a> 
-                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
-            </td>
+            
         </tr>
 }
     </tbody>
