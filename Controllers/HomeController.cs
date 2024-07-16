@@ -12,6 +12,7 @@ namespace projFront.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["PaginaSelecionada"] = "Home";
             return View();
         }
 

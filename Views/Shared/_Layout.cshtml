@@ -1,3 +1,7 @@
+@{
+    var paginaSelecionada = @ViewData["PaginaSelecionada"];
+}
+
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head><script src="~/assets/js/color-modes.js"></script>
@@ -188,65 +192,129 @@
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
-          Home
-        </a>
-      </li>
-      <li>
-         <a class="nav-link link-body-emphasis" asp-controller="Bancos" asp-action="Index">
-           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-           Bancos
-         </a>
-      </li>
-      <li>
-         <a class="nav-link link-body-emphasis" asp-controller="Empresas" asp-action="Index">
-           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-           Empresas
-         </a>
-      </li>
-      <li>
-        <a class="nav-link link-body-emphasis" asp-controller="NotaFiscals" asp-action="Index">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-          Notas Fiscais
-        </a>
-      </li>
-      <li>
-        <a class="nav-link link-body-emphasis" asp-controller="Produtos" asp-action="Index">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-          Produtos
-        </a>
-      </li>
-      <li>
-         <a class="nav-link link-body-emphasis" asp-controller="Usuarios" asp-action="Index">
-           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-           Usuários
-         </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-          Orders
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-          Products
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-body-emphasis">
-          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-          Customers
-        </a>
-      </li>
-    </ul>
-    <hr>
-   
-  <partial name="_LoginPartial" />
 
+                @if (paginaSelecionada == "Home")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home" /></svg>
+                            Home
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home" /></svg>
+                            Home
+                        </a>
+                    </li>
+                }
+                
+                
+      
+                @if (paginaSelecionada == "Bancos")
+                {
+                    <li>
+                        <a class="nav-link active " asp-controller="Bancos" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Bancos
+                        </a>
+                    </li>
+                } 
+                else
+                {
+                    <li>
+                        <a class="nav-link " asp-controller="Bancos" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Bancos
+                        </a>
+                    </li>
+                }
+
+                @if (paginaSelecionada == "Empresas")
+                {
+                    <li>
+                        <a class="nav-link active " asp-controller="Empresas" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Empresas
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="nav-link" asp-controller="Empresas" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Empresas
+                        </a>
+                    </li>
+                }
+
+                @if (paginaSelecionada == "NotaFiscal")
+                {
+                    <li>
+                        <a class="nav-link active" asp-controller="NotaFiscals" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Notas Fiscais
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="nav-link " asp-controller="NotaFiscals" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Notas Fiscais
+                        </a>
+                    </li>
+                }
+
+                @if (paginaSelecionada == "Produtos")
+                {
+                    <li>
+                        <a class="nav-link active " asp-controller="Produtos" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Produtos
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="nav-link " asp-controller="Produtos" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Produtos
+                        </a>
+                    </li>
+                }
+
+                @if (paginaSelecionada == "Usuarios")
+                {
+                    <li>
+                        <a class="nav-link active " asp-controller="Usuarios" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Usuários
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a class="nav-link " asp-controller="Usuarios" asp-action="Index">
+                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
+                            Usuários
+                        </a>
+                    </li>
+                }
+
+    </ul>
+            <!--
+                <hr>
+            
+                 <partial name="_LoginPartial" />
+            -->
   </div>
 
   <div class="b-example-divider b-example-vr">

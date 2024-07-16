@@ -22,7 +22,9 @@ namespace projFront.Controllers
         // GET: NotaFiscals
         public async Task<IActionResult> Index()
         {
-              return _context.NotaFiscal != null ? 
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+
+            return _context.NotaFiscal != null ? 
                           View(await _context.NotaFiscal.ToListAsync()) :
                           Problem("Entity set 'AppDbContext.NotaFiscal'  is null.");
         }

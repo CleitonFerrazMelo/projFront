@@ -26,7 +26,9 @@ namespace projFront.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return _context.Usuarios != null ? 
+            ViewData["PaginaSelecionada"] = "Usuarios";
+
+            return _context.Usuarios != null ? 
                           View(await _context.Usuarios.ToListAsync()) :
                           Problem("Entity set 'AppDbContext.Usuarios'  is null.");
         }

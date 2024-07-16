@@ -22,7 +22,9 @@ namespace projFront.Controllers
         // GET: Produtos
         public async Task<IActionResult> Index()
         {
-              return _context.Produtos != null ? 
+            ViewData["PaginaSelecionada"] = "Produtos";
+
+            return _context.Produtos != null ? 
                           View(await _context.Produtos.ToListAsync()) :
                           Problem("Entity set 'AppDbContext.Produtos'  is null.");
         }

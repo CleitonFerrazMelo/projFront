@@ -31,15 +31,17 @@ namespace projFront.Controllers
         // GET: Bancos
         public async Task<IActionResult> Index()
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+
             IEnumerable<BancoViewModel> listaBancoViewModel = null;
 
             if (_context.Bancos != null)
             {
                 var listaBancos = await _context.Bancos.ToListAsync();
                 listaBancoViewModel = _mapper.Map<IEnumerable<BancoViewModel>>(listaBancos);
-            }
+            }          
 
-              return View(listaBancoViewModel);
+            return View(listaBancoViewModel);
         }
 
         // GET: Bancos/Details/5

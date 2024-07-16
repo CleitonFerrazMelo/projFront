@@ -9,6 +9,7 @@ namespace projFront.ViewModels
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "Informe nome Empresa!")]
         public string Nome { get; set; }
+
         [Display(Name = "CNPJ")]
         [Required(ErrorMessage = "Informe o CNPJ Empresa!")]
         public string Cnpj { get; set; }
@@ -39,16 +40,16 @@ namespace projFront.ViewModels
 
         [Display(Name = "Série")]
         [Required(ErrorMessage = "Informe a serie para gerar as notas fiscais!")]
-        public string NotaFiscalSerie { get; set; }
+        public string FaturaSerie { get; set; }
 
         [Display(Name = "Número última nota")]
         [Required(ErrorMessage = "Informe o número da ultima nota fiscal!")]
-        public string FaturaUltimoNumero { get; set; }
+        public int FaturaUltimoNumero { get; set; }
 
         [Display(Name = "Mensagem da Nota Fiscal")]
         [Required(ErrorMessage = "Informe mensagem para ser exibida nota fiscal!")]
         public string MensagemFisco { get; set; }
-        public string FaturaSerie { get; set; }
+        
 
     }
 }

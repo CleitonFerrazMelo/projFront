@@ -30,13 +30,14 @@ namespace projFront.Controllers
         // GET: Empresas
         public async Task<IActionResult> Index()
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
 
             IEnumerable<EmpresaViewModel> listaEmpresaViewModel = null;
 
-            if (_context.Bancos != null)
+            if (_context.Empresas != null)
             {
-                var listaBancos = await _context.Bancos.ToListAsync();
-                listaEmpresaViewModel = _mapper.Map<IEnumerable<EmpresaViewModel>>(listaBancos);
+                var listaEmpresas = await _context.Empresas.ToListAsync();
+                listaEmpresaViewModel = _mapper.Map<IEnumerable<EmpresaViewModel>>(listaEmpresas);
             }
 
             return View(listaEmpresaViewModel);
