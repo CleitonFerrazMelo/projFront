@@ -6,6 +6,12 @@ namespace projFront.Repository
     {
         public void Deletar(NotaFiscal notaFiscal);
 
-        public NotaFiscal? LocalizarUltima(string cnpj);
+        public NotaFiscal LocalizarUltima(string cnpj);
+
+        public Empresa RetornaEmpresa(int id);
+
+        public void AtualizarUltimoNumeroEmpresa(Empresa empresa);
+
+        public void Atualizar(NotaFiscal notaFiscal);
     }
 }

@@ -18,10 +18,32 @@ namespace projFront.Repository
             _repo.SaveChanges();
         }
 
-        public NotaFiscal? LocalizarUltima(string cnpj)
+        public NotaFiscal LocalizarUltima(string cnpj)
         {
-            NotaFiscal? notaFiscal = _repo.NotaFiscal.Where(x => x.Cnpj == cnpj).FirstOrDefault();
+            NotaFiscal notaFiscal = _repo.NotaFiscal.Where(x => x.Cnpj == cnpj).First();
+            if (notaFiscal == null)
+                notaFiscal= new NotaFiscal();
             return notaFiscal;
+        }
+
+        public Empresa RetornaEmpresa(int id)
+        {
+            Empresa empresa = _repo.Empresas.Where(x => x.Id == id).First();
+            if (empresa == null)
+                empresa = new Empresa();
+            return empresa;
+        }
+
+        public void AtualizarUltimoNumeroEmpresa(Empresa empresa)
+        {
+            _repo.Update(empresa);
+            _repo.SaveChanges();
+        }
+
+        public void Atualizar(NotaFiscal notaFiscal)
+        {
+            _repo.Update(notaFiscal);
+            _repo.SaveChanges();
         }
     }
 }

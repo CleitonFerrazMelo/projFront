@@ -6,6 +6,8 @@ namespace projFront.Services
     {
         public string ValidarDelecao(NotaFiscal notaFiscal);
 
-        public NotaFiscal? RetornarUltimaNota(string cnpj);
+        public NotaFiscal RetornarUltimaNota(string cnpj);
+
+        public string Imprimir(NotaFiscal notaFiscal);
     }
 }

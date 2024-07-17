@@ -172,7 +172,14 @@ namespace projFront.Controllers
             var notaFiscal = _notaFiscalServices.RetornarUltimaNota(cnpj);            
             return notaFiscal;
         }
-        
+
+        // POST: NotaFiscals/Imprimir/5
+        [HttpPost, ActionName("Imprimir")]
+        [ValidateAntiForgeryToken]
+        public string Imprimir(NotaFiscal notaFiscal)
+        {
+            return _notaFiscalServices.Imprimir(notaFiscal);
+        }
 
         private bool NotaFiscalExists(int id)
         {
