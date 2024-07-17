@@ -135,7 +135,8 @@ namespace projFront.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(empresa);
+            var empresaViewModel = _mapper.Map<EmpresaViewModel>(empresa);
+            return View(empresaViewModel);
         }
 
         // GET: Empresas/Delete/5
@@ -152,8 +153,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-
-            return View(empresa);
+            EmpresaViewModel empresaVM = _mapper.Map<EmpresaViewModel>(empresa);
+            return View(empresaVM);
         }
 
         // POST: Empresas/Delete/5
