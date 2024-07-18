@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using projFront.Data;
 using projFront.Models;
 using projFront.Repository;
 using projFront.Services;
+using projFront.ViewModels;
 
 namespace projFront.Controllers
 {
@@ -16,11 +18,13 @@ namespace projFront.Controllers
     {
         private readonly AppDbContext _context;
         private readonly INotaFiscalServices _notaFiscalServices;
+        private readonly IMapper _mapper;
 
-        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices)
+        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper)
         {
             _context = context;
             _notaFiscalServices = notaFiscalServices;
+            _mapper = mapper;
         }
 
         // GET: NotaFiscals
@@ -28,9 +32,15 @@ namespace projFront.Controllers
         {
             ViewData["PaginaSelecionada"] = "NotaFiscal";
 
-            return _context.NotaFiscal != null ? 
-                          View(await _context.NotaFiscal.ToListAsync()) :
-                          Problem("Entity set 'AppDbContext.NotaFiscal'  is null.");
+            IEnumerable<NotaFiscalViewModel> listaNotaFiscalViewModel = null;
+
+            if (_context.Empresas != null)
+            {
+                var listaNotaFiscal = await _context.NotaFiscal.ToListAsync();
+                listaNotaFiscalViewModel = _mapper.Map<IEnumerable<NotaFiscalViewModel>>(listaNotaFiscal);
+            }
+
+            return View(listaNotaFiscalViewModel);
         }
 
         // GET: NotaFiscals/Details/5
@@ -47,8 +57,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-
-            return View(notaFiscal);
+            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            return View(notaFiscalVM);
         }
 
         // GET: NotaFiscals/Create
@@ -70,7 +80,8 @@ namespace projFront.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(notaFiscal);
+            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            return View(notaFiscalVM);
         }
 
         // GET: NotaFiscals/Edit/5
@@ -86,7 +97,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-            return View(notaFiscal);
+            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            return View(notaFiscalVM);
         }
 
         // POST: NotaFiscals/Edit/5
@@ -138,8 +150,8 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
-
-            return View(notaFiscal);
+            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            return View(notaFiscalVM);
         }
 
         // POST: NotaFiscals/Delete/5

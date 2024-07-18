@@ -9,6 +9,7 @@ namespace projFront.ViewModels.Mappings
         {
             CreateMap<Banco, BancoViewModel>().ReverseMap();
             CreateMap<Empresa, EmpresaViewModel>().ReverseMap();
+            CreateMap<NotaFiscal, NotaFiscalViewModel>().ReverseMap();
         }
     }
 }
