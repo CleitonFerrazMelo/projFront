@@ -1,8 +1,6 @@
 
 
-@{
-    var paginaSelecionada = @ViewData["PaginaSelecionada"];
-}
+
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -99,6 +97,18 @@
       .bd-mode-toggle .dropdown-menu .active .bi {
         display: block !important;
       }
+
+        
+        .sidebarNormal {
+            display: block;
+        }
+
+        .sidebarRecolhido{
+            display: none;
+        }
+
+
+
     </style>
 
     
@@ -185,121 +195,38 @@
 <main class="d-flex flex-nowrap">
   <h1 class="visually-hidden">Sidebars examples </h1>
 
-  
 
-  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" style="width: 280px;">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        
+  <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" >
+
+
+            <a style="cursor: pointer;" onclick="mostrarSideBar()">
+            <img src="/images/cardapio.png" style="height: 40px; width: 40px;" />
+                    
+                </a>
+            
+            <div class="sidebarNormal" id="sidebarNormal">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+
       <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-      <span class="fs-4">Nome Empresa</span>
+                
     </a>
     <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
 
-                @if (paginaSelecionada == "Home")
-                {
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home" /></svg>
-                            Home
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home" /></svg>
-                            Home
-                        </a>
-                    </li>
-                }
-                
-                
-      
-                @if (paginaSelecionada == "Bancos")
-                {
-                    <li>
-                        <a class="nav-link active " asp-controller="Bancos" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Bancos
-                        </a>
-                    </li>
-                } 
-                else
-                {
-                    <li>
-                        <a class="nav-link " asp-controller="Bancos" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Bancos
-                        </a>
-                    </li>
-                }
-
-                @if (paginaSelecionada == "Empresas")
-                {
-                    <li>
-                        <a class="nav-link active " asp-controller="Empresas" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Empresas
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a class="nav-link" asp-controller="Empresas" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Empresas
-                        </a>
-                    </li>
-                }
-
-                @if (paginaSelecionada == "NotaFiscal")
-                {
-                    <li>
-                        <a class="nav-link active" asp-controller="NotaFiscals" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Notas Fiscais
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a class="nav-link " asp-controller="NotaFiscals" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Notas Fiscais
-                        </a>
-                    </li>
-                }
-
-                @if (paginaSelecionada == "Usuarios")
-                {
-                    <li>
-                        <a class="nav-link active " asp-controller="Usuarios" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Usuários
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <a class="nav-link " asp-controller="Usuarios" asp-action="Index">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2" /></svg>
-                            Usuários
-                        </a>
-                    </li>
-                }
-
-    </ul>
             
-                <hr>
+                <partial name="_Sidebar" />
+    </div>
+
+            <div class="sidebarRecolhido" id="sidebarRecolhido">
+                <partial name="_SidebarCollapse" />
+
+            </div>
+
             
+            
+    <hr>
                  <partial name="_LoginPartial" />
             
-            
-
   </div>
 
   <div class="b-example-divider b-example-vr">
@@ -315,6 +242,32 @@
 <script src="~/assets/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="~/assets/sidebars.js"></script>
+   
+    <script>
+        function mostrarSideBar(){
+            var sidebarNormal = document.getElementById("sidebarNormal");
+
+            console.log(sidebarNormal);
+
+            if (sidebarNormal.style.display === 'none') {
+                sidebarNormal.style.display = 'block';
+            } else {
+                sidebarNormal.style.display = 'none';
+            }
+
+            var sidebarRecolhido = document.getElementById("sidebarRecolhido");
+
+            console.log(sidebarRecolhido);
+
+            if (sidebarRecolhido.style.display === 'block') {
+                sidebarRecolhido.style.display = 'none';
+            } else {
+                sidebarRecolhido.style.display = 'block';
+            }
+            console.log("javascript")
+        }
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
     </body>
 </html>

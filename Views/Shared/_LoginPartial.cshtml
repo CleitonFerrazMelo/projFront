@@ -4,7 +4,7 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Manage/Index">Hello @User.Identity.Name!</a></li>
+    <!-- <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Manage/Index">Hello @User.Identity.Name!</a></li>-->
     <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Logout">Logout</a></li>
 }
 else
