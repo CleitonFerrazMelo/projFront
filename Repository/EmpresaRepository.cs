@@ -6,6 +6,7 @@ namespace projFront.Repository
     public class EmpresaRepository: IEmpresaRepository
     {
         public readonly AppDbContext _repo;
+        private readonly NotaFiscal _notaFiscal;
 
         public EmpresaRepository(AppDbContext repo)
         {
@@ -15,6 +16,11 @@ namespace projFront.Repository
         {
             _repo.Remove(empresa);
             _repo.SaveChanges();
+        }
+
+        public bool RelacionadoNotaFiscal(int idEmpresa)
+        {
+            return _repo.NotaFiscal.Where(x => x.IdEmpresa == idEmpresa).Any();
         }
     }
 }

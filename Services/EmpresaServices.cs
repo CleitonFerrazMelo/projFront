@@ -15,8 +15,11 @@ namespace projFront.Services
         public string ValidarDelecao(Empresa empresa)
         {
             string mensagem = string.Empty;
+            if (_empresaRepository.RelacionadoNotaFiscal(empresa.Id))
+                mensagem = "Empresa não pode ser deletado porque está relacionado a Nota Fiscal";
 
-            _empresaRepository.Deletar(empresa);
+            if (string.IsNullOrEmpty(mensagem))
+                _empresaRepository.Deletar(empresa);
 
             return mensagem;
         }
