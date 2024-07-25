@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +13,7 @@ using projFront.Models;
 using projFront.Repository;
 using projFront.Services;
 using projFront.ViewModels;
+using Rotativa.AspNetCore;
 
 namespace projFront.Controllers
 {
@@ -193,6 +195,22 @@ namespace projFront.Controllers
         public string Imprimir(NotaFiscal notaFiscal)
         {
             return _notaFiscalServices.Imprimir(notaFiscal);
+        }
+
+        public async Task<ActionResult> ImprimePDF(int id)
+        {
+            if (id == null || _context.NotaFiscal == null)
+            {
+                return NotFound();
+            }
+
+            var notaFiscal = await _context.NotaFiscal.FindAsync(id);
+            if (notaFiscal == null)
+            {
+                return NotFound();
+            }
+            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            return new ViewAsPdf("Impressao", notaFiscalVM) { FileName = "Test.pdf" };
         }
 
         private bool NotaFiscalExists(int id)

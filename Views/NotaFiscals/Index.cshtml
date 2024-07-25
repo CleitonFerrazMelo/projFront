@@ -23,6 +23,7 @@
                             <th> # </th>
                             <th> # </th>
                             <th> # </th>
+                            <th> # </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Nome)
                             </th>
@@ -103,6 +104,9 @@
                                 </td>
                                 <td>
                                     <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                                </td>
+                                <td>
+                                    <a asp-action="ImprimePDF" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Nome)

@@ -18,7 +18,7 @@ namespace projFront.ViewModels
         public string Numero { get; set; }
         
         public string Bairro { get; set; }
-        [Display(Name = "Nome da cidade")]
+        [Display(Name = "Cidade")]
         public string NomeCidade { get; set; }
         [Display(Name = "UF")]
         public string Uf { get; set; }

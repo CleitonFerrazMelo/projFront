@@ -4,6 +4,7 @@ using projFront.Data;
 using projFront.Repository;
 using projFront.Services;
 using projFront.ViewModels.Mappings;
+using Rotativa.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,6 +45,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+
 app.UseAuthentication();
 
 app.UseAuthorization();
@@ -51,6 +54,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.UseRotativa();
 
 app.MapRazorPages();
 
