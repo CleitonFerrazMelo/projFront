@@ -18,6 +18,11 @@
         color: #93939f;
         text-align: left;
     }
+
+    .titulo {
+        color: #454545;
+        font-weight: 800;
+    }
 </style>
 
 <div class="card">
@@ -32,27 +37,27 @@
 
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="Cnpj"></label>
+                        <label asp-for="Cnpj" class="titulo"></label>
                         <input asp-for="Cnpj" class="form-control" placeholder="00.000.000/0000-00" />
                         <span asp-validation-for="Cnpj" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-5">
-                        <label asp-for="Nome" class="control-label"></label>
+                        <label asp-for="Nome" class="control-label titulo"></label>
                         <input asp-for="Nome" class="form-control" />
                         <span asp-validation-for="Nome" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="IncricaoEstadual" class="control-label"></label>
+                        <label asp-for="IncricaoEstadual" class="control-label titulo"></label>
                         <input asp-for="IncricaoEstadual" class="form-control" />
                         <span asp-validation-for="IncricaoEstadual" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="NumeroTelefone" class="control-label"></label>
+                        <label asp-for="NumeroTelefone" class="control-label titulo"></label>
                         <input asp-for="NumeroTelefone" class="form-control" />
                         <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
-                        <label asp-for="IdEmpresa" class="control-label"></label>
+                        <label asp-for="IdEmpresa" class="control-label titulo"></label>
                         <input asp-for="IdEmpresa" class="form-control" />
                         <span asp-validation-for="IdEmpresa" class="text-danger"></span>
                     </div>
@@ -61,32 +66,32 @@
                 <div class="form-row">
 
                     <div class="form-group col-auto col-sm-1">
-                        <label asp-for="Cep" class="control-label"></label>
+                        <label asp-for="Cep" class="control-label titulo"></label>
                         <input asp-for="Cep" class="form-control" />
                         <span asp-validation-for="Cep" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-4">
-                        <label asp-for="Endereco" class="control-label"></label>
+                        <label asp-for="Endereco" class="control-label titulo"></label>
                         <input asp-for="Endereco" class="form-control" />
                         <span asp-validation-for="Endereco" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
-                        <label asp-for="Numero" class="control-label"></label>
+                        <label asp-for="Numero" class="control-label titulo"></label>
                         <input asp-for="Numero" class="form-control" />
                         <span asp-validation-for="Numero" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="Bairro" class="control-label"></label>
+                        <label asp-for="Bairro" class="control-label titulo"></label>
                         <input asp-for="Bairro" class="form-control" />
                         <span asp-validation-for="Bairro" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-3">
-                        <label asp-for="NomeCidade" class="control-label"></label>
+                        <label asp-for="NomeCidade" class="control-label titulo"></label>
                         <input asp-for="NomeCidade" class="form-control" />
                         <span asp-validation-for="NomeCidade" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
-                        <label asp-for="Uf" class="control-label"></label>
+                        <label asp-for="Uf" class="control-label titulo"></label>
                         <input asp-for="Uf" class="form-control" />
                         <span asp-validation-for="Uf" class="text-danger"></span>
                     </div>
@@ -96,13 +101,13 @@
 
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="ValorTotal" class="control-label"></label>
+                        <label asp-for="ValorTotal" class="control-label titulo"></label>
                         <input asp-for="ValorTotal" class="form-control" />
                         <span asp-validation-for="ValorTotal" class="text-danger"></span>
                     </div>
 
                     <div class="form-group col-auto col-sm-10">
-                        <label asp-for="DescricaoServico" class="control-label"></label>
+                        <label asp-for="DescricaoServico" class="control-label titulo"></label>
                         <textarea asp-for="DescricaoServico" class="form-control"> </textarea>
                         <span asp-validation-for="DescricaoServico" class="text-danger"></span>
                     </div>
@@ -111,7 +116,7 @@
                 <hr />
 
                 <div class="form-group col-auto col-sm-2">
-                    <label asp-for="Banco" class="control-label"></label>
+                    <label asp-for="Banco" class="control-label titulo"></label>
                     <input asp-for="Banco" class="form-control" />
                     <span asp-validation-for="Banco" class="text-danger"></span>
                 </div>
@@ -138,24 +143,24 @@
 
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="FaturaNumero" class="control-label"></label>
-                        <input asp-for="FaturaNumero" class="form-control" />
+                        <label asp-for="FaturaNumero" class="control-label titulo"></label>
+                        <input asp-for="FaturaNumero" class="form-control" disabled />
                         <span asp-validation-for="FaturaNumero" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="FaturaSerie" class="control-label"></label>
-                        <input asp-for="FaturaSerie" class="form-control" />
+                        <label asp-for="FaturaSerie" class="control-label titulo"></label>
+                        <input asp-for="FaturaSerie" class="form-control" disabled/>
                         <span asp-validation-for="FaturaSerie" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-3">
-                        <label asp-for="DataEmissao" class="control-label"></label>
-                        <input asp-for="DataEmissao" class="form-control" />
+                        <label asp-for="DataEmissao" class="control-label titulo"></label>
+                        <input asp-for="DataEmissao" class="form-control" disabled/>
                         <span asp-validation-for="DataEmissao" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="form-group col-auto col-sm-10">
-                    <label asp-for="MensagemFisco" class="control-label"></label>
+                    <label asp-for="MensagemFisco" class="control-label titulo"></label>
                     <textarea asp-for="MensagemFisco" class="form-control"> </textarea>
                     <span asp-validation-for="MensagemFisco" class="text-danger"></span>
                 </div>
