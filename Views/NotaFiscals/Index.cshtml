@@ -9,158 +9,173 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Cadastrar Nota Fiscal</a>
 </p>
-<div class="table-responsive">
-<table class="table">
-    <thead>
-        <tr>
-                <th> <h3>####### </h3></th>
-            <th >
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cnpj)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IncricaoEstadual)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Endereco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Numero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Bairro)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NomeCidade)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Uf)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroTelefone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DescricaoServico)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ValorTotal)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Banco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Agencia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Conta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PixChave)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PixNumero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdEmpresa)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataEmissao)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FaturaSerie)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FaturaNumero)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MensagemFisco)
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td style="display: flex; justify-content: space-between">
-                   <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
-                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
-                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
-                   
-                </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cnpj)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IncricaoEstadual)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Endereco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Numero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bairro)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomeCidade)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Uf)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Cep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroTelefone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DescricaoServico)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ValorTotal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Banco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Agencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Conta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PixChave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PixNumero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdEmpresa)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataEmissao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FaturaSerie)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FaturaNumero)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MensagemFisco)
-            </td>
-            
-        </tr>
-}
-    </tbody>
 
-</table>
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Notas Fiscais </h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th> # </th>
+                            <th> # </th>
+                            <th> # </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cnpj)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IncricaoEstadual)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Endereco)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Numero)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Bairro)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NomeCidade)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Uf)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cep)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NumeroTelefone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DescricaoServico)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ValorTotal)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Banco)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Agencia)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Conta)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PixChave)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PixNumero)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdEmpresa)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.DataEmissao)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FaturaSerie)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FaturaNumero)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MensagemFisco)
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td >
+                                    <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
+                                </td>
+                                <td> 
+                                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Nome)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cnpj)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IncricaoEstadual)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Endereco)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Numero)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Bairro)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NomeCidade)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Uf)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Cep)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NumeroTelefone)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DescricaoServico)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ValorTotal)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Banco)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Agencia)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Conta)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PixChave)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PixNumero)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdEmpresa)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.DataEmissao)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FaturaSerie)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FaturaNumero)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MensagemFisco)
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

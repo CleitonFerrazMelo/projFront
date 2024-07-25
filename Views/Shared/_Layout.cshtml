@@ -19,7 +19,7 @@
    
     <link href="~/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
-
+    <link href="~/css/style.css" rel="stylesheet">
     <style>
       .bd-placeholder-img {
         font-size: 1.125rem;
@@ -32,7 +32,6 @@
         .icones_buttons_index {
             height: 20px;
             width: 20px;
-            margin-right: 40px;
         }
 
       .b-example-divider {
@@ -198,12 +197,6 @@
 
         
   <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary" >
-
-
-            <a style="cursor: pointer;" onclick="mostrarSideBar()">
-            <img src="/images/cardapio.png" style="height: 40px; width: 40px;" />
-                    
-                </a>
             
             <div class="sidebarNormal" id="sidebarNormal">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
@@ -215,14 +208,7 @@
 
             
                 <partial name="_Sidebar" />
-    </div>
-
-            <div class="sidebarRecolhido" id="sidebarRecolhido">
-                <partial name="_SidebarCollapse" />
-
-            </div>
-
-            
+    </div>         
             
     <hr>
                  <partial name="_LoginPartial" />
@@ -231,7 +217,7 @@
 
   <div class="b-example-divider b-example-vr">
   </div>
-   <div class="container">
+   <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
