@@ -54,16 +54,21 @@
                         <input asp-for="NumeroTelefone" class="form-control" />
                         <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
                     </div>
+                    <div class="form-group col-auto col-sm-1">
+                        <label asp-for="IdEmpresa" class="control-label"></label>
+                        <input asp-for="IdEmpresa" class="form-control" />
+                        <span asp-validation-for="IdEmpresa" class="text-danger"></span>
+                    </div>
                 </div>
 
                 <div class="form-row">
 
-                    <div class="form-group col-auto col-sm-2">
+                    <div class="form-group col-auto col-sm-1">
                         <label asp-for="Cep" class="control-label"></label>
                         <input asp-for="Cep" class="form-control" />
                         <span asp-validation-for="Cep" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-auto col-sm-3">
+                    <div class="form-group col-auto col-sm-4">
                         <label asp-for="Endereco" class="control-label"></label>
                         <input asp-for="Endereco" class="form-control" />
                         <span asp-validation-for="Endereco" class="text-danger"></span>
@@ -73,7 +78,7 @@
                         <input asp-for="Numero" class="form-control" />
                         <span asp-validation-for="Numero" class="text-danger"></span>
                     </div>
-                    <div class="form-group col-auto col-sm-3">
+                    <div class="form-group col-auto col-sm-2">
                         <label asp-for="Bairro" class="control-label"></label>
                         <input asp-for="Bairro" class="form-control" />
                         <span asp-validation-for="Bairro" class="text-danger"></span>
@@ -83,26 +88,31 @@
                         <input asp-for="NomeCidade" class="form-control" />
                         <span asp-validation-for="NomeCidade" class="text-danger"></span>
                     </div>
+                    <div class="form-group col-auto col-sm-1">
+                        <label asp-for="Uf" class="control-label"></label>
+                        <input asp-for="Uf" class="form-control" />
+                        <span asp-validation-for="Uf" class="text-danger"></span>
+                    </div>
                 </div>
+
+                <hr/>
+
+                 <div class="form-row">
+                    <div class="form-group col-auto col-sm-2">
+                        <label asp-for="ValorTotal" class="control-label"></label>
+                        <input asp-for="ValorTotal" class="form-control" />
+                        <span asp-validation-for="ValorTotal" class="text-danger"></span>
+                    </div>
                 
-               
-                <div class="form-group col-auto col-sm-1">
-                    <label asp-for="Uf" class="control-label"></label>
-                    <input asp-for="Uf" class="form-control" />
-                    <span asp-validation-for="Uf" class="text-danger"></span>
+                    <div class="form-group col-auto col-sm-10">
+                        <label asp-for="DescricaoServico" class="control-label"></label>
+                        <textarea asp-for="DescricaoServico" class="form-control" > </textarea>
+                        <span asp-validation-for="DescricaoServico" class="text-danger"></span>
+                    </div>
                 </div>
-                
-                
-                <div class="form-group col-auto col-sm-10">
-                    <label asp-for="DescricaoServico" class="control-label"></label>
-                    <textarea asp-for="DescricaoServico" class="form-control" > </textarea>
-                    <span asp-validation-for="DescricaoServico" class="text-danger"></span>
-                </div>
-                <div class="form-group col-auto col-sm-2">
-                    <label asp-for="ValorTotal" class="control-label"></label>
-                    <input asp-for="ValorTotal" class="form-control" />
-                    <span asp-validation-for="ValorTotal" class="text-danger"></span>
-                </div>
+
+                <hr />
+
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Banco" class="control-label"></label>
                     <input asp-for="Banco" class="form-control" />
@@ -110,44 +120,43 @@
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Agencia" class="control-label"></label>
-                    <input asp-for="Agencia" class="form-control" />
+                    <input asp-for="Agencia" class="form-control" disabled />
                     <span asp-validation-for="Agencia" class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Conta" class="control-label"></label>
-                    <input asp-for="Conta" class="form-control" />
+                    <input asp-for="Conta" class="form-control" disabled />
                     <span asp-validation-for="Conta" class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="PixChave" class="control-label"></label>
-                    <input asp-for="PixChave" class="form-control" />
+                    <input asp-for="PixChave" class="form-control" disabled />
                     <span asp-validation-for="PixChave" class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="PixNumero" class="control-label"></label>
-                    <input asp-for="PixNumero" class="form-control" />
+                    <input asp-for="PixNumero" class="form-control" disabled/>
                     <span asp-validation-for="PixNumero" class="text-danger"></span>
                 </div>
-                <div class="form-group col-auto col-sm-2">
-                    <label asp-for="IdEmpresa" class="control-label"></label>
-                    <input asp-for="IdEmpresa" class="form-control" />
-                    <span asp-validation-for="IdEmpresa" class="text-danger"></span>
+              
+                <div class="form-row">
+                    <div class="form-group col-auto col-sm-2">
+                        <label asp-for="FaturaNumero" class="control-label"></label>
+                        <input asp-for="FaturaNumero" class="form-control" />
+                        <span asp-validation-for="FaturaNumero" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-auto col-sm-2">
+                        <label asp-for="FaturaSerie" class="control-label"></label>
+                        <input asp-for="FaturaSerie" class="form-control" />
+                        <span asp-validation-for="FaturaSerie" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-auto col-sm-3">
+                        <label asp-for="DataEmissao" class="control-label"></label>
+                        <input asp-for="DataEmissao" class="form-control" />
+                        <span asp-validation-for="DataEmissao" class="text-danger"></span>
+                    </div>
                 </div>
-                <div class="form-group col-auto col-sm-3">
-                    <label asp-for="DataEmissao" class="control-label"></label>
-                    <input asp-for="DataEmissao" class="form-control" />
-                    <span asp-validation-for="DataEmissao" class="text-danger"></span>
-                </div>
-                <div class="form-group col-auto col-sm-2">
-                    <label asp-for="FaturaSerie" class="control-label"></label>
-                    <input asp-for="FaturaSerie" class="form-control" />
-                    <span asp-validation-for="FaturaSerie" class="text-danger"></span>
-                </div>
-                <div class="form-group col-auto col-sm-2">
-                    <label asp-for="FaturaNumero" class="control-label"></label>
-                    <input asp-for="FaturaNumero" class="form-control" />
-                    <span asp-validation-for="FaturaNumero" class="text-danger"></span>
-                </div>
+                
                 <div class="form-group col-auto col-sm-10">
                     <label asp-for="MensagemFisco" class="control-label"></label>
                     <textarea asp-for="MensagemFisco" class="form-control" > </textarea>
