@@ -8,50 +8,56 @@
 
 <hr />
 
-    <div class="col-md-10">
-        <form asp-action="Edit" class="row gy-2 gx-3 align-items-center">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="col-auto col-sm-8">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="col-auto col-sm-4">
-                <label asp-for="Agencia" class="control-label"></label>
-                <input asp-for="Agencia" class="form-control" />
-                <span asp-validation-for="Agencia" class="text-danger"></span>
-            </div>
-            <div class="col-auto col-sm-8">
-                <label asp-for="TipoConta" class="control-label"></label>
-                <input asp-for="TipoConta" class="form-control" />
-                <span asp-validation-for="TipoConta" class="text-danger"></span>
-            </div>
-            <div class="col-auto col-sm-4">
-                <label asp-for="NumeroConta" class="control-label"></label>
-                <input asp-for="NumeroConta" class="form-control" />
-                <span asp-validation-for="NumeroConta" class="text-danger"></span>
-            </div>
-            <div class="col-auto col-sm-6">
-                <label asp-for="PixChave" class="control-label"></label>
-                <input asp-for="PixChave" class="form-control" />
-                <span asp-validation-for="PixChave" class="text-danger"></span>
-            </div>
-            <div class="col-auto col-sm-6">
-                <label asp-for="PixNumero" class="control-label"></label>
-                <input asp-for="PixNumero" class="form-control" />
-                <span asp-validation-for="PixNumero" class="text-danger"></span>
-            </div>
-           
-            <div class="mt-80">
-                <input type="submit" value="Salvar" class="btn btn-success" />
-                <a class="btn btn-warning" asp-action="Index">Voltar</a>
-            </div>
-        </form>
+<div class="card">
+    <div class="card-header">
     </div>
+    <div class="card-body">
 
+    <div class="basic-form">
 
-
+        <div class="col-md-10">
+            <form asp-action="Edit" class="row gy-2 gx-3 align-items-center">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="col-auto col-sm-8">
+                    <label asp-for="Nome" class="control-label"></label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="col-auto col-sm-4">
+                    <label asp-for="Agencia" class="control-label"></label>
+                    <input asp-for="Agencia" class="form-control" />
+                    <span asp-validation-for="Agencia" class="text-danger"></span>
+                </div>
+                <div class="col-auto col-sm-8">
+                    <label asp-for="TipoConta" class="control-label"></label>
+                    <input asp-for="TipoConta" class="form-control" />
+                    <span asp-validation-for="TipoConta" class="text-danger"></span>
+                </div>
+                <div class="col-auto col-sm-4">
+                    <label asp-for="NumeroConta" class="control-label"></label>
+                    <input asp-for="NumeroConta" class="form-control" />
+                    <span asp-validation-for="NumeroConta" class="text-danger"></span>
+                </div>
+                <div class="col-auto col-sm-6">
+                    <label asp-for="PixChave" class="control-label"></label>
+                    <input asp-for="PixChave" class="form-control" />
+                    <span asp-validation-for="PixChave" class="text-danger"></span>
+                </div>
+                <div class="col-auto col-sm-6">
+                    <label asp-for="PixNumero" class="control-label"></label>
+                    <input asp-for="PixNumero" class="form-control" />
+                    <span asp-validation-for="PixNumero" class="text-danger"></span>
+                </div>
+           
+                <div class="mt-80">
+                    <input type="submit" value="Salvar" class="btn btn-success" />
+                    <a class="btn btn-warning" asp-action="Index">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

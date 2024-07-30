@@ -6,78 +6,82 @@
 
 <h1>Detalhes da empresa</h1>
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Cnpj)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Cnpj)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Ie)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Ie)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Endereco)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Endereco)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Numero)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Numero)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Bairro)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Bairro)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.NomeCidade)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.NomeCidade)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Cep)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Cep)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.FaturaSerie)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.FaturaSerie)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.FaturaUltimoNumero)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.FaturaUltimoNumero)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.MensagemFisco)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.MensagemFisco)
-        </dd>
-    </dl>
+
+<div class="card">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+
+        <div class="basic-form">
+
+            <div class="col-md-10">
+                
+                    <div class ="row gy-2 gx-3 align-items-center">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group col-auto col-sm-10">
+                        <label asp-for="Nome" class="control-label"></label>
+                        <input asp-for="Nome" class="form-control" />
+                        <span asp-validation-for="Nome" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-auto col-sm-5">
+                        <label asp-for="Cnpj" class="control-label"></label>
+                        <input asp-for="Cnpj" class="form-control" />
+                        <span asp-validation-for="Cnpj" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-auto col-sm-5">
+                        <label asp-for="Ie" class="control-label"></label>
+                        <input asp-for="Ie" class="form-control" />
+                        <span asp-validation-for="Ie" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-8">
+                        <label asp-for="Endereco" class="control-label"></label>
+                        <input asp-for="Endereco" class="form-control" />
+                        <span asp-validation-for="Endereco" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label asp-for="Numero" class="control-label"></label>
+                        <input asp-for="Numero" class="form-control" />
+                        <span asp-validation-for="Numero" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label asp-for="Bairro" class="control-label"></label>
+                        <input asp-for="Bairro" class="form-control" />
+                        <span asp-validation-for="Bairro" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-5">
+                        <label asp-for="NomeCidade" class="control-label"></label>
+                        <input asp-for="NomeCidade" class="form-control" />
+                        <span asp-validation-for="NomeCidade" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-4">
+                        <label asp-for="Cep" class="control-label"></label>
+                        <input asp-for="Cep" class="form-control" />
+                        <span asp-validation-for="Cep" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label asp-for="FaturaSerie" class="control-label"></label>
+                        <input asp-for="FaturaSerie" class="form-control" />
+                        <span asp-validation-for="FaturaSerie" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-3">
+                        <label asp-for="FaturaUltimoNumero" class="control-label"></label>
+                        <input asp-for="FaturaUltimoNumero" class="form-control" />
+                        <span asp-validation-for="FaturaUltimoNumero" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-sm-10">
+                        <label asp-for="MensagemFisco" class="control-label"></label>
+                        <input asp-for="MensagemFisco" class="form-control" />
+                        <span asp-validation-for="MensagemFisco" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <a asp-action="Edit" class="btn btn-primary " asp-route-id="@Model?.Id">Editar </a>
+                        <a class="btn btn-warning" asp-action="Index">Voltar</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" class="btn btn-primary " asp-route-id="@Model?.Id">Editar </a>
-    <a asp-action="Index" class="btn btn-warning ">Voltar</a>
-</div>
+

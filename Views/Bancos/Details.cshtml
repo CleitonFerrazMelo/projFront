@@ -6,49 +6,45 @@
 
 <h1>Detalhes do Banco</h1>
 
-<div>
-    
-    <hr />
-    <dl class="row col-md-10">
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Nome)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Nome)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.Agencia)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.Agencia)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.TipoConta)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.TipoConta)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.NumeroConta)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.NumeroConta)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.PixChave)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.PixChave)
-        </dd>
-        <dt class = "col-sm-4">
-            @Html.DisplayNameFor(model => model.PixNumero)
-        </dt>
-        <dd class = "col-sm-8">
-            @Html.DisplayFor(model => model.PixNumero)
-        </dd>
-    </dl>
+<div class="col-md-10">
+    <div class="row gy-2 gx-3 align-items-center">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div class="col-auto col-sm-8">
+            <label asp-for="Nome" class="control-label"></label>
+            <input asp-for="Nome" class="form-control" disabled />
+            <span asp-validation-for="Nome" class="text-danger"></span>
+        </div>
+        <div class="col-auto col-sm-4">
+            <label asp-for="Agencia" class="control-label"></label>
+            <input asp-for="Agencia" class="form-control" disabled />
+            <span asp-validation-for="Agencia" class="text-danger"></span>
+        </div>
+        <div class="col-auto col-sm-8">
+            <label asp-for="TipoConta" class="control-label"></label>
+            <input asp-for="TipoConta" class="form-control" disabled />
+            <span asp-validation-for="TipoConta" class="text-danger"></span>
+        </div>
+        <div class="col-auto col-sm-4">
+            <label asp-for="NumeroConta" class="control-label"></label>
+            <input asp-for="NumeroConta" class="form-control" disabled />
+            <span asp-validation-for="NumeroConta" class="text-danger"></span>
+        </div>
+        <div class="col-auto col-sm-6">
+            <label asp-for="PixChave" class="control-label"></label>
+            <input asp-for="PixChave" class="form-control" disabled />
+            <span asp-validation-for="PixChave" class="text-danger"></span>
+        </div>
+        <div class="col-auto col-sm-6">
+            <label asp-for="PixNumero" class="control-label"></label>
+            <input asp-for="PixNumero" class="form-control" disabled />
+            <span asp-validation-for="PixNumero" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <a asp-action="Edit" class="btn btn-primary " asp-route-id="@Model?.Id">Editar </a>
+            <a asp-action="Index" class="btn btn-warning ">Voltar</a>
+        </div>
+     
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" class="btn btn-primary " asp-route-id="@Model?.Id">Editar </a>
-    <a asp-action="Index" class="btn btn-warning ">Voltar</a>
-</div>
+
