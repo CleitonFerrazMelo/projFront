@@ -4,7 +4,7 @@
     ViewData["Title"] = "Nota Fiscal";
 }
 
-<h1>Notas Fiscais</h1>
+<h1 style="margin-top: 30px;">Notas Fiscais</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-primary">Cadastrar Nota Fiscal</a>
@@ -12,9 +12,6 @@
 
 <div class="col-lg-12">
     <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Notas Fiscais </h4>
-        </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-responsive-sm">
@@ -61,7 +58,7 @@
                                 @Html.DisplayNameFor(model => model.ValorTotal)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Banco)
+                                <!--  Html.DisplayNameFor(model => model.Banco)-->
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Agencia)
@@ -76,7 +73,7 @@
                                 @Html.DisplayNameFor(model => model.PixNumero)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.IdEmpresa)
+                                <!-- Html.DisplayNameFor(model => model.IdEmpresa) -->
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.DataEmissao)
@@ -145,7 +142,7 @@
                                     @Html.DisplayFor(modelItem => item.ValorTotal)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Banco)
+                                    <!--   Html.DisplayFor(modelItem => item.Banco) -->
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Agencia)
@@ -160,7 +157,7 @@
                                     @Html.DisplayFor(modelItem => item.PixNumero)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.IdEmpresa)
+                                    <!--   Html.DisplayFor(modelItem => item.IdEmpresa) -->
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.DataEmissao)

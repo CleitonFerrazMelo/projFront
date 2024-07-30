@@ -7,5 +7,7 @@ namespace projFront.Repository
         public void Deletar(Banco banco);
 
         public bool RelacionadoNotaFiscal(string id);
+
+        public List<Banco> GetBancos();
     }
 }

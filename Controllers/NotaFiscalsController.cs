@@ -22,13 +22,17 @@ namespace projFront.Controllers
     {
         private readonly AppDbContext _context;
         private readonly INotaFiscalServices _notaFiscalServices;
+        private readonly IEmpresaServices _empresaServices;
+        private readonly IBancoServices _bancoServices;
         private readonly IMapper _mapper;
 
-        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper)
+        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper, IEmpresaServices empresaServices, IBancoServices bancoServices)
         {
             _context = context;
             _notaFiscalServices = notaFiscalServices;
             _mapper = mapper;
+            _empresaServices = empresaServices;
+            _bancoServices = bancoServices;
         }
 
         // GET: NotaFiscals
@@ -68,7 +72,24 @@ namespace projFront.Controllers
         // GET: NotaFiscals/Create
         public IActionResult Create()
         {
-            return View();
+
+            List<Empresa> listEmpresa = new List<Empresa>();
+
+            listEmpresa = _empresaServices.GetEmpresas();
+
+            NotaFiscalViewModel notaFiscalViewModel = new NotaFiscalViewModel();
+
+            //notaFiscalViewModel.Empresa = listEmpresa;
+
+
+            List<Banco> listBanco = new List<Banco>();
+
+            listBanco =_bancoServices.GetBancos();
+
+            //notaFiscalViewModel.Banco = listBanco;
+
+
+            return View(notaFiscalViewModel);
         }
 
         // POST: NotaFiscals/Create
@@ -110,15 +131,15 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Cnpj,IncricaoEstadual,Endereco,Numero,Bairro,NomeCidade,Uf,Cep,NumeroTelefone,DescricaoServico,ValorTotal,Banco,Agencia,Conta,PixChave,PixNumero,IdEmpresa,DataEmissao,FaturaSerie,FaturaNumero,MensagemFisco")] NotaFiscal notaFiscal)
+        public async Task<IActionResult> Edit(int id, NotaFiscalViewModel notaFiscalViewModel)
         {
+            NotaFiscal notaFiscal = _mapper.Map<NotaFiscal>(notaFiscalViewModel);
+
             if (id != notaFiscal.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
                 try
                 {
                     _context.Update(notaFiscal);
@@ -136,8 +157,11 @@ namespace projFront.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
-            }
-            return View(notaFiscal);
+            
+
+            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+
+            return View(notaFiscalVM);
         }
 
         // GET: NotaFiscals/Delete/5

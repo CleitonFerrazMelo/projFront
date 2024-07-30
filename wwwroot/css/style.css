@@ -1636,7 +1636,7 @@ pre {
     color: #6c757d;
     opacity: 1; }
   .form-control:disabled, .form-control[readonly] {
-    background-color: #e9ecef;
+    
     opacity: 1; }
 
 select.form-control:focus::-ms-value {
@@ -13536,7 +13536,6 @@ svg text {
   color: #454545; }
   .form-control:hover, .form-control:focus, .form-control.active {
     box-shadow: none;
-    background: #fff;
     color: #454545; }
 
 .input-rounded {
@@ -13575,7 +13574,7 @@ svg text {
   height: 100%; }
 
 .form-control:disabled, .form-control[readonly] {
-  background: #fff;
+  
   opacity: 1; }
 
 .custom-file-label {

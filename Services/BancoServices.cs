@@ -12,6 +12,11 @@ namespace projFront.Services
             _bancoRepository = bancoRepository;
         }
 
+        public List<Banco> GetBancos()
+        {
+            return _bancoRepository.GetBancos();
+        }
+
         public string ValidarDelecao(Banco banco)
         {
             string mensagem = string.Empty;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using projFront.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace projFront.ViewModels
 {
@@ -6,7 +7,7 @@ namespace projFront.ViewModels
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Informe Nome Cliente!")]
+       // [Required(ErrorMessage = "Informe Nome Cliente!")]
         public string Nome { get; set; }
         
         public string Cnpj { get; set; }
@@ -28,28 +29,34 @@ namespace projFront.ViewModels
         public string NumeroTelefone { get; set; }
         
         [Display(Name = "Descrição do Serviço")]
-        [Required(ErrorMessage = "Informe a Descrição do Serviço!")]
+        //[Required(ErrorMessage = "Informe a Descrição do Serviço!")]
         public string DescricaoServico { get; set; }
         
         [Display(Name = "Valor Total")]
-        [Required(ErrorMessage = "Informe o valor do Serviço!")]
+        //[Required(ErrorMessage = "Informe o valor do Serviço!")]
         public decimal ValorTotal { get; set; }
 
         public string Banco { get; set; }
+
         [Display(Name = "Agência")]
         public string Agencia { get; set; }
         
         public string Conta { get; set; }
+       
         [Display(Name = "Chave PIX")]
         public string PixChave { get; set; }
+
         [Display(Name = "Número do PIX")]
         public string PixNumero { get; set; }
         
-        public int IdEmpresa { get; set; }
+        public string IdEmpresa { get; set; }
+
         [Display(Name = "Data de Emissão")]
         public DateTime? DataEmissao { get; set; }
+
         [Display(Name = "Série")]
         public string FaturaSerie { get; set; }
+
         [Display(Name = "Número da Fatura")]
         public int FaturaNumero { get; set; }
         [Display(Name = "Mensagem do Fisco")]

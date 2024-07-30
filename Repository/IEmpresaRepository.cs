@@ -7,5 +7,7 @@ namespace projFront.Repository
         public void Deletar(Empresa empresa);
 
         public bool RelacionadoNotaFiscal(int idEmpresa);
+
+        public List<Empresa> GetEmpresas();
     }
 }

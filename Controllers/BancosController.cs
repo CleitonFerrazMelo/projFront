@@ -76,7 +76,7 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Agencia,TipoConta,NumeroConta,PixChave,PixNumero")] BancoViewModel bancoVM)
+        public async Task<IActionResult> Create( BancoViewModel bancoVM)
         {
             if (ModelState.IsValid)
             {

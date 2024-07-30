@@ -18,6 +18,11 @@ namespace projFront.Repository
             _repo.SaveChanges();
         }
 
+        public List<Empresa> GetEmpresas()
+        {
+            return _repo.Empresas.ToList();
+        }
+
         public bool RelacionadoNotaFiscal(int idEmpresa)
         {
             return _repo.NotaFiscal.Where(x => x.IdEmpresa == idEmpresa).Any();

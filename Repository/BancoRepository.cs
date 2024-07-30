@@ -21,5 +21,10 @@ namespace projFront.Repository
         {
             return _repo.NotaFiscal.Where(x => x.Banco == id).Any();
         }
+
+        public List<Banco> GetBancos()
+        {
+            return _repo.Bancos.ToList();
+        }
     }
 }

@@ -23,5 +23,10 @@ namespace projFront.Services
 
             return mensagem;
         }
+
+        public List<Empresa> GetEmpresas()
+        {
+            return _empresaRepository.GetEmpresas();
+        }
     }
 }

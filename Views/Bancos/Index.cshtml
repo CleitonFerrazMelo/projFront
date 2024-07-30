@@ -9,66 +9,75 @@
 <p>
     <a asp-action="Create" class="btn btn-primary">Cadastrar Banco</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Agencia)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TipoConta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroConta)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PixChave)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PixNumero)
-            </th>
+
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-responsive-sm">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nome)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Agencia)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TipoConta)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.NumeroConta)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PixChave)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PixNumero)
+                            </th>
             
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
-                </td>
-                <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
-                </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                @foreach (var item in Model) {
+                        <tr>
+                                <td>
+                                    <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                                </td>
                 
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Agencia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TipoConta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroConta)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PixChave)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PixNumero)
-            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Agencia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TipoConta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NumeroConta)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PixChave)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PixNumero)
+                            </td>
             
-        </tr>
-}
-    </tbody>
-</table>
+                        </tr>
+                }
+                    </tbody>
+                </table>
+            </div>
+         </div>
+      </div>
+   </div>

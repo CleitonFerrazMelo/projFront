@@ -3,449 +3,664 @@
 @{
     Layout = "";
 }
+<style type="text/css">
 
-    <style type="text/css" media="print">
-        html,
-        body,
-        * {
-            margin: 0px!important;
-            font-size: 10px!important;
-            line-height: 15px!important;
+
+    * {
+        margin: 0;
+    }
+
+    .ui-widget-content {
+        border: none !important;
+    }
+
+    .nfe-square {
+        margin: 0 auto 2cm;
+        box-sizing: border-box;
+        width: 2cm;
+        height: 1cm;
+        border: 1px solid #000;
+    }
+
+    .nfeArea.page {
+        width: 25cm;
+        position: relative;
+        font-family: "Times New Roman", serif;
+        color: #000;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .nfeArea .font-12 {
+        font-size: 12pt;
+    }
+
+    .nfeArea .font-8 {
+        font-size: 8pt;
+    }
+
+    .nfeArea .bold {
+        font-weight: bold;
+    }
+    /* == TABELA == */
+    .nfeArea .area-name {
+        font-family: "Times New Roman", serif;
+        color: #000;
+        font-weight: bold;
+        margin: 5px 0 0;
+        font-size: 6pt;
+        text-transform: uppercase;
+    }
+
+    .nfeArea .txt-upper {
+        text-transform: uppercase;
+    }
+
+    .nfeArea .txt-center {
+        text-align: center;
+    }
+
+    .nfeArea .txt-right {
+        text-align: right;
+    }
+
+    .nfeArea .nf-label {
+        text-transform: uppercase;
+        margin-bottom: 3px;
+        display: block;
+    }
+
+        .nfeArea .nf-label.label-small {
+            letter-spacing: -0.5px;
+            font-size: 4pt;
         }
-    </style>
 
-    <style type="text/css">
+    .nfeArea .info {
+        font-weight: bold;
+        font-size: 8pt;
+        display: block;
+        line-height: 1em;
+    }
 
-        .nfeArea .imgCanceled {
-            position: absolute;
-            top: 60mm;
-            left: 65mm;
-            z-index: 3;
-            opacity: 0.8;
-            display: none;
-        }
+    .nfeArea table {
+        font-family: "Times New Roman", serif;
+        color: #000;
+        font-size: 5pt;
+        border-collapse: collapse;
+        width: 100%;
+        border-color: #000;
+        border-radius: 5px;
+    }
 
-        .nfeArea.invoiceCanceled .imgCanceled {
+    .nfeArea .no-top {
+        margin-top: -1px;
+    }
+
+    .nfeArea .mt-table {
+        margin-top: 3px;
+    }
+
+    .nfeArea .valign-middle {
+        vertical-align: middle;
+    }
+
+    .nfeArea td {
+        vertical-align: top;
+        box-sizing: border-box;
+        overflow: hidden;
+        border-color: #000;
+        padding: 1px;
+        height: 5mm;
+    }
+
+    .nfeArea .tserie {
+        width: 32.2mm;
+        vertical-align: middle;
+        font-size: 8pt;
+        font-weight: bold;
+    }
+
+        .nfeArea .tserie span {
             display: block;
         }
 
-        .nfeArea .imgNull {
-            position: absolute;
-            top: 45mm;
-            left: 65mm;
-            z-index: 3;
-            opacity: 0.8;
-            display: none;
-        }
-
-        .nfeArea.invoiceNull .imgNull {
-            display: block;
-        }
-
-        .nfeArea.invoiceCancelNull .imgCanceled {
-            top: 69mm;
-            left: 85mm;
-            display: block;
-        }
-
-        .nfeArea.invoiceCancelNull .imgNull {
-            top: 40mm;
-            left: 60mm;
-            display: block;
-        }
-
-        .tabela {
-            border: 2px solid #000;
-            border-spacing: 0px;
-            margin: 0px 0px 0px 0px;
-        }
-
-            .tabela tr td {
-                border: 1px solid #000;
-            }
-
-            .tabela table tr td {
-                border-style: none;
-                border-width: 0px;
-            }
-
-        .cabecalho {
-            line-height: normal;
-            font-style: normal;
-            font-weight: normal;
-            font-variant: normal;
-            font-size: 8px;
-            font-family: "Courier New";
-            margin: 0px 0px 0px 2px;
-            line-height: 9px;
-            /*letter-spacing: 1px;*/
-        }
-
-        .tabela dl {
-            border: 0px none #000;
-            border-spacing: 0px;
-            margin: 0px 0px 0px 0px;
-        }
-
-        .tabela dt {
-            margin: 0px 5px;
-            text-transform: uppercase;
-            font: 9px 'Courier New';
-            color: #000;
-            white-space: nowrap;
-        }
-
-        .tabela dd {
-            margin: 0px 5px 1px;
-            color: #369;
-            line-height: normal;
-            font-style: normal;
-            font-variant: normal;
-            font-size: 10px;
-            font-family: "Courier New";
-            height: 14px;
-            white-space: nowrap;
-        }
-
-        .sub-titulo {
-            line-height: normal;
-            font-style: normal;
-            font-weight: bold;
-            font-variant: normal;
-            font-size: 12px;
-            font-family: "Courier New";
-            margin: 0px 0px 0px 0px;
-            white-space: pre-line;
-        }
-
-        .corpo {
-            color: #369;
-            line-height: normal;
-            font-style: normal;
-            font-weight: bold;
-            font-variant: normal;
-            font-size: 9px;
-            font-family: "Courier New";
-            margin: 0px 0px 0px 0px;
-            white-space: nowrap;
-            letter-spacing: -1px;
-        }
-
-        .campo_titulo {
-            line-height: normal;
-            font-style: normal;
-            font-weight: bold;
-            font-variant: normal;
-            font-size: 9px;
-            font-family: "Courier New";
-            margin: 0px 0px 0px 0px;
-            white-space: nowrap;
-            word-spacing: -1px;
-        }
-
-        .campo_valor {
-            color: #369;
-            line-height: normal;
-            font-style: normal;
-            font-weight: bold;
-            font-variant: normal;
-            font-size: 10px;
-            font-family: "Courier New";
-            margin: 0px 0px 0px 0px;
-            white-space: pre-line;
+        .nfeArea .tserie h3 {
             display: inline-block;
-            max-width: 780px;
         }
 
-        #popup {
-            position: absolute;
-            top: 4px;
-            right: 3px;
-            text-indent: -9999px;
-            margin: 0px;
-            padding: 0px;
-            width: 52px;
+    .nfeArea .entradaSaida .legenda {
+        text-align: left;
+        margin-left: 2mm;
+        display: block;
+    }
+
+        .nfeArea .entradaSaida .legenda span {
+            display: block;
         }
 
-            #popup li {
-                float: right;
-                margin: 3px;
-                width: 20px;
-                height: 20px;
-                cursor: pointer;
+    .nfeArea .entradaSaida .identificacao {
+        float: right;
+        margin-right: 2mm;
+        border: 1px solid black;
+        width: 5mm;
+        height: 5mm;
+        text-align: center;
+        padding-top: 0;
+        line-height: 5mm;
+    }
+
+    .nfeArea .hr-dashed {
+        border: none;
+        border-top: 1px dashed #444;
+        margin: 5px 0;
+    }
+
+    .nfeArea .client_logo {
+        height: 27.5mm;
+        width: 28mm;
+        margin: 0.5mm;
+    }
+
+    .nfeArea .title {
+        font-size: 10pt;
+        margin-bottom: 2mm;
+    }
+
+    .nfeArea .txtc {
+        text-align: center;
+    }
+
+    .nfeArea .pd-0 {
+        padding: 0;
+    }
+
+    .nfeArea .mb2 {
+        margin-bottom: 2mm;
+    }
+
+    .nfeArea table table {
+        margin: -1pt;
+        width: 100.5%;
+    }
+
+    .nfeArea .wrapper-table {
+        margin-bottom: 2pt;
+    }
+
+        .nfeArea .wrapper-table table {
+            margin-bottom: 0;
+        }
+
+            .nfeArea .wrapper-table table + table {
+                margin-top: -1px;
             }
 
-                #popup li.close {
-                    background: url("img/ico/icosup_cancelar.gif") no-repeat 0px 0px !important;
-                }
+    .nfeArea .boxImposto {
+        table-layout: fixed;
+    }
 
-                    #popup li.close:hover {
-                        background: url("img/ico/icosup_cancelar_hover.gif") no-repeat 0px 0px !important;
-                    }
-
-        #report_content footer {
-            display: none;
+        .nfeArea .boxImposto td {
+            width: 11.11%;
         }
 
-        #print {
-            width: 95%;
-            padding: 35px 0 30px 30px;
+        .nfeArea .boxImposto .nf-label {
+            font-size: 5pt;
         }
 
-       
-    </style>
+        .nfeArea .boxImposto .info {
+            text-align: right;
+        }
 
+    .nfeArea .wrapper-border {
+        border: 1px solid #000;
+        border-width: 0 1px 1px;
+        height: 75.7mm;
+    }
 
-    
-    
-    
-    <div id="print" class="nfeArea">
-		<img class="imgCanceled" src="tarja_nf_cancelada.png" alt="" />
-		<img class="imgNull" src="tarja_nf_semvalidade.png" alt="" />
-        <table class="tabela" style="width: 100%;">
-            <tr>
-                <td style="width: 40%; height: 100px;" rowspan="3">
+        .nfeArea .wrapper-border table {
+            margin: 0 -1px;
+            width: 100.4%;
+        }
 
-                    <table style="width: 100%; height: 108px;">
-                        <tr>
-                            <td style="width: 33%; vertical-align: middle;">
-                                <img class="client_logo" width="100" height="100" style="vertical-align: middle" src="[url_logo]" onerror=" javascript:this.src='data:image/png;base64,"/>
-                            </td>
-                            <td style="vertical-align: middle; padding: 5px;">
-                                <p class="sub-titulo">
-                                    <span id="emit_cab_ds_issuer_name">[ds_company_issuer_name]</span>
-                                </p>
-                                <p>
-                                    <span id="emit_cab_ds_city_name">[ds_company_city_name]</span>&nbsp;-
-                                    <span id="emit_cab_nfe_ds_uf">[ds_company_uf]</span>
-                                    <br />
-                                    Telefone:&nbsp;<span id="emit_phone_number">[nl_company_phone_number]</span>
-                                </p>
-                            </td>
-                            <td>&nbsp;</td>
-                        </tr>
-                    </table>
+    .nfeArea .content-spacer {
+        display: block;
+        height: 10px;
+    }
 
-                </td>
-                <td style="width: 80%; height: 100px; text-align: center; vertical-align: middle;" rowspan="3">
-                    <span class="sub-titulo" style="font-size: large;">NFS-e</span>
-                </td>
-                <td>
-                    <dl>
-                        <dt>Número da Nota</dt>
-                    <dd id="dadosnfe_nu_invoice"> @Model.FaturaNumero </dd>
-                    </dl>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <dl>
-                        <dt>Data e Hora de Emissão</dt>
-                        <dd id="dadosnfe_dt_invoice_issue">[dt_invoice_issue]</dd>
-                    </dl>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <dl>
-                        <dt>Código de Verificão</dt>
-                        <dd id="dadosnfe_ds_protocol">[ds_protocol]</dd>
-                    </dl>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="height: 20%">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 50%; text-align: center;" colspan="2">
-                                <span class="sub-titulo">PRESTADOR DE SERVIÇOS</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="campo_titulo" style="width: 50%; padding-left: 5px">
-                                CNPJ/CPF: <span id="emit_nu_cnpj_cpf" class="campo_valor">[nl_company_cnpj_cpf]</span>
-                                <br />
-                                Nome/Razão Social: <span class="campo_valor" id="emit_corp_ds_issuer_name">[ds_company_issuer_name]</span>
-                                <br />
-                                Endereço: <span id="emit_ds_addres" class="campo_valor">[ds_company_address]</span>,
-                                <span id="emit_ds_neighborhood" class="campo_valor">[ds_company_neighborhood]</span>
-                                CEP: <span id="emit_nu_cep" class="campo_valor">[nu_company_cep]</span>
-                                <br />
-                                Município: <span class="campo_valor" id="emit_corp_ds_city_name">[ds_company_city_name]</span>
-                            </td>
-                            <td class="campo_titulo" style="width: 50%; padding-left: 5px;">
-                                Inscrição Municipal: <span class="campo_valor" id="emit_nu_im">[ds_company_im]</span>
-                                <br />
-                                <br />
-                                <br />
-                                UF: <span class="campo_valor" id="emit_corp_nfe_ds_uf">[ds_company_uf]</span>
-                            </td>
-                        </tr>
-                    </table>
+    .nfeArea .titles th {
+        padding: 3px 0;
+    }
 
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="height: 20%">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="width: 50%; text-align: center;" colspan="2">
-                                <span class="sub-titulo">TOMADOR DE SERVIÇO</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="campo_titulo" style="width: 50%; padding-left: 5px;">
-                            
-                            Nome/Razão Social: <span class="campo_valor" id="dest_receiver_name"> @Model.Nome </span>
-                                <br />
-                                CNPJ/CPF: <span class="campo_valor" id="dest_nu_cnpj_cpf"> @Model.Cnpj </span>
-                                <br />
-                            Endereço: <span id="dest_ds_address" class="campo_valor"> @Model.Endereco , @Model.Numero  </span>
-                            <span id="dest_ds_neighborhood" class="campo_valor"> @Model.Bairro </span>
-                                CEP: <span id="dest_nu_cep" class="campo_valor"> @Model.Cep </span>
-                                <br />
+    .nfeArea .listProdutoServico td {
+        padding: 0;
+    }
 
-                                Município: <span class="campo_valor" id="dest_ds_city_name"> @Model.NomeCidade </span>&nbsp;&nbsp;&nbsp;
-                                UF: <span class="campo_valor" id="dest_ds_uf"> @Model.Uf </span>
-                            </td>
-                            <td class="campo_titulo" style="width: 50%; padding-left: 5px;">
-                            Inscrição Estadual: <span class="campo_valor" id="dest_nu_im"> @Model.IncricaoEstadual </span>
-                                <br />
-                                <br />
-                                <br />
-                                E-Mail: <span class="campo_valor" id="dest_ds_email">  </span>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="height: 190px;">
-                    <table style="width: 100%; height: 100%;">
-                        <tr>
-                            <td style="text-align: center; width: 100%; height: 1px;" colspan="2">
-                                <span class="sub-titulo">DISCRIMINAÇÃO DOS SERVIÇOS</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="campo_titulo" style="width: 50%; padding-left: 5px; vertical-align: top;">
-                            @Model.DescricaoServico
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="text-align: center;">
-                    <span class="sub-titulo">TOTAL DA NOTA = R$ <span id="TOTSERV"> @Model.ValorTotal </span></span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <table style="width: 100%; height: 100%;">
-                        <tr>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>COFINS</dt>
-                                    <dd style="text-align: right;">R$ <span id="COFINS">***</span></dd>
-                                </dl>
-                            </td>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>CSLL</dt>
-                                    <dd style="text-align: right;">R$ <span id="CSLL">***</span></dd>
-                                </dl>
-                            </td>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>INSS</dt>
-                                    <dd style="text-align: right;">R$ <span id="INSS">***</span></dd>
-                                </dl>
-                            </td>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>IRPJ</dt>
-                                    <dd style="text-align: right;">R$ <span id="IRPJ">***</span></dd>
-                                </dl>
-                            </td>
-                            <td>
-                                <dl>
-                                    <dt>PIS</dt>
-                                    <dd style="text-align: right;">R$ <span id="PIS">***</span></dd>
-                                </dl>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <span class="campo_titulo">Código do Serviço: [serviceCode]</span>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <table style="width: 100%; height: 100%;">
-                        <tr>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>Valor Total das Deduções (R$)</dt>
-                                    <dd style="text-align: right;">***</dd>
-                                </dl>
-                            </td>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>Base de Cálculo (R$)</dt>
-                                    <dd style="text-align: right;" id="ISS_Bs">***</dd>
-                                </dl>
-                            </td>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>Alíquota (%)</dt>
-                                    <dd style="text-align: right;" id="ISS_Aliq">[vl_issqn_aliq]</dd>
-                                </dl>
-                            </td>
-                            <td style="border-right: 1px solid #000;">
-                                <dl>
-                                    <dt>Valor do ISS (R$)</dt>
-                                    <dd style="text-align: right;" id="ISS">[vl_issqn]</dd>
-                                </dl>
-                            </td>
-                            <td>
-                                <dl>
-                                    <dt>Crédito p/ Abatimento do IPTU</dt>
-                                    <dd style="text-align: right;">***</dd>
-                                </dl>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3" style="max-width: 400px;">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td style="text-align: center; width: 100%; height: 1px;" colspan="2">
-                                <span class="sub-titulo">OUTRAS INFORMAÇÕES</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="campo_titulo"
-                                style="width: 50%; padding-left: 5px; vertical-align: top;">
-                                <span class="campo_valor" id="dadosnfe_ds_additional_information">[ds_additional_information]</span>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
+    .nfeArea .codigo {
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+    }
 
-        <table cellpadding="0" cellspacing="0" style="width: 100%;">
+    .nfeArea .boxProdutoServico tr td:first-child {
+        border-left: none;
+    }
+
+    .nfeArea .boxProdutoServico td {
+        font-size: 6pt;
+        height: auto;
+    }
+
+    .nfeArea .boxFatura span {
+        display: block;
+    }
+
+    .nfeArea .boxFatura td {
+        border: 1px solid #000;
+    }
+
+    .nfeArea .freteConta .border {
+        width: 5mm;
+        height: 5mm;
+        float: right;
+        text-align: center;
+        line-height: 5mm;
+        border: 1px solid black;
+    }
+
+    .nfeArea .freteConta .info {
+        line-height: 5mm;
+    }
+
+    .page .boxFields td p {
+        font-family: "Times New Roman", serif;
+        font-size: 5pt;
+        line-height: 1.2em;
+        color: #000;
+    }
+
+    .nfeArea .imgCanceled {
+        position: absolute;
+        top: 75mm;
+        left: 30mm;
+        z-index: 3;
+        opacity: 0.8;
+        display: none;
+    }
+
+    .nfeArea.invoiceCanceled .imgCanceled {
+        display: block;
+    }
+
+    .nfeArea .imgNull {
+        position: absolute;
+        top: 75mm;
+        left: 20mm;
+        z-index: 3;
+        opacity: 0.8;
+        display: none;
+    }
+
+    .nfeArea.invoiceNull .imgNull {
+        display: block;
+    }
+
+    .nfeArea.invoiceCancelNull .imgCanceled {
+        top: 100mm;
+        left: 35mm;
+        display: block;
+    }
+
+    .nfeArea.invoiceCancelNull .imgNull {
+        top: 65mm;
+        left: 15mm;
+        display: block;
+    }
+
+    .nfeArea .page-break {
+        page-break-before: always;
+    }
+
+    .nfeArea .block {
+        display: block;
+    }
+
+    .label-mktup {
+        font-family: Arial !important;
+        font-size: 8px !important;
+        padding-top: 8px !important;
+    }
+</style>
+<!-- /Header -->
+<!-- Recebimentos -->
+<div class="page nfeArea">
+    <img class="imgCanceled" src="tarja_nf_cancelada.png" alt="" />
+    <img class="imgNull" src="tarja_nf_semvalidade.png" alt="" />
+    <div class="boxFields" style="padding-top: 20px;">
+        <table cellpadding="0" cellspacing="0" border="1">
             <tbody>
                 <tr>
-                    <td style="text-align: right">Empresa de Software www.empresa.com</td>
+                    <td colspan="2" class="txt-upper">
+                        Recebemos de [ds_company_issuer_name] os produtos e serviços constantes na nota fiscal indicada ao lado
+                    </td>
+                    <td rowspan="2" class="tserie txt-center">
+                        <span>Nº [nl_invoice]</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 32mm">
+                        <span class="nf-label">Data de recebimento</span>
+                    </td>
+                    <td style="width: 124.6mm">
+                        <span class="nf-label">Identificação de assinatura do Recebedor</span>
+                    </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+        <hr class="hr-dashed" />
+        <table cellpadding="0" cellspacing="0" border="1">
+            <tbody>
+                <tr>
+                    <td rowspan="3" style="width: 30mm">
+                        <img class="client_logo" src="[url_logo]" alt="" onerror=" javascript:this.src='data:image/png;base64," />
+                    </td>
+                    <td rowspan="3" style="width: 46mm; font-size: 7pt;" class="txt-center">
+                        <span class="mb2 bold block">[ds_company_issuer_name]</span>
+                        <span class="block">[ds_company_address]</span>
+                        <span class="block">
+                            [ds_company_neighborhood] - [nu_company_cep]
+                        </span>
+                        <span class="block">
+                            [ds_company_city_name] - [ds_company_uf]- Fone: [nl_company_phone_number]
+                        </span>
+                    </td>
+                    <td rowspan="3" class="txtc txt-upper" style="width: 34mm; height: 29.5mm;">
+                        <h3 class="title">FATURA</h3>
+                        <p class="mb2">DOCUMENTO FATURA ELETRÔNICA</p>
+                        <p class="entradaSaida mb2">
+                            <span class="identificacao">
+                                <span>[ds_code_operation_type]</span>
+                            </span>
+                            <span class="legenda">
+                                <span>0 - Entrada</span>
+                                <span>1 - Saída</span>
+                            </span>
+                        </p>
+                        <p>
+                            <span class="block bold">
+                                <span>Nº</span>
+                                <span>[nl_invoice]</span>
+                            </span>
+                            <span class="block bold">
+                                <span>SÉRIE:</span>
+                                <span>[ds_invoice_serie]</span>
+                            </span>
+                            <span class="block">
+                                <span>Página</span>
+                                <span>[actual_page]</span>
+                                <span>de</span>
+                                <span>[total_pages]</span>
+                            </span>
+                        </p>
+                    </td>
+                    <td class="txt-upper" style="width: 85mm;">
+                        <span class="codigo">{BarCode}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="nf-label">CHAVE DE ACESSO</span>
+                        <span class="bold block txt-center info">[ds_danfe]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="txt-center valign-middle">
+                        <span class="block">Documento sem valor fiscal. </span> Emitido em formato de fatura digital.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Natureza da Operação -->
+        <table cellpadding="0" cellspacing="0" class="boxNaturezaOperacao no-top" border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="nf-label">NATUREZA DA OPERAÇÃO</span>
+                        <span class="info">[_ds_transaction_nature]</span>
+                    </td>
+                    <td style="width: 84.7mm;">
+                        <span class="nf-label">[protocol_label]</span>
+                        <span class="info">[ds_protocol]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
+        <!-- Inscrição -->
+        <table cellpadding="0" cellspacing="0" class="boxInscricao no-top" border="1">
+            <tbody>
+                <tr>
+                    <td>
+                        <span class="nf-label">INSCRIÇÃO ESTADUAL</span>
+                        <span class="info">[nl_company_ie]</span>
+                    </td>
+                    <td style="width: 67.5mm;">
+                        <span class="nf-label">INSCRIÇÃO ESTADUAL DO SUBST. TRIB.</span>
+                        <span class="info">[nl_company_ie_st]</span>
+                    </td>
+                    <td style="width: 64.3mm">
+                        <span class="nf-label">CNPJ</span>
+                        <span class="info">[nl_company_cnpj_cpf]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Destinatário/Emitente -->
+        <p class="area-name">Destinatário / Emitente</p>
+        <table cellpadding="0" cellspacing="0" class="boxDestinatario" border="1">
+            <tbody>
+                <tr>
+                    <td class="pd-0">
+                        <table cellpadding="0" cellspacing="0" border="1">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="nf-label">NOME/RAZÃO SOCIAL</span>
+                                        <span class="info">[ds_client_receiver_name]</span>
+                                    </td>
+                                    <td style="width: 40mm">
+                                        <span class="nf-label">CNPJ/CPF</span>
+                                        <span class="info">[nl_client_cnpj_cpf]</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td style="width: 22mm">
+                        <span class="nf-label">DATA DE EMISSÃO</span>
+                        <span class="info">[dt_invoice_issue]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pd-0">
+                        <table cellpadding="0" cellspacing="0" border="1">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="nf-label">ENDEREÇO</span>
+                                        <span class="info">[ds_client_address]</span>
+                                    </td>
+                                    <td style="width: 47mm;">
+                                        <span class="nf-label">BAIRRO/DISTRITO</span>
+                                        <span class="info">[ds_client_neighborhood]</span>
+                                    </td>
+                                    <td style="width: 37.2 mm">
+                                        <span class="nf-label">CEP</span>
+                                        <span class="info">[nu_client_cep]</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <span class="nf-label">DATA DE ENTR./SAÍDA</span>
+                        <span class="info">[dt_input_output]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="pd-0">
+                        <table cellpadding="0" cellspacing="0" style="margin-bottom: -1px;" border="1">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span class="nf-label">MUNICÍPIO</span>
+                                        <span class="info">[ds_client_city_name]</span>
+                                    </td>
+                                    <td style="width: 34mm">
+                                        <span class="nf-label">UF</span>
+                                        <span class="info">[ds_client_uf]</span>
+                                    </td>
+                                    <td style="width: 28mm">
+                                        <span class="nf-label">FONE/FAX</span>
+                                        <span class="info">[nl_client_phone_number]</span>
+                                    </td>
+                                    <td style="width: 51mm">
+                                        <span class="nf-label">INSCRIÇÃO ESTADUAL</span>
+                                        <span class="info">[ds_client_ie]</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <span class="nf-label">HORA ENTR./SAÍDA</span>
+                        <span id="info">[hr_input_output]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Dados do produto/serviço -->
+        <p class="area-name">Dados do produto/serviço</p>
+        <div class="wrapper-border">
+            <table cellpadding="0" cellspacing="0" border="1" class="boxProdutoServico">
+                <thead class="listProdutoServico" id="table">
+                    <tr class="titles">
+                        <th class="cod" style="width: 15.5mm">CÓDIGO</th>
+                        <th class="descrit" style="width: 66.1mm">DESCRIÇÃO</th>
+                        <th class="ncmsh">NCM/SH</th>
+                        <th class="cst">CST</th>
+                        <th class="cfop">CFOP</th>
+                        <th class="un">UNID.</th>
+                        <th class="amount">QTDE.</th>
+                        <th class="valUnit">VALOR UNITÁRIO</th>
+                        <th class="valTotal">VALOR TOTAL</th>
+                        <th class="bcIcms">ICMS</th>
+                        <th class="valIcms">IPI</th>
+                        <th class="valIpi">VALOR DO IPI</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <td class="cod" style="width: 15.5mm">CÓDIGO</td>
+                <td class="descrit" style="width: 66.1mm">DESCRIÇÃO</td>
+                <td class="ncmsh">NCM/SH</td>
+                <td class="cst">CST</td>
+                <td class="cfop">CFOP</td>
+                <td class="un">UNID.</td>
+                <td class="amount">QTDE.</td>
+                <td class="valUnit">VALOR UNITÁRIO</td>
+                <td class="valTotal">VALOR TOTAL</td>
+                <td class="bcIcms">ICMS</td>
+                <td class="valIcms">IPI</td>
+                <td class="valIpi">VALOR DO IPI</td>
+
+
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Calculo de ISSQN -->
+        <p class="area-name">PRESTAÇÃO DE SERVIÇOS</p>
+        <table cellpadding="0" cellspacing="0" border="1" class="boxIssqn">
+            <tbody>
+                <tr>
+                    <td class="field inscrMunicipal">
+                        <span>DESCRIÇÃO DOS SERVIÇOS PRESTADOS </span>
+                        <span style="font-size: 15px;" class="info txt-center">
+                            O Detalhamento dos Serviços, consta em contrato, bem como a condição
+                            de pagamento.
+                        </span>
+                    </td>
+
+                    <td class="field valorIssqn">
+                        <span class="nf-label">VALOR DO ISS</span>
+                        <span class="info txt-right">[tot_issqn]</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+
+                    <td class="field valorIssqn">
+                        <span class="nf-label">VALOR DOS SERVIÇOS </span>
+                        <span class="info txt-right">[tot_issqn]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Calculo de ISSQN -->
+        <p class="area-name">Calculo do issqn</p>
+        <table cellpadding="0" cellspacing="0" border="1" class="boxIssqn">
+            <tbody>
+                <tr>
+                    <td class="field inscrMunicipal">
+                        <span class="nf-label">INSCRIÇÃO MUNICIPAL</span>
+                        <span class="info txt-center">[ds_company_im]</span>
+                    </td>
+                    <td class="field valorTotal">
+                        <span class="nf-label">VALOR TOTAL DOS SERVIÇOS</span>
+                        <span class="info txt-right">[vl_total_serv]</span>
+                    </td>
+                    <td class="field baseCalculo">
+                        <span class="nf-label">BASE DE CÁLCULO DO ISSQN</span>
+                        <span class="info txt-right">[tot_bc_issqn]</span>
+                    </td>
+                    <td class="field valorIssqn">
+                        <span class="nf-label">VALOR DO ISSQN</span>
+                        <span class="info txt-right">[tot_issqn]</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Dados adicionais -->
+        <p class="area-name">Dados adicionais</p>
+        <table cellpadding="0" cellspacing="0" border="1" class="boxDadosAdicionais">
+            <tbody>
+                <tr>
+                    <td class="field infoComplementar">
+                        <span class="nf-label">INFORMAÇÕES COMPLEMENTARES</span>
+                        <span>[ds_additional_information]</span>
+                    </td>
+                    <td class="field reservaFisco" style="width: 85mm; height: 24mm">
+                        <span class="nf-label">RESERVA AO FISCO</span>
+                        <span></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer>
+            <table cellpadding="0" cellspacing="0">
+                <tbody>
+                    <tr>
+                        <td style="text-align: right"><strong>Empresa de Software www.empresa.com</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </footer>
+    </div>
+    
+</div>
