@@ -215,7 +215,7 @@ namespace projFront.Migrations
 
             modelBuilder.Entity("projFront.Models.Banco", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdBanco")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -243,14 +243,14 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdBanco");
 
                     b.ToTable("Bancos");
                 });
 
             modelBuilder.Entity("projFront.Models.Empresa", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdEmpresa")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -297,7 +297,7 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdEmpresa");
 
                     b.ToTable("Empresas");
                 });
@@ -316,9 +316,8 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Banco")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("BancoIdBanco")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Cep")
                         .IsRequired()
@@ -339,6 +338,9 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EmpresaIdEmpresa")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Endereco")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -349,6 +351,9 @@ namespace projFront.Migrations
                     b.Property<string>("FaturaSerie")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("IdBanco")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("IdEmpresa")
                         .HasColumnType("INTEGER");
@@ -394,28 +399,11 @@ namespace projFront.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BancoIdBanco");
+
+                    b.HasIndex("EmpresaIdEmpresa");
+
                     b.ToTable("NotaFiscal");
-                });
-
-            modelBuilder.Entity("projFront.Models.Produto", b =>
-                {
-                    b.Property<int?>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<double>("Quantidade")
-                        .HasColumnType("REAL");
-
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("Codigo");
-
-                    b.ToTable("Produtos");
                 });
 
             modelBuilder.Entity("projFront.Models.Usuario", b =>
@@ -486,6 +474,25 @@ namespace projFront.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("projFront.Models.NotaFiscal", b =>
+                {
+                    b.HasOne("projFront.Models.Banco", "Banco")
+                        .WithMany()
+                        .HasForeignKey("BancoIdBanco")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("projFront.Models.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaIdEmpresa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Banco");
+
+                    b.Navigation("Empresa");
                 });
 #pragma warning restore 612, 618
         }

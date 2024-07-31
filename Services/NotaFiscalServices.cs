@@ -45,7 +45,7 @@ namespace projFront.Services
             if (notaFiscal.FaturaNumero == 0)
             {
                 Empresa empresa = RetornaProximoNumero(notaFiscal.IdEmpresa);
-                if (empresa.Id > 0)
+                if (empresa.IdEmpresa > 0)
                 {
                     notaFiscal.FaturaSerie = empresa.FaturaSerie;
                     notaFiscal.FaturaNumero = empresa.FaturaUltimoNumero;
@@ -67,7 +67,7 @@ namespace projFront.Services
         private Empresa RetornaProximoNumero(int idEmpresa)
         {
             Empresa empresa = _notaFiscalRepository.RetornaEmpresa(idEmpresa);
-            if (empresa.Id > 0)
+            if (empresa.IdEmpresa > 0)
             {
                 empresa.FaturaUltimoNumero = empresa.FaturaUltimoNumero + 1;
                 _notaFiscalRepository.AtualizarUltimoNumeroEmpresa(empresa);

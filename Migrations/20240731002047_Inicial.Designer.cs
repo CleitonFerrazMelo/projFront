@@ -11,8 +11,8 @@ using projFront.Data;
 namespace projFront.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240626131853_Identidade1")]
-    partial class Identidade1
+    [Migration("20240731002047_Inicial")]
+    partial class Inicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -215,6 +215,218 @@ namespace projFront.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("projFront.Models.Banco", b =>
+                {
+                    b.Property<int>("IdBanco")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Agencia")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NumeroConta")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PixChave")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PixNumero")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TipoConta")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdBanco");
+
+                    b.ToTable("Bancos");
+                });
+
+            modelBuilder.Entity("projFront.Models.Empresa", b =>
+                {
+                    b.Property<int>("IdEmpresa")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FaturaSerie")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FaturaUltimoNumero")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Ie")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MensagemFisco")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeCidade")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("IdEmpresa");
+
+                    b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("projFront.Models.NotaFiscal", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Agencia")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("BancoIdBanco")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Cep")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Conta")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("DataEmissao")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DescricaoServico")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("EmpresaIdEmpresa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("FaturaNumero")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("FaturaSerie")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("IdBanco")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("IdEmpresa")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("IncricaoEstadual")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("MensagemFisco")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NomeCidade")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Numero")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("NumeroTelefone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PixChave")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PixNumero")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Uf")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("ValorTotal")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BancoIdBanco");
+
+                    b.HasIndex("EmpresaIdEmpresa");
+
+                    b.ToTable("NotaFiscal");
+                });
+
+            modelBuilder.Entity("projFront.Models.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -264,6 +476,25 @@ namespace projFront.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("projFront.Models.NotaFiscal", b =>
+                {
+                    b.HasOne("projFront.Models.Banco", "Banco")
+                        .WithMany()
+                        .HasForeignKey("BancoIdBanco")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("projFront.Models.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaIdEmpresa")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Banco");
+
+                    b.Navigation("Empresa");
                 });
 #pragma warning restore 612, 618
         }

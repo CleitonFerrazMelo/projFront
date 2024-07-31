@@ -28,7 +28,7 @@ namespace projFront.Repository
 
         public Empresa RetornaEmpresa(int id)
         {
-            Empresa empresa = _repo.Empresas.Where(x => x.Id == id).First();
+            Empresa empresa = _repo.Empresas.Where(x => x.IdEmpresa == id).First();
             if (empresa == null)
                 empresa = new Empresa();
             return empresa;

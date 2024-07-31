@@ -54,7 +54,7 @@ namespace projFront.Controllers
             }
 
             var empresa = await _context.Empresas
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.IdEmpresa == id);
             if (empresa == null)
             {
                 return NotFound();
@@ -112,7 +112,7 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Cnpj,Ie,Endereco,Numero,Bairro,NomeCidade,Cep,FaturaSerie,FaturaUltimoNumero,MensagemFisco")] Empresa empresa)
         {
-            if (id != empresa.Id)
+            if (id != empresa.IdEmpresa)
             {
                 return NotFound();
             }
@@ -126,7 +126,7 @@ namespace projFront.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmpresaExists(empresa.Id))
+                    if (!EmpresaExists(empresa.IdEmpresa))
                     {
                         return NotFound();
                     }
@@ -150,7 +150,7 @@ namespace projFront.Controllers
             }
 
             var empresa = await _context.Empresas
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.IdEmpresa == id);
             if (empresa == null)
             {
                 return NotFound();
@@ -183,7 +183,7 @@ namespace projFront.Controllers
 
         private bool EmpresaExists(int id)
         {
-          return (_context.Empresas?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Empresas?.Any(e => e.IdEmpresa == id)).GetValueOrDefault();
         }
     }
 }

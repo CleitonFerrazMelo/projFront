@@ -5,7 +5,7 @@ namespace projFront.Models
     public class Banco
     {
         [Key]
-        public int Id { get; set; }
+        public int IdBanco { get; set; }
         public string Nome { get; set; }
         public string Agencia { get; set; }
         public string TipoConta { get; set; }

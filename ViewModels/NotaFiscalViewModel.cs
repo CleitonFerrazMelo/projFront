@@ -36,7 +36,8 @@ namespace projFront.ViewModels
         //[Required(ErrorMessage = "Informe o valor do Serviço!")]
         public decimal ValorTotal { get; set; }
 
-        public string Banco { get; set; }
+        public int IdBanco { get; set; }
+        public List<Banco> Banco { get; set; }
 
         [Display(Name = "Agência")]
         public string Agencia { get; set; }
@@ -50,6 +51,7 @@ namespace projFront.ViewModels
         public string PixNumero { get; set; }
         
         public string IdEmpresa { get; set; }
+        public List<Empresa> Empresa { get; set; }
 
         [Display(Name = "Data de Emissão")]
         public DateTime? DataEmissao { get; set; }

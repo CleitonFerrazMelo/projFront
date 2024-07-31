@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace projFront.Migrations
 {
-    public partial class Identidade1 : Migration
+    public partial class Inicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,61 @@ namespace projFront.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Bancos",
+                columns: table => new
+                {
+                    IdBanco = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    Agencia = table.Column<string>(type: "TEXT", nullable: false),
+                    TipoConta = table.Column<string>(type: "TEXT", nullable: false),
+                    NumeroConta = table.Column<string>(type: "TEXT", nullable: false),
+                    PixChave = table.Column<string>(type: "TEXT", nullable: false),
+                    PixNumero = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bancos", x => x.IdBanco);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Empresas",
+                columns: table => new
+                {
+                    IdEmpresa = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    Cnpj = table.Column<string>(type: "TEXT", nullable: false),
+                    Ie = table.Column<string>(type: "TEXT", nullable: false),
+                    Endereco = table.Column<string>(type: "TEXT", nullable: false),
+                    Numero = table.Column<string>(type: "TEXT", nullable: false),
+                    Bairro = table.Column<string>(type: "TEXT", nullable: false),
+                    NomeCidade = table.Column<string>(type: "TEXT", nullable: false),
+                    Cep = table.Column<string>(type: "TEXT", nullable: false),
+                    FaturaSerie = table.Column<string>(type: "TEXT", nullable: false),
+                    FaturaUltimoNumero = table.Column<int>(type: "INTEGER", nullable: false),
+                    MensagemFisco = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Empresas", x => x.IdEmpresa);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    Senha = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +209,54 @@ namespace projFront.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "NotaFiscal",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    Cnpj = table.Column<string>(type: "TEXT", nullable: false),
+                    IncricaoEstadual = table.Column<string>(type: "TEXT", nullable: false),
+                    Endereco = table.Column<string>(type: "TEXT", nullable: false),
+                    Numero = table.Column<string>(type: "TEXT", nullable: false),
+                    Bairro = table.Column<string>(type: "TEXT", nullable: false),
+                    NomeCidade = table.Column<string>(type: "TEXT", nullable: false),
+                    Uf = table.Column<string>(type: "TEXT", nullable: false),
+                    Cep = table.Column<string>(type: "TEXT", nullable: false),
+                    NumeroTelefone = table.Column<string>(type: "TEXT", nullable: false),
+                    DescricaoServico = table.Column<string>(type: "TEXT", nullable: false),
+                    ValorTotal = table.Column<decimal>(type: "TEXT", nullable: false),
+                    IdBanco = table.Column<int>(type: "INTEGER", nullable: false),
+                    BancoIdBanco = table.Column<int>(type: "INTEGER", nullable: false),
+                    Agencia = table.Column<string>(type: "TEXT", nullable: false),
+                    Conta = table.Column<string>(type: "TEXT", nullable: false),
+                    PixChave = table.Column<string>(type: "TEXT", nullable: false),
+                    PixNumero = table.Column<string>(type: "TEXT", nullable: false),
+                    IdEmpresa = table.Column<int>(type: "INTEGER", nullable: false),
+                    EmpresaIdEmpresa = table.Column<int>(type: "INTEGER", nullable: false),
+                    DataEmissao = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    FaturaSerie = table.Column<string>(type: "TEXT", nullable: false),
+                    FaturaNumero = table.Column<int>(type: "INTEGER", nullable: false),
+                    MensagemFisco = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotaFiscal", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_NotaFiscal_Bancos_BancoIdBanco",
+                        column: x => x.BancoIdBanco,
+                        principalTable: "Bancos",
+                        principalColumn: "IdBanco",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_NotaFiscal_Empresas_EmpresaIdEmpresa",
+                        column: x => x.EmpresaIdEmpresa,
+                        principalTable: "Empresas",
+                        principalColumn: "IdEmpresa",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -190,6 +293,16 @@ namespace projFront.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotaFiscal_BancoIdBanco",
+                table: "NotaFiscal",
+                column: "BancoIdBanco");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_NotaFiscal_EmpresaIdEmpresa",
+                table: "NotaFiscal",
+                column: "EmpresaIdEmpresa");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +323,22 @@ namespace projFront.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "NotaFiscal");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Bancos");
+
+            migrationBuilder.DropTable(
+                name: "Empresas");
         }
     }
 }

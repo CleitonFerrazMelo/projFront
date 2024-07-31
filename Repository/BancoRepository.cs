@@ -17,9 +17,9 @@ namespace projFront.Repository
             _repo.SaveChanges();
         }
 
-        public bool RelacionadoNotaFiscal(string id)
+        public bool RelacionadoNotaFiscal(int id)
         {
-            return _repo.NotaFiscal.Where(x => x.Banco == id).Any();
+            return _repo.NotaFiscal.Where(x => x.IdBanco == id).Any();
         }
 
         public List<Banco> GetBancos()

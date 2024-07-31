@@ -55,7 +55,7 @@ namespace projFront.Controllers
             }
 
             var banco = await _context.Bancos
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.IdBanco == id);
             if (banco == null)
             {
                 return NotFound();
@@ -114,7 +114,7 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Agencia,TipoConta,NumeroConta,PixChave,PixNumero")] Banco banco)
         {
-            if (id != banco.Id)
+            if (id != banco.IdBanco)
             {
                 return NotFound();
             }
@@ -128,7 +128,7 @@ namespace projFront.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BancoExists(banco.Id))
+                    if (!BancoExists(banco.IdBanco))
                     {
                         return NotFound();
                     }
@@ -151,7 +151,7 @@ namespace projFront.Controllers
             }
 
             var banco = await _context.Bancos
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.IdBanco == id);
             if (banco == null)
             {
                 return NotFound();
@@ -186,7 +186,7 @@ namespace projFront.Controllers
 
         private bool BancoExists(int id)
         {
-          return (_context.Bancos?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Bancos?.Any(e => e.IdBanco == id)).GetValueOrDefault();
         }
     }
 }

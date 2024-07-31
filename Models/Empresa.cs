@@ -5,7 +5,7 @@ namespace projFront.Models
     public class Empresa
     {
         [Key]
-        public int Id { get; set; }
+        public int IdEmpresa { get; set; }
         public string Nome { get; set; }
         public string Cnpj { get; set; }
         public string Ie { get; set; }

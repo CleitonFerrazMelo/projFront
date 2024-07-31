@@ -79,15 +79,13 @@ namespace projFront.Controllers
 
             NotaFiscalViewModel notaFiscalViewModel = new NotaFiscalViewModel();
 
-            //notaFiscalViewModel.Empresa = listEmpresa;
-
+            notaFiscalViewModel.Empresa = listEmpresa;
 
             List<Banco> listBanco = new List<Banco>();
 
             listBanco =_bancoServices.GetBancos();
 
-            //notaFiscalViewModel.Banco = listBanco;
-
+            notaFiscalViewModel.Banco = listBanco;
 
             return View(notaFiscalViewModel);
         }
