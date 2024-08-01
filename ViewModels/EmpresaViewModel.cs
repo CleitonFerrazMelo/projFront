@@ -33,6 +33,9 @@ namespace projFront.ViewModels
         [Display(Name = "Cidade")]
         [Required(ErrorMessage = "Informe o nome cidade da Empresa!")]
         public string NomeCidade { get; set; }
+        [Display(Name = "UF")]
+        [Required(ErrorMessage = "Informe o Estado!")]
+        public string UF { get; set; }
 
         [Display(Name = "CEP")]
         [Required(ErrorMessage = "Informe o CEP da Empresa!")]

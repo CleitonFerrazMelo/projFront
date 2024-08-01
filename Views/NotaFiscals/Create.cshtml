@@ -23,7 +23,9 @@
     }
 </style>
 
-
+<script>
+    var viewModel = @Html.Raw(Json.Serialize(Model));
+</script>
 
 <div class="card">
     <div class="card-body">
@@ -54,10 +56,6 @@
                         </select>
                     </div>
 
-                    
-                  
-
-
                     <div class="form-group col-auto col-sm-5">
                         <label asp-for="Nome" class="titulo" class="control-label"></label>
                         <input asp-for="Nome" class="form-control" id="nomeEmpresa" name="nomeEmpresa" />
@@ -71,7 +69,7 @@
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="NumeroTelefone" class="titulo" class="control-label"></label>
-                        <input asp-for="NumeroTelefone" class="form-control" />
+                        <input asp-for="NumeroTelefone" class="form-control" id="numeroTelefone" name="numeroTelefone" />
                         <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
                     </div>
                   
@@ -81,27 +79,27 @@
 
                     <div class="form-group col-auto col-sm-1">
                         <label asp-for="Cep" class="control-label titulo"></label>
-                        <input asp-for="Cep" class="form-control" />
+                        <input asp-for="Cep" class="form-control" id="cep" name="cep" />
                         <span asp-validation-for="Cep" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-4">
                         <label asp-for="Endereco" class="control-label titulo"></label>
-                        <input asp-for="Endereco" class="form-control" />
+                        <input asp-for="Endereco" class="form-control" id="endereco" name="endereco" />
                         <span asp-validation-for="Endereco" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
                         <label asp-for="Numero" class="control-label titulo"></label>
-                        <input asp-for="Numero" class="form-control" />
+                        <input asp-for="Numero" class="form-control" id="numero" name="numero" />
                         <span asp-validation-for="Numero" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="Bairro" class="control-label titulo"></label>
-                        <input asp-for="Bairro" class="form-control" />
+                        <input asp-for="Bairro" class="form-control" id="bairro" name="bairro" />
                         <span asp-validation-for="Bairro" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-3">
                         <label asp-for="NomeCidade" class="control-label titulo"></label>
-                        <input asp-for="NomeCidade" class="form-control" />
+                        <input asp-for="NomeCidade" class="form-control" id="nomeCidade" name="nomeCidade" />
                         <span asp-validation-for="NomeCidade" class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
@@ -198,18 +196,25 @@
 
     function selecionaEmpresa()
     {
-        
-        console.log("ACionado");
+
 
         var campoSelecao = document.getElementById('empresa');
 
-        console.log(campoSelecao);
-
         var itemSelecionado = campoSelecao.options[campoSelecao.selectedIndex];
         
-        console.log(itemSelecionado);
-        
         document.getElementById('nomeEmpresa').value = itemSelecionado.text;
+
+        var bancoSelecionado = viewModel.empresa[itemSelecionado.value];
+
+        document.getElementById('inscricaoEstadual').value = bancoSelecionado.Ie;
+        document.getElementById('numeroTelefone').value = bancoSelecionado.numeroTelefone;
+        document.getElementById('cep').value = bancoSelecionado.cep;
+        document.getElementById('endereco').value = bancoSelecionado.endereco;
+        document.getElementById('numero').value = bancoSelecionado.numero;
+
+        
+        console.log("bancoSelecionado.Agencia");
+        console.log(bancoSelecionado.Agencia);
     }
 
     
