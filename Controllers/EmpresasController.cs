@@ -74,7 +74,7 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Cnpj,Ie,Endereco,Numero,Bairro,NomeCidade,Cep,FaturaSerie,FaturaUltimoNumero,MensagemFisco")] EmpresaViewModel empresaVM)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Telefone,Cnpj,Ie,Endereco,Numero,Bairro,NomeCidade,UF,Cep,FaturaSerie,FaturaUltimoNumero,MensagemFisco")] EmpresaViewModel empresaVM)
         {
             if (ModelState.IsValid)
             {

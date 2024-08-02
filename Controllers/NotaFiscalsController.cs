@@ -95,15 +95,16 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Cnpj,IncricaoEstadual,Endereco,Numero,Bairro,NomeCidade,Uf,Cep,NumeroTelefone,DescricaoServico,ValorTotal,Banco,Agencia,Conta,PixChave,PixNumero,IdEmpresa,DataEmissao,FaturaSerie,FaturaNumero,MensagemFisco")] NotaFiscal notaFiscal)
+        public async Task<IActionResult> Create( NotaFiscalViewModel notaFiscalVM)
         {
+            
             if (ModelState.IsValid)
             {
+                NotaFiscal notaFiscal = _mapper.Map<NotaFiscal>(notaFiscalVM);
                 _context.Add(notaFiscal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
             return View(notaFiscalVM);
         }
 

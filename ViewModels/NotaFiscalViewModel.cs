@@ -12,7 +12,8 @@ namespace projFront.ViewModels
         
         public string Cnpj { get; set; }
         [Display(Name = "Inscrição Estadual")]
-        public string IncricaoEstadual { get; set; }
+        public string Ie { get; set; }
+
         [Display(Name = "Endereço")]
         public string Endereco { get; set; }
         [Display(Name = "Número")]
@@ -61,6 +62,7 @@ namespace projFront.ViewModels
 
         [Display(Name = "Número da Fatura")]
         public int FaturaNumero { get; set; }
+
         [Display(Name = "Mensagem do Fisco")]
         public string MensagemFisco { get; set; }
     }

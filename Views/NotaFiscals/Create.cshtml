@@ -40,8 +40,8 @@
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="Cnpj" class="titulo"></label>
-                        <input asp-for="Cnpj" class="form-control " placeholder="00.000.000/0000-00" alt="Cnpj da empresa" />
-                        <span asp-validation-for="Cnpj" class="text-danger"></span>
+                        <input asp-for="Cnpj" class="form-control " id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" alt="Cnpj da empresa" />
+                        <span  class="text-danger"></span>
                     </div>
 
                     
@@ -59,18 +59,18 @@
                     <div class="form-group col-auto col-sm-5">
                         <label asp-for="Nome" class="titulo" class="control-label"></label>
                         <input asp-for="Nome" class="form-control" id="nomeEmpresa" name="nomeEmpresa" />
-                        <span asp-validation-for="Nome" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
 
                     <div class="form-group col-auto col-sm-2">
-                        <label asp-for="IncricaoEstadual" class="titulo" class="control-label"></label>
-                        <input asp-for="IncricaoEstadual" id="inscricaoEstadual" name="inscricaoEstadual" class="form-control" />
-                        <span asp-validation-for="IncricaoEstadual" class="text-danger"></span>
+                        <label asp-for="Ie" class="titulo" class="control-label"></label>
+                        <input asp-for="Ie" id="ie" name="ie" class="form-control" />
+                        <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="NumeroTelefone" class="titulo" class="control-label"></label>
-                        <input asp-for="NumeroTelefone" class="form-control" id="numeroTelefone" name="numeroTelefone" />
-                        <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
+                        <input asp-for="NumeroTelefone" class="form-control" id="telefone" name="telefone" />
+                        <span  class="text-danger"></span>
                     </div>
                   
                 </div>
@@ -80,32 +80,32 @@
                     <div class="form-group col-auto col-sm-1">
                         <label asp-for="Cep" class="control-label titulo"></label>
                         <input asp-for="Cep" class="form-control" id="cep" name="cep" />
-                        <span asp-validation-for="Cep" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-4">
                         <label asp-for="Endereco" class="control-label titulo"></label>
                         <input asp-for="Endereco" class="form-control" id="endereco" name="endereco" />
-                        <span asp-validation-for="Endereco" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
                         <label asp-for="Numero" class="control-label titulo"></label>
                         <input asp-for="Numero" class="form-control" id="numero" name="numero" />
-                        <span asp-validation-for="Numero" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="Bairro" class="control-label titulo"></label>
                         <input asp-for="Bairro" class="form-control" id="bairro" name="bairro" />
-                        <span asp-validation-for="Bairro" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-3">
                         <label asp-for="NomeCidade" class="control-label titulo"></label>
                         <input asp-for="NomeCidade" class="form-control" id="nomeCidade" name="nomeCidade" />
-                        <span asp-validation-for="NomeCidade" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-1">
                         <label asp-for="Uf" class="control-label titulo"></label>
-                        <input asp-for="Uf" class="form-control" />
-                        <span asp-validation-for="Uf" class="text-danger"></span>
+                        <input asp-for="Uf" class="form-control" id="UF" name="UF" />
+                        <span  class="text-danger"></span>
                     </div>
                 </div>
 
@@ -115,64 +115,64 @@
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="ValorTotal" class="control-label titulo"></label>
                         <input asp-for="ValorTotal" class="form-control" />
-                        <span asp-validation-for="ValorTotal" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                 
                     <div class="form-group col-auto col-sm-10">
                         <label asp-for="DescricaoServico" class="control-label titulo"></label>
                         <textarea asp-for="DescricaoServico" class="form-control" > </textarea>
-                        <span asp-validation-for="DescricaoServico" class="text-danger"></span>
+                        <span  class="text-danger"></span>
                     </div>
                 </div>
 
                 <hr />
                 <div class="col-lg-3 mb-1">
-                    <label class="text-label">Empresa <span class="text-danger"> * </span></label>
-                    <select class="custom-select mr-sm-2" id="empresa" onchange="selecionaEmpresa()" required>
+                    <label class="text-label">Banco <span class="text-danger"> * </span></label>
+                    <select class="custom-select mr-sm-2" id="banco" name="IdBanco" onchange="selecionaBanco()" required>
                         <option selected>Escolha o banco</option>
                         @foreach (var banco in Model.Banco)
                         {
-                            <option value="@banco.IdBanco">   @banco.Nome </option>
+                            <option value="@banco.IdBanco" >   @banco.Nome </option>
                         }
                     </select>
                 </div>
 
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Agencia" class="control-label"></label>
-                    <input asp-for="Agencia" class="form-control" disabled />
-                    <span asp-validation-for="Agencia" class="text-danger"></span>
+                    <input asp-for="Agencia" class="form-control" id="agencia" name="agencia" disabled />
+                    <span  class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Conta" class="control-label"></label>
-                    <input asp-for="Conta" class="form-control" disabled />
-                    <span asp-validation-for="Conta" class="text-danger"></span>
+                    <input asp-for="Conta" class="form-control" id="conta" name="conta"  disabled />
+                    <span  class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="PixChave" class="control-label"></label>
-                    <input asp-for="PixChave" class="form-control" disabled />
-                    <span asp-validation-for="PixChave" class="text-danger"></span>
+                    <input asp-for="PixChave" class="form-control" id="pixchave" name="pixchave" disabled />
+                    <span class="text-danger"></span>
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="PixNumero" class="control-label"></label>
-                    <input asp-for="PixNumero" class="form-control" disabled/>
-                    <span asp-validation-for="PixNumero" class="text-danger"></span>
+                    <input asp-for="PixNumero" class="form-control"  id="pixnumero" name="pixnumero" disabled/>
+                    <span  class="text-danger"></span>
                 </div>
                 <fieldset disabled>
                     <div class="form-row">
                         <div class="form-group col-auto col-sm-2">
                             <label asp-for="FaturaNumero" class="control-label"></label>
                             <input asp-for="FaturaNumero" class="form-control" placeholder="000000" readonly />
-                            <span asp-validation-for="FaturaNumero" class="text-danger"></span>
+                            <span  class="text-danger"></span>
                         </div>
                         <div class="form-group col-auto col-sm-2">
                             <label asp-for="FaturaSerie" class="control-label"></label>
                             <input asp-for="FaturaSerie" class="form-control" placeholder="000000" readonly />
-                            <span asp-validation-for="FaturaSerie" class="text-danger"></span>
+                            <span  class="text-danger"></span>
                         </div>
                         <div class="form-group col-auto col-sm-3">
                             <label asp-for="DataEmissao" class="control-label"></label>
                             <input asp-for="DataEmissao" class="form-control" />
-                            <span asp-validation-for="DataEmissao" class="text-danger"></span>
+                            <span  class="text-danger"></span>
                         </div>
                     </div>
                 </fieldset>
@@ -180,7 +180,7 @@
                 <div class="form-group col-auto col-sm-10">
                     <label asp-for="MensagemFisco" class="control-label titulo"></label>
                     <textarea asp-for="MensagemFisco" class="form-control" > </textarea>
-                    <span asp-validation-for="MensagemFisco" class="text-danger"></span>
+                    <span  class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Cadastrar" class="btn btn-success" />
@@ -197,24 +197,44 @@
     function selecionaEmpresa()
     {
 
-
         var campoSelecao = document.getElementById('empresa');
 
-        var itemSelecionado = campoSelecao.options[campoSelecao.selectedIndex];
+        //var itemSelecionado = campoSelecao.options[campoSelecao.selectedIndex];
+
+        var empresaSelecionada = viewModel.empresa[campoSelecao.selectedIndex - 1];
+
+        console.log(empresaSelecionada);
+
+        document.getElementById('nomeEmpresa').value = empresaSelecionada.nome;
+        document.getElementById('ie').value = empresaSelecionada.ie;
+        document.getElementById('telefone').value = empresaSelecionada.telefone;
+        document.getElementById('cep').value = empresaSelecionada.cep;
+        document.getElementById('endereco').value = empresaSelecionada.endereco;
+        document.getElementById('numero').value = empresaSelecionada.numero;
+        document.getElementById('bairro').value = empresaSelecionada.bairro;
+        document.getElementById('nomeCidade').value = empresaSelecionada.nomeCidade;
+        document.getElementById('UF').value = empresaSelecionada.uf;
+
+    }
+
+    function selecionaBanco() 
+    {
+
+        var campoSelecaoBanco = document.getElementById('banco');
+
+        var bancoSelecionado = viewModel.banco[campoSelecaoBanco.selectedIndex - 1];
         
-        document.getElementById('nomeEmpresa').value = itemSelecionado.text;
+        var banco = bancoSelecionado;
 
-        var bancoSelecionado = viewModel.empresa[itemSelecionado.value];
+        console.log(banco);
 
-        document.getElementById('inscricaoEstadual').value = bancoSelecionado.Ie;
-        document.getElementById('numeroTelefone').value = bancoSelecionado.numeroTelefone;
-        document.getElementById('cep').value = bancoSelecionado.cep;
-        document.getElementById('endereco').value = bancoSelecionado.endereco;
-        document.getElementById('numero').value = bancoSelecionado.numero;
 
         
-        console.log("bancoSelecionado.Agencia");
-        console.log(bancoSelecionado.Agencia);
+        document.getElementById('agencia').value = bancoSelecionado.agencia;
+        document.getElementById('conta').value = bancoSelecionado.numeroConta;
+        document.getElementById('pixchave').value = bancoSelecionado.pixChave;
+        document.getElementById('pixnumero').value = bancoSelecionado.pixNumero;
+        
     }
 
     
