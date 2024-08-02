@@ -3,7 +3,7 @@ using projFront.Models;
 
 namespace projFront.Repository
 {
-    public class EmpresaRepository: IEmpresaRepository
+    public class EmpresaRepository : IEmpresaRepository
     {
         public readonly AppDbContext _repo;
         private readonly NotaFiscal _notaFiscal;
@@ -16,6 +16,11 @@ namespace projFront.Repository
         {
             _repo.Remove(empresa);
             _repo.SaveChanges();
+        }
+
+        public Empresa GetEmpresa(int id)
+        {
+            return _repo.Empresas.Where(x => x.IdEmpresa == id).FirstOrDefault();
         }
 
         public List<Empresa> GetEmpresas()

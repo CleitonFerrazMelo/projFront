@@ -6,5 +6,6 @@ namespace projFront.Services
     {
         public string ValidarDelecao(Banco banco);
         public List<Banco> GetBancos();
+        public List<Banco> GetBanco(int id);
     }
 }

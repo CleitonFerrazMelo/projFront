@@ -16,6 +16,12 @@ namespace projFront.Services
         {
             return _bancoRepository.GetBancos();
         }
+        public List<Banco> GetBanco(int id)
+        {
+            List<Banco> listaBanco = new List<Banco>();
+            listaBanco.Add( _bancoRepository.GetBanco(id));
+            return listaBanco;
+        }
 
         public string ValidarDelecao(Banco banco)
         {

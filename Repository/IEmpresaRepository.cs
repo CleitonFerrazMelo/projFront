@@ -9,5 +9,7 @@ namespace projFront.Repository
         public bool RelacionadoNotaFiscal(int idEmpresa);
 
         public List<Empresa> GetEmpresas();
+
+        public Empresa GetEmpresa(int id);
     }
 }

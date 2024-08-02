@@ -28,5 +28,13 @@ namespace projFront.Services
         {
             return _empresaRepository.GetEmpresas();
         }
+
+        public List<Empresa> GetEmpresa(int id)
+        {
+            var empresa = _empresaRepository.GetEmpresa(id);
+            List<Empresa> listEmpresa = new List<Empresa>();
+            listEmpresa.Add(empresa);
+            return listEmpresa;
+        }
     }
 }

@@ -47,7 +47,7 @@
                     
                     <div class="col-lg-3 mb-1">
                         <label class="text-label">Empresa <span class="text-danger"> * </span></label>
-                        <select class="custom-select mr-sm-2" id="empresa" onchange="selecionaEmpresa()" required>
+                        <select class="custom-select mr-sm-2" id="empresa" name="IdEmpresa" onchange="selecionaEmpresa()" required>
                             <option selected>Escolha a empresa</option>
                        @foreach (var empresa in Model.Empresa)
                         {
@@ -58,7 +58,7 @@
 
                     <div class="form-group col-auto col-sm-5">
                         <label asp-for="Nome" class="titulo" class="control-label"></label>
-                        <input asp-for="Nome" class="form-control" id="nomeEmpresa" name="nomeEmpresa" />
+                        <input asp-for="Nome" class="form-control" id="nome" name="nome" />
                         <span  class="text-danger"></span>
                     </div>
 
@@ -205,7 +205,7 @@
 
         console.log(empresaSelecionada);
 
-        document.getElementById('nomeEmpresa').value = empresaSelecionada.nome;
+        document.getElementById('nome').value = empresaSelecionada.nome;
         document.getElementById('ie').value = empresaSelecionada.ie;
         document.getElementById('telefone').value = empresaSelecionada.telefone;
         document.getElementById('cep').value = empresaSelecionada.cep;

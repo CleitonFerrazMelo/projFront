@@ -26,5 +26,10 @@ namespace projFront.Repository
         {
             return _repo.Bancos.ToList();
         }
+
+        public Banco GetBanco(int id)
+        {
+            return _repo.Bancos.Where(x => x.IdBanco == id).FirstOrDefault();
+        }
     }
 }

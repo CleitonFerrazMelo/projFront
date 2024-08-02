@@ -97,15 +97,49 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( NotaFiscalViewModel notaFiscalVM)
         {
-            
-            if (ModelState.IsValid)
-            {
-                NotaFiscal notaFiscal = _mapper.Map<NotaFiscal>(notaFiscalVM);
-                _context.Add(notaFiscal);
+            notaFiscalVM.Empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscalVM.IdEmpresa));
+            notaFiscalVM.Banco   = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
+
+                NotaFiscal notaFiscal = transformaNotafical(notaFiscalVM);
+               
+            _context.Add(notaFiscal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(notaFiscalVM);
+            
+            
+        }
+
+        private NotaFiscal transformaNotafical(NotaFiscalViewModel notaFiscalVM)
+        {
+            NotaFiscal notaFiscal = new NotaFiscal();
+            notaFiscal.Id = notaFiscalVM.Id;
+            notaFiscal.Nome = notaFiscalVM.Nome;
+            notaFiscal.Cnpj = notaFiscalVM.Cnpj;
+            notaFiscal.IncricaoEstadual = notaFiscalVM.Ie;
+            notaFiscal.Endereco = notaFiscalVM.Endereco;
+            notaFiscal.Numero = notaFiscalVM.Numero;
+            notaFiscal.Bairro = notaFiscalVM.Bairro;
+            notaFiscal.NomeCidade = notaFiscalVM.NomeCidade;
+            notaFiscal.Uf = notaFiscalVM.Uf;
+            notaFiscal.Cep = notaFiscalVM.Cep;
+            notaFiscal.NumeroTelefone = notaFiscalVM.NumeroTelefone;
+            notaFiscal.DescricaoServico = notaFiscalVM.DescricaoServico;
+            notaFiscal.ValorTotal = notaFiscalVM.ValorTotal;
+            notaFiscal.IdBanco = notaFiscalVM.IdBanco;
+            notaFiscal.Agencia = notaFiscalVM.Banco[0].Agencia;
+            notaFiscal.Conta = notaFiscalVM.Banco[0].TipoConta;
+            notaFiscal.PixChave = notaFiscalVM.Banco[0].PixChave;
+            notaFiscal.PixNumero = notaFiscalVM.Banco[0].PixNumero;
+            notaFiscal.IdEmpresa = Convert.ToInt32( notaFiscalVM.IdEmpresa);
+            notaFiscal.DataEmissao = notaFiscalVM.DataEmissao;
+            notaFiscal.FaturaSerie = notaFiscalVM.FaturaSerie;
+            notaFiscal.FaturaNumero = notaFiscalVM.FaturaNumero;
+            notaFiscal.MensagemFisco = notaFiscalVM.MensagemFisco;
+            notaFiscal.FaturaNumero = notaFiscal.FaturaNumero == null ? 0 : notaFiscal.FaturaNumero;
+            notaFiscal.FaturaSerie = notaFiscal.FaturaSerie == null ? "0" : notaFiscal.FaturaSerie;
+            notaFiscal.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "0" : notaFiscal.NumeroTelefone;
+
+            return notaFiscal;
         }
 
         // GET: NotaFiscals/Edit/5
@@ -222,12 +256,14 @@ namespace projFront.Controllers
 
         public async Task<ActionResult> ImprimePDF(int id)
         {
+
             if (id == null || _context.NotaFiscal == null)
             {
                 return NotFound();
             }
 
             var notaFiscal = await _context.NotaFiscal.FindAsync(id);
+            _notaFiscalServices.Imprimir(notaFiscal);
             if (notaFiscal == null)
             {
                 return NotFound();

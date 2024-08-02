@@ -7,5 +7,7 @@ namespace projFront.Services
         public string ValidarDelecao(Empresa empresa);
 
         public List<Empresa> GetEmpresas();
+
+        public List<Empresa> GetEmpresa(int id);
     }
 }

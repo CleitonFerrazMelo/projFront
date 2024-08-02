@@ -19,13 +19,11 @@ namespace projFront.Models
         public string DescricaoServico { get; set; }
         public decimal ValorTotal { get; set; }
         public int IdBanco { get; set; }
-        public virtual Banco Banco { get; set; }
         public string Agencia { get; set; }
         public string Conta { get; set; }
         public string PixChave { get; set; }
         public string PixNumero { get; set; }
         public int IdEmpresa { get; set; }
-        public virtual Empresa Empresa { get; set; }
         public DateTime? DataEmissao { get; set; }
         public string FaturaSerie { get; set; }
         public int FaturaNumero { get; set; }

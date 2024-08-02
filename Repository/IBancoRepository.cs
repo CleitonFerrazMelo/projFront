@@ -9,5 +9,6 @@ namespace projFront.Repository
         public bool RelacionadoNotaFiscal(int id);
 
         public List<Banco> GetBancos();
+        public Banco GetBanco(int id);
     }
 }
