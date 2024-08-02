@@ -4,7 +4,7 @@ namespace projFront.ViewModels
 {
     public class BancoViewModel
     {
-        public int Id { get; set; }
+        public int IdBanco { get; set; }
 
         [Display(Name = "Nome do Banco")]
         [Required(ErrorMessage = "Informe nome Banco!")]

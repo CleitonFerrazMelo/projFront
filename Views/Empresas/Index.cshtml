@@ -16,6 +16,9 @@
             <th></th>
             <th></th>
             <th>
+                @Html.DisplayNameFor(model => model.IdEmpresa)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Nome)
             </th>
             <th>
@@ -55,14 +58,17 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
+                    <a asp-action="Edit" asp-route-id="@item.IdEmpresa"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
             </td>
             <td>
-                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                    <a asp-action="Details" asp-route-id="@item.IdEmpresa"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
             </td>
             <td>
-                    <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                    <a asp-action="Delete" asp-route-id="@item.IdEmpresa"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
             </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdEmpresa)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Nome)
             </td>

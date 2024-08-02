@@ -4,7 +4,7 @@ namespace projFront.ViewModels
 {
     public class EmpresaViewModel
     {
-        public int Id { get; set; }
+        public int IdEmpresa { get; set; }
         
         [Display(Name = "Nome")]
         [Required(ErrorMessage = "Informe nome Empresa!")]

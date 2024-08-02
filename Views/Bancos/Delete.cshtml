@@ -13,7 +13,7 @@
     <div class="col-md-10">
         <div class="row gy-2 gx-3 align-items-center">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="IdBanco" />
             <div class="col-auto col-sm-8">
                 <label asp-for="Nome" class="control-label"></label>
                 <input asp-for="Nome" class="form-control" disabled />
@@ -46,7 +46,7 @@
             </div>
 
             <form asp-action="Delete">
-                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="IdBanco" />
                 <input type="submit" value="Deletar" class="btn btn-danger" />
                 <a asp-action="Index" class="btn btn-warning">Voltar</a>
             </form>
