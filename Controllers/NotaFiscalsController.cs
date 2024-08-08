@@ -106,7 +106,6 @@ namespace projFront.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             
-            
         }
 
         private NotaFiscal transformaNotafical(NotaFiscalViewModel notaFiscalVM)
@@ -142,20 +141,60 @@ namespace projFront.Controllers
             return notaFiscal;
         }
 
+        private NotaFiscalViewModel transformaNotaficalVM(NotaFiscal notaFiscal)
+        {
+            NotaFiscalViewModel notaFiscalVM = new NotaFiscalViewModel();
+            notaFiscalVM.Id = notaFiscal.Id;
+            notaFiscalVM.Nome = notaFiscal.Nome;
+            notaFiscalVM.Cnpj = notaFiscal.Cnpj;
+            notaFiscalVM.Ie = notaFiscal.IncricaoEstadual;
+            notaFiscalVM.Endereco = notaFiscal.Endereco;
+            notaFiscalVM.Numero = notaFiscal.Numero;
+            notaFiscalVM.Bairro = notaFiscal.Bairro;
+            notaFiscalVM.NomeCidade = notaFiscal.NomeCidade;
+            notaFiscalVM.Uf = notaFiscal.Uf;
+            notaFiscalVM.Cep = notaFiscal.Cep;
+            notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone;
+            notaFiscalVM.DescricaoServico = notaFiscal.DescricaoServico;
+            notaFiscalVM.ValorTotal = notaFiscal.ValorTotal;
+            notaFiscalVM.IdBanco = notaFiscal.IdBanco;
+
+            var empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
+            var banco = _bancoServices.GetBanco(notaFiscal.IdBanco);
+            notaFiscalVM.Empresa = empresa;
+            notaFiscalVM.Banco = banco;
+            notaFiscalVM.Agencia = banco[0].Agencia;
+            notaFiscalVM.Conta = banco[0].TipoConta;
+            notaFiscalVM.PixChave = banco[0].PixChave;
+            notaFiscalVM.PixNumero = banco[0].PixNumero;
+            notaFiscalVM.IdEmpresa = Convert.ToString(notaFiscal.IdEmpresa);
+            notaFiscalVM.DataEmissao = notaFiscal.DataEmissao;
+            notaFiscalVM.FaturaSerie = notaFiscal.FaturaSerie;
+            notaFiscalVM.FaturaNumero = notaFiscal.FaturaNumero;
+            notaFiscalVM.MensagemFisco = notaFiscal.MensagemFisco;
+            notaFiscalVM.FaturaNumero = notaFiscal.FaturaNumero == null ? 0 : notaFiscal.FaturaNumero;
+            notaFiscalVM.FaturaSerie = notaFiscal.FaturaSerie == null ? "0" : notaFiscal.FaturaSerie;
+            notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "0" : notaFiscal.NumeroTelefone;
+
+            return notaFiscalVM;
+        }
+
         // GET: NotaFiscals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
             if (id == null || _context.NotaFiscal == null)
             {
                 return NotFound();
             }
 
             var notaFiscal = await _context.NotaFiscal.FindAsync(id);
+            
             if (notaFiscal == null)
             {
                 return NotFound();
             }
-            NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            NotaFiscalViewModel notaFiscalVM = transformaNotaficalVM(notaFiscal);
             return View(notaFiscalVM);
         }
 

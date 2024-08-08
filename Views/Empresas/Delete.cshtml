@@ -22,10 +22,15 @@
                     <div class="row gy-2 gx-3 align-items-center">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <input type="hidden" asp-for="IdEmpresa" />
-                        <div class="form-group col-auto col-sm-10">
+                        <div class="form-group col-auto col-sm-8">
                             <label asp-for="Nome" class="control-label"></label>
                             <input asp-for="Nome" class="form-control"  disabled />
                             <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-auto col-sm-2">
+                            <label asp-for="Telefone" class="control-label"></label>
+                            <input asp-for="Telefone" class="form-control" disabled />
+                            <span asp-validation-for="Telefone" class="text-danger"></span>
                         </div>
                         <div class="form-group col-auto col-sm-5">
                             <label asp-for="Cnpj" class="control-label"></label>
@@ -47,7 +52,7 @@
                             <input asp-for="Numero" class="form-control"  disabled />
                             <span asp-validation-for="Numero" class="text-danger"></span>
                         </div>
-                        <div class="form-group col-sm-5">
+                        <div class="form-group col-sm-3">
                             <label asp-for="Bairro" class="control-label"></label>
                             <input asp-for="Bairro" class="form-control"  disabled />
                             <span asp-validation-for="Bairro" class="text-danger"></span>
@@ -55,6 +60,11 @@
                         <div class="form-group col-sm-5">
                             <label asp-for="NomeCidade" class="control-label"></label>
                             <input asp-for="NomeCidade" class="form-control"  disabled />
+                            <span asp-validation-for="NomeCidade" class="text-danger"></span>
+                        </div>
+                        <div class="col-auto col-sm-2">
+                            <label asp-for="UF" class="control-label"></label>
+                            <input asp-for="UF" class="form-control" disabled />
                             <span asp-validation-for="NomeCidade" class="text-danger"></span>
                         </div>
                         <div class="form-group col-sm-4">

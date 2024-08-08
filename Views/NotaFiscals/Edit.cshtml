@@ -25,6 +25,10 @@
     }
 </style>
 
+<script>
+    var viewModel = @Html.Raw(Json.Serialize(Model));
+</script>
+
 <div class="card">
     <div class="card-header">
     </div>
@@ -115,10 +119,11 @@
 
                 <hr />
 
+                
                 <div class="form-group col-auto col-sm-2">
-                    <label asp-for="Banco" class="control-label titulo"></label>
-                    <input asp-for="Banco" class="form-control" />
-                    
+                    <label asp-for="Banco" class="control-label"></label>
+                    <input asp-for="Banco[0].Nome" class="form-control"  />
+
                 </div>
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Agencia" class="control-label"></label>

@@ -112,15 +112,16 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Agencia,TipoConta,NumeroConta,PixChave,PixNumero")] Banco banco)
+        public async Task<IActionResult> Edit(int id, BancoViewModel bancoVM)
         {
-            if (id != banco.IdBanco)
+            if (id != bancoVM.IdBanco)
             {
                 return NotFound();
             }
 
             if (ModelState.IsValid)
             {
+                Banco banco = _mapper.Map<Banco>(bancoVM);
                 try
                 {
                     _context.Update(banco);
@@ -139,7 +140,7 @@ namespace projFront.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(banco);
+            return View(bancoVM);
         }
 
         // GET: Bancos/Delete/5
