@@ -159,8 +159,8 @@ namespace projFront.Controllers
             notaFiscalVM.ValorTotal = notaFiscal.ValorTotal;
             notaFiscalVM.IdBanco = notaFiscal.IdBanco;
 
-            var empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
-            var banco = _bancoServices.GetBanco(notaFiscal.IdBanco);
+            var empresa = _empresaServices.GetEmpresas(); // GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
+            var banco = _bancoServices.GetBancos(); // (notaFiscal.IdBanco);
             notaFiscalVM.Empresa = empresa;
             notaFiscalVM.Banco = banco;
             notaFiscalVM.Agencia = banco[0].Agencia;
@@ -182,19 +182,23 @@ namespace projFront.Controllers
         // GET: NotaFiscals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-
+            
             if (id == null || _context.NotaFiscal == null)
             {
                 return NotFound();
             }
 
             var notaFiscal = await _context.NotaFiscal.FindAsync(id);
-            
+
             if (notaFiscal == null)
             {
                 return NotFound();
             }
             NotaFiscalViewModel notaFiscalVM = transformaNotaficalVM(notaFiscal);
+
+            ViewBag.EmpresaSelecionada = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscalVM.IdEmpresa));
+            ViewBag.BancoSelecionado = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
+
             return View(notaFiscalVM);
         }
 

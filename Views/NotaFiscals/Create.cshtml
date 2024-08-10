@@ -25,6 +25,7 @@
 
 <script>
     var viewModel = @Html.Raw(Json.Serialize(Model));
+
 </script>
 
 <div class="card">
@@ -45,16 +46,7 @@
                     </div>
 
                     
-                    <div class="col-lg-3 mb-1">
-                        <label class="text-label">Empresa <span class="text-danger"> * </span></label>
-                        <select class="custom-select mr-sm-2" id="empresa" name="IdEmpresa" onchange="selecionaEmpresa()" required>
-                            <option selected>Escolha a empresa</option>
-                       @foreach (var empresa in Model.Empresa)
-                        {
-                            <option value="@empresa.IdEmpresa">   @empresa.Nome </option>
-                        }                
-                        </select>
-                    </div>
+                   
 
                     <div class="form-group col-auto col-sm-5">
                         <label asp-for="Nome" class="titulo" class="control-label"></label>
@@ -77,9 +69,9 @@
 
                 <div class="form-row">
 
-                    <div class="form-group col-auto col-sm-1">
+                    <div class="form-group col-auto col-sm-2">
                         <label asp-for="Cep" class="control-label titulo"></label>
-                        <input asp-for="Cep" class="form-control" id="cep" name="cep" />
+                        <input asp-for="Cep" class="form-control" id="cep" name="cep" onblur="ConsultaCEP(this.value)" />
                         <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-4">
@@ -136,7 +128,7 @@
                         }
                     </select>
                 </div>
-
+                <!-- Dados bancários -->
                 <div class="form-group col-auto col-sm-2">
                     <label asp-for="Agencia" class="control-label"></label>
                     <input asp-for="Agencia" class="form-control" id="agencia" name="agencia" disabled />
@@ -157,25 +149,36 @@
                     <input asp-for="PixNumero" class="form-control"  id="pixnumero" name="pixnumero" disabled/>
                     <span  class="text-danger"></span>
                 </div>
-                <fieldset disabled>
-                    <div class="form-row">
-                        <div class="form-group col-auto col-sm-2">
-                            <label asp-for="FaturaNumero" class="control-label"></label>
-                            <input asp-for="FaturaNumero" class="form-control" placeholder="000000" readonly />
-                            <span  class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-auto col-sm-2">
-                            <label asp-for="FaturaSerie" class="control-label"></label>
-                            <input asp-for="FaturaSerie" class="form-control" placeholder="000000" readonly />
-                            <span  class="text-danger"></span>
-                        </div>
-                        <div class="form-group col-auto col-sm-3">
-                            <label asp-for="DataEmissao" class="control-label"></label>
-                            <input asp-for="DataEmissao" class="form-control" />
-                            <span  class="text-danger"></span>
-                        </div>
+                <hr />
+                <!-- Dados da empresa de faturamento -->                 
+                    
+                <div class="form-row">
+                    <div class="col-lg-3 mb-1">
+                        <label class="text-label">Empresa <span class="text-danger"> * </span></label>
+                        <select class="custom-select mr-sm-2" id="empresa" name="IdEmpresa" onchange="selecionaEmpresa()" required>
+                            <option selected>Escolha a empresa</option>
+                            @foreach (var empresa in Model.Empresa)
+                            {
+                                <option value="@empresa.IdEmpresa">   @empresa.Nome </option>
+                            }
+                        </select>
                     </div>
-                </fieldset>
+                    <div class="form-group col-auto col-sm-2">
+                        <label asp-for="FaturaNumero" class="control-label"></label>
+                        <input asp-for="FaturaNumero" class="form-control" placeholder="000000" readonly disabled />
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-auto col-sm-2">
+                        <label asp-for="FaturaSerie" class="control-label"></label>
+                        <input asp-for="FaturaSerie" class="form-control" placeholder="000000" readonly disabled />
+                        <span class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-auto col-sm-3">
+                        <label asp-for="DataEmissao" class="control-label"></label>
+                        <input asp-for="DataEmissao" class="form-control" disabled />
+                        <span class="text-danger"></span>
+                    </div>
+                </div>
                 
                 <div class="form-group col-auto col-sm-10">
                     <label asp-for="MensagemFisco" class="control-label titulo"></label>
@@ -194,7 +197,7 @@
 <script>
     
 
-    function selecionaEmpresa()
+   /* function selecionaEmpresa()
     {
 
         var campoSelecao = document.getElementById('empresa');
@@ -215,7 +218,7 @@
         document.getElementById('nomeCidade').value = empresaSelecionada.nomeCidade;
         document.getElementById('UF').value = empresaSelecionada.uf;
 
-    }
+    }*/
 
     function selecionaBanco() 
     {
@@ -226,10 +229,6 @@
         
         var banco = bancoSelecionado;
 
-        console.log(banco);
-
-
-        
         document.getElementById('agencia').value = bancoSelecionado.agencia;
         document.getElementById('conta').value = bancoSelecionado.numeroConta;
         document.getElementById('pixchave').value = bancoSelecionado.pixChave;
@@ -237,6 +236,45 @@
         
     }
 
+    function ConsultaCEP(valor) {
+
+        console.log(valor)
+
+        urlBusca = "https://brasilapi.com.br/api/cep/v1/" + valor;
+
+        console.log(urlBusca)
+
+        // Criando um objeto XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Configurando a requisição (GET para buscar dados)
+        xhr.open('GET', urlBusca);
+
+        // Função para lidar com a resposta
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Requisição bem-sucedida
+                console.log(xhr.responseText); // Imprime a resposta no console
+
+                var endereco = xhr.responseText;
+                console.log(endereco);
+                document.getElementById('endereco').value = endereco.street;
+                
+                document.getElementById('bairro').value = endereco.neighborhood;
+                document.getElementById('nomeCidade').value = endereco.city;
+                document.getElementById('UF').value = endereco.state;
+            } else {
+                // Houve um erro
+                console.error('Erro na requisição:', xhr.statusText);
+            }
+        };
+
+        // Enviando a requisição
+        xhr.send();
+
+       
+    } 
+    
     
 
      
