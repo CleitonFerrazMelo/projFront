@@ -283,10 +283,11 @@ namespace projFront.Controllers
         // POST: NotaFiscals/RetornarUltimaNota/5
         [HttpPost, ActionName("RetornarUltimaNota")]
         [ValidateAntiForgeryToken]
-        public NotaFiscal? RetornarUltimaNota(string cnpj)
+        public NotaFiscalViewModel? RetornarUltimaNota(string cnpj)
         {            
-            var notaFiscal = _notaFiscalServices.RetornarUltimaNota(cnpj);            
-            return notaFiscal;
+            var notaFiscal = _notaFiscalServices.RetornarUltimaNota(cnpj);
+            NotaFiscalViewModel notaFiscalVM = transformaNotaficalVM(notaFiscal);
+            return notaFiscalVM;
         }
 
         // POST: NotaFiscals/Imprimir/5

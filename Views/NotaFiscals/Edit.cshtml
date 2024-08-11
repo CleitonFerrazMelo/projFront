@@ -74,7 +74,7 @@
 
                     <div class="form-group col-auto col-sm-1">
                         <label asp-for="Cep" class="control-label titulo"></label>
-                        <input asp-for="Cep" class="form-control" id="cep" name="cep" onchange="ConsultaCEP()" />
+                        <input asp-for="Cep" class="form-control" id="cep" name="cep" onblur="ConsultaCEP(this.value)" />
                         <span class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-4">
@@ -222,7 +222,44 @@
         document.getElementById('pixnumero').value = bancoSelecionado.pixNumero;
 
     }
-    </script>
+
+    function ConsultaCEP(valor) {
+
+        console.log(valor)
+
+        urlBusca = "https://brasilapi.com.br/api/cep/v1/" + valor;
+
+        console.log(urlBusca)
+
+        // Criando um objeto XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+
+        // Configurando a requisição (GET para buscar dados)
+        xhr.open('GET', urlBusca);
+
+        // Função para lidar com a resposta
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Requisição bem-sucedida
+
+                var dadosEndereco = xhr.responseText;
+                var dadosEnderecoJson = JSON.parse(dadosEndereco);
+
+                document.getElementById('endereco').value = dadosEnderecoJson.street;
+
+                document.getElementById('bairro').value = dadosEnderecoJson.neighborhood;
+                document.getElementById('nomeCidade').value = dadosEnderecoJson.city;
+                document.getElementById('UF').value = dadosEnderecoJson.state;
+            } else {
+                // Houve um erro
+                console.error('Erro na requisição:', xhr.statusText);
+            }
+        };
+
+        // Enviando a requisição
+        xhr.send();
+    }
+</script>
 
 
 

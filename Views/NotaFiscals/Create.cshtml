@@ -41,7 +41,7 @@
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="Cnpj" class="titulo"></label>
-                        <input asp-for="Cnpj" class="form-control " id="cnpj" name="cnpj" placeholder="00.000.000/0000-00" alt="Cnpj da empresa" />
+                        <input asp-for="Cnpj" class="form-control " id="cnpj" name="cnpj"  placeholder="00.000.000/0000-00" alt="Cnpj da empresa" />
                         <span  class="text-danger"></span>
                     </div>
 
@@ -69,7 +69,7 @@
 
                 <div class="form-row">
 
-                    <div class="form-group col-auto col-sm-2">
+                    <div class="form-group col-auto col-sm-1">
                         <label asp-for="Cep" class="control-label titulo"></label>
                         <input asp-for="Cep" class="form-control" id="cep" name="cep" onblur="ConsultaCEP(this.value)" />
                         <span  class="text-danger"></span>
@@ -254,15 +254,15 @@
         xhr.onload = function () {
             if (xhr.status === 200) {
                 // Requisição bem-sucedida
-                console.log(xhr.responseText); // Imprime a resposta no console
 
-                var endereco = xhr.responseText;
-                console.log(endereco);
-                document.getElementById('endereco').value = endereco.street;
+                var dadosEndereco = xhr.responseText;
+                var dadosEnderecoJson = JSON.parse(dadosEndereco);
+
+                document.getElementById('endereco').value = dadosEnderecoJson.street;
                 
-                document.getElementById('bairro').value = endereco.neighborhood;
-                document.getElementById('nomeCidade').value = endereco.city;
-                document.getElementById('UF').value = endereco.state;
+                document.getElementById('bairro').value = dadosEnderecoJson.neighborhood;
+                document.getElementById('nomeCidade').value = dadosEnderecoJson.city;
+                document.getElementById('UF').value = dadosEnderecoJson.state;
             } else {
                 // Houve um erro
                 console.error('Erro na requisição:', xhr.statusText);
@@ -271,13 +271,15 @@
 
         // Enviando a requisição
         xhr.send();
-
-       
     } 
     
-    
+    function RetornarUltimaNota()
+    {
 
-     
+    }
+
+
+
 
 </script>
 
