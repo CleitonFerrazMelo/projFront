@@ -365,13 +365,13 @@
                         <img class="client_logo" src="[url_logo]" alt="" onerror=" javascript:this.src='data:image/png;base64," />
                     </td>
                     <td rowspan="3" style="width: 46mm; font-size: 7pt;" class="txt-center">
-                        <span class="mb2 bold block">[ds_company_issuer_name]</span>
-                        <span class="block">[ds_company_address]</span>
+                        <span class="mb2 bold block"> @Model.Empresa[0].Nome </span>
+                        <span class="block"> @Model.Empresa[0].Endereco </span>
                         <span class="block">
-                            [ds_company_neighborhood] - [nu_company_cep]
+                            @Model.Empresa[0].Bairro - @Model.Empresa[0].Cep
                         </span>
                         <span class="block">
-                            [ds_company_city_name] - [ds_company_uf]- Fone: [nl_company_phone_number]
+                            @Model.Empresa[0].NomeCidade - @Model.Empresa[0].UF - Fone: @Model.Empresa[0].Telefone
                         </span>
                     </td>
                     <td rowspan="3" class="txtc txt-upper" style="width: 34mm; height: 29.5mm;">
@@ -467,11 +467,11 @@
                                 <tr>
                                     <td>
                                         <span class="nf-label">NOME/RAZÃO SOCIAL</span>
-                                        <span class="info">[ds_client_receiver_name]</span>
+                                        <span class="info"> @Model.Nome </span>
                                     </td>
                                     <td style="width: 40mm">
                                         <span class="nf-label">CNPJ/CPF</span>
-                                        <span class="info">[nl_client_cnpj_cpf]</span>
+                                        <span class="info">@Model.Cnpj</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -479,7 +479,7 @@
                     </td>
                     <td style="width: 22mm">
                         <span class="nf-label">DATA DE EMISSÃO</span>
-                        <span class="info">[dt_invoice_issue]</span>
+                        <span class="info"> @Model.DataEmissao </span>
                     </td>
                 </tr>
                 <tr>
@@ -489,15 +489,15 @@
                                 <tr>
                                     <td>
                                         <span class="nf-label">ENDEREÇO</span>
-                                        <span class="info">[ds_client_address]</span>
+                                        <span class="info"> @Model.Endereco </span>
                                     </td>
                                     <td style="width: 47mm;">
                                         <span class="nf-label">BAIRRO/DISTRITO</span>
-                                        <span class="info">[ds_client_neighborhood]</span>
+                                        <span class="info"> @Model.Bairro </span>
                                     </td>
                                     <td style="width: 37.2 mm">
                                         <span class="nf-label">CEP</span>
-                                        <span class="info">[nu_client_cep]</span>
+                                        <span class="info"> @Model.Cep </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -515,19 +515,19 @@
                                 <tr>
                                     <td>
                                         <span class="nf-label">MUNICÍPIO</span>
-                                        <span class="info">[ds_client_city_name]</span>
+                                        <span class="info"> @Model.NomeCidade </span>
                                     </td>
                                     <td style="width: 34mm">
                                         <span class="nf-label">UF</span>
-                                        <span class="info">[ds_client_uf]</span>
+                                        <span class="info"> @Model.Uf </span>
                                     </td>
                                     <td style="width: 28mm">
-                                        <span class="nf-label">FONE/FAX</span>
-                                        <span class="info">[nl_client_phone_number]</span>
+                                        <span class="nf-label">FONE</span>
+                                        <span class="info"> @Model.NumeroTelefone </span>
                                     </td>
                                     <td style="width: 51mm">
                                         <span class="nf-label">INSCRIÇÃO ESTADUAL</span>
-                                        <span class="info">[ds_client_ie]</span>
+                                        <span class="info"> @Model.Ie </span>
                                     </td>
                                 </tr>
                             </tbody>

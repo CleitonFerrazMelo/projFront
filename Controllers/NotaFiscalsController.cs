@@ -321,6 +321,7 @@ namespace projFront.Controllers
                 return NotFound();
             }
             NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+            notaFiscalVM.Empresa = _empresaServices.GetEmpresa(notaFiscal.IdEmpresa);
             return new ViewAsPdf("Impressao", notaFiscalVM) { FileName = "Test.pdf" };
         }
 
