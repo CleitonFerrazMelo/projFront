@@ -39,13 +39,15 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 }).AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>();
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 app.UseStaticFiles();
 
 app.UseRouting();
 
-
+app.UseCors(option => option.AllowCredentials());
 
 app.UseAuthentication();
 

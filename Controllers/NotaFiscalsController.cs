@@ -159,14 +159,23 @@ namespace projFront.Controllers
             notaFiscalVM.ValorTotal = notaFiscal.ValorTotal;
             notaFiscalVM.IdBanco = notaFiscal.IdBanco;
 
-            var empresa = _empresaServices.GetEmpresas(); // GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
-            var banco = _bancoServices.GetBancos(); // (notaFiscal.IdBanco);
-            notaFiscalVM.Empresa = empresa;
-            notaFiscalVM.Banco = banco;
-            notaFiscalVM.Agencia = banco[0].Agencia;
-            notaFiscalVM.Conta = banco[0].TipoConta;
-            notaFiscalVM.PixChave = banco[0].PixChave;
-            notaFiscalVM.PixNumero = banco[0].PixNumero;
+            var empresas = _empresaServices.GetEmpresas(); // GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
+            var bancos = _bancoServices.GetBancos(); // (notaFiscal.IdBanco);
+
+            var empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
+            var banco = _bancoServices.GetBanco(notaFiscal.IdBanco);
+
+            notaFiscalVM.Empresa = empresas;
+            notaFiscalVM.Banco = bancos;
+
+            if(banco != null)
+            {
+                notaFiscalVM.Agencia = banco[0].Agencia;
+                notaFiscalVM.Conta = banco[0].TipoConta;
+                notaFiscalVM.PixChave = banco[0].PixChave;
+                notaFiscalVM.PixNumero = banco[0].PixNumero;
+            }
+
             notaFiscalVM.IdEmpresa = Convert.ToString(notaFiscal.IdEmpresa);
             notaFiscalVM.DataEmissao = notaFiscal.DataEmissao;
             notaFiscalVM.FaturaSerie = notaFiscal.FaturaSerie;
@@ -281,9 +290,8 @@ namespace projFront.Controllers
         }
 
         // POST: NotaFiscals/RetornarUltimaNota/5
-        [HttpPost, ActionName("RetornarUltimaNota")]
-        [ValidateAntiForgeryToken]
-        public NotaFiscalViewModel? RetornarUltimaNota(string cnpj)
+        [HttpGet]
+        public NotaFiscalViewModel? RetornarUltimaNota( string cnpj)
         {            
             var notaFiscal = _notaFiscalServices.RetornarUltimaNota(cnpj);
             NotaFiscalViewModel notaFiscalVM = transformaNotaficalVM(notaFiscal);

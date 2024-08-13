@@ -37,16 +37,12 @@
                 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="Cnpj" class="titulo"></label>
-                        <input asp-for="Cnpj" class="form-control " id="cnpj" name="cnpj"  placeholder="00.000.000/0000-00" alt="Cnpj da empresa" />
+                        <input asp-for="Cnpj" class="form-control " id="cnpj" name="cnpj" onblur="RetornarUltimaNota(this.value)" placeholder="00.000.000/0000-00" alt="Cnpj da empresa" />
                         <span  class="text-danger"></span>
                     </div>
-
-                    
-                   
 
                     <div class="form-group col-auto col-sm-5">
                         <label asp-for="Nome" class="titulo" class="control-label"></label>
@@ -61,7 +57,7 @@
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="NumeroTelefone" class="titulo" class="control-label"></label>
-                        <input asp-for="NumeroTelefone" class="form-control" id="telefone" name="telefone" />
+                        <input asp-for="NumeroTelefone" class="form-control" id="numeroTelefone" name="numeroTelefone" />
                         <span  class="text-danger"></span>
                     </div>
                   
@@ -112,7 +108,7 @@
                 
                     <div class="form-group col-auto col-sm-10">
                         <label asp-for="DescricaoServico" class="control-label titulo"></label>
-                        <textarea asp-for="DescricaoServico" class="form-control" > </textarea>
+                        <textarea asp-for="DescricaoServico" class="form-control" id="descricaoServico" > </textarea>
                         <span  class="text-danger"></span>
                     </div>
                 </div>
@@ -165,24 +161,24 @@
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="FaturaNumero" class="control-label"></label>
-                        <input asp-for="FaturaNumero" class="form-control" placeholder="000000" readonly disabled />
+                        <input asp-for="FaturaNumero" class="form-control" id="faturaNumero" placeholder="000000" readonly disabled />
                         <span class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="FaturaSerie" class="control-label"></label>
-                        <input asp-for="FaturaSerie" class="form-control" placeholder="000000" readonly disabled />
+                        <input asp-for="FaturaSerie" class="form-control" id="faturaSerie" placeholder="000000" readonly disabled />
                         <span class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-3">
                         <label asp-for="DataEmissao" class="control-label"></label>
-                        <input asp-for="DataEmissao" class="form-control" disabled />
+                        <input asp-for="DataEmissao" id="dataEmissao" class="form-control" disabled />
                         <span class="text-danger"></span>
                     </div>
                 </div>
                 
                 <div class="form-group col-auto col-sm-10">
                     <label asp-for="MensagemFisco" class="control-label titulo"></label>
-                    <textarea asp-for="MensagemFisco" class="form-control" > </textarea>
+                    <textarea asp-for="MensagemFisco" id="mensagemFisco" class="form-control"> </textarea>
                     <span  class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -273,11 +269,89 @@
         xhr.send();
     } 
     
-    function RetornarUltimaNota()
+    function RetornarUltimaNota(cnpj)
     {
+        console.log("Acessou Retorna última nota");
+        console.log(cnpj);
 
-    }
+        urlBusca = "https://localhost:7066/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
+        console.log(urlBusca)
+        // Criando um objeto XMLHttpRequest
+        var xhr = new XMLHttpRequest();
+        
 
+        // Dados a serem enviados (exemplo em formato JSON)
+        var data = JSON.stringify({
+            cnpj: cnpj
+        });
+
+        console.log(data);
+
+        // Configurando a requisição (GET para buscar dados)
+        xhr.open('GET', urlBusca);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+
+        // Função para lidar com a resposta
+        xhr.onload = function () {
+
+            console.log("Retorno")
+            console.log(xhr.status)
+
+            if (xhr.status === 200) {
+                // Requisição bem-sucedida
+
+                var dadosEndereco = xhr.responseText;
+                var dadosEnderecoJson = JSON.parse(dadosEndereco);
+                console.log("dadosEndereco");
+                console.log(dadosEnderecoJson)
+
+                document.getElementById('nome').value = dadosEnderecoJson.nome;
+                document.getElementById('ie').value = dadosEnderecoJson.ie;
+                document.getElementById('numeroTelefone').value = dadosEnderecoJson.numeroTelefone;
+                document.getElementById('cep').value = dadosEnderecoJson.cep;
+
+                document.getElementById('endereco').value = dadosEnderecoJson.endereco;
+                document.getElementById('bairro').value = dadosEnderecoJson.bairro;
+                document.getElementById('nomeCidade').value = dadosEnderecoJson.nomeCidade;
+                document.getElementById('UF').value = dadosEnderecoJson.uf;
+                document.getElementById('numero').value = dadosEnderecoJson.numero;
+                
+
+                document.getElementById('descricaoServico').value = dadosEnderecoJson.descricaoServico;
+
+                document.getElementById('agencia').value = dadosEnderecoJson.agencia;
+                document.getElementById('conta').value = dadosEnderecoJson.conta;
+                document.getElementById('pixchave').value = dadosEnderecoJson.pixChave;
+                document.getElementById('pixnumero').value = dadosEnderecoJson.pixNumero;
+
+                document.getElementById('faturaNumero').value = dadosEnderecoJson.faturaNumero;
+                document.getElementById('faturaSerie').value = dadosEnderecoJson.faturaSerie;
+                document.getElementById('dataEmissao').value = dadosEnderecoJson.dataEmissao;
+
+                document.getElementById('mensagemFisco').value = dadosEnderecoJson.mensagemFisco;
+                
+
+                var campoSelecao = document.getElementById('empresa');
+                campoSelecao.value = dadosEnderecoJson.idEmpresa;
+
+                var campoSelecaoBanco = document.getElementById('banco');
+                campoSelecaoBanco.value = dadosEnderecoJson.idBanco;
+
+            } else {
+                // Houve um erro
+                console.error('Erro na requisição:', xhr.statusText);
+            }
+        };
+
+        console.log("Enviando");
+        console.log(data);
+        // Enviando a requisição
+        xhr.send(data);
+
+    } 
+
+
+    
 
 
 

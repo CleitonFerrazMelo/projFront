@@ -20,7 +20,7 @@ namespace projFront.Repository
 
         public NotaFiscal LocalizarUltima(string cnpj)
         {
-            NotaFiscal notaFiscal = _repo.NotaFiscal.Where(x => x.Cnpj == cnpj).First();
+            NotaFiscal notaFiscal = _repo.NotaFiscal.Where(x => x.Cnpj == cnpj).FirstOrDefault();
             if (notaFiscal == null)
                 notaFiscal= new NotaFiscal();
             return notaFiscal;
