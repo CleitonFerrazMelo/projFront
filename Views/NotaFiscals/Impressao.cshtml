@@ -329,6 +329,10 @@
         font-size: 8px !important;
         padding-top: 8px !important;
     }
+
+    .margin-top15{
+        margin-top: 10px;
+    }
 </style>
 <!-- /Header -->
 <!-- Recebimentos -->
@@ -336,14 +340,16 @@
     <img class="imgCanceled" src="tarja_nf_cancelada.png" alt="" />
     <img class="imgNull" src="tarja_nf_semvalidade.png" alt="" />
     <div class="boxFields" style="padding-top: 20px;">
-        <table cellpadding="0" cellspacing="0" border="1">
+        <table cellpadding="0" cellspacing="0" border="1" style="height: 18mm;">
             <tbody>
                 <tr>
                     <td colspan="2" class="txt-upper">
                         Recebemos de [ds_company_issuer_name] os produtos e serviços constantes na nota fiscal indicada ao lado
                     </td>
                     <td rowspan="2" class="tserie txt-center">
-                        <span>Nº [nl_invoice]</span>
+
+                        <span style="margin-bottom: 25px;"> Nº @Model.FaturaNumero</span>
+                        <span style=" display: flex; justify-content: space-between;">SÉRIEº @Model.FaturaSerie </span>
 
                     </td>
                 </tr>
@@ -396,9 +402,9 @@
                                 <span>[ds_invoice_serie]</span>
                             </span>
                             <span class="block">
-                                <span>Página</span>
+                                <span>Folha</span>
                                 <span>[actual_page]</span>
-                                <span>de</span>
+                                <span> / </span>
                                 <span>[total_pages]</span>
                             </span>
                         </p>
@@ -420,37 +426,21 @@
                 </tr>
             </tbody>
         </table>
-        <!-- Natureza da Operação -->
-        <table cellpadding="0" cellspacing="0" class="boxNaturezaOperacao no-top" border="1">
-            <tbody>
-                <tr>
-                    <td>
-                        <span class="nf-label">NATUREZA DA OPERAÇÃO</span>
-                        <span class="info">[_ds_transaction_nature]</span>
-                    </td>
-                    <td style="width: 84.7mm;">
-                        <span class="nf-label">[protocol_label]</span>
-                        <span class="info">[ds_protocol]</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
         <!-- Inscrição -->
         <table cellpadding="0" cellspacing="0" class="boxInscricao no-top" border="1">
             <tbody>
                 <tr>
                     <td>
-                        <span class="nf-label">INSCRIÇÃO ESTADUAL</span>
-                        <span class="info">[nl_company_ie]</span>
+                        <span class="nf-label">NATUREZA DE OPERAÇÃO</span>
+                        <span class="info">0</span>
                     </td>
                     <td style="width: 67.5mm;">
-                        <span class="nf-label">INSCRIÇÃO ESTADUAL DO SUBST. TRIB.</span>
-                        <span class="info">[nl_company_ie_st]</span>
+                        <span class="nf-label">CNPJ</span>
+                        <span class="info">@Model.Empresa[0].Cnpj</span>
                     </td>
                     <td style="width: 64.3mm">
-                        <span class="nf-label">CNPJ</span>
-                        <span class="info">[nl_company_cnpj_cpf]</span>
+                        <span class="nf-label">INSCRIÇÃO ESTADUAL</span>
+                        <span class="info"> @Model.Empresa[0].Ie</span>
                     </td>
                 </tr>
             </tbody>
@@ -462,16 +452,16 @@
             <tbody>
                 <tr>
                     <td class="pd-0">
-                        <table cellpadding="0" cellspacing="0" border="1">
-                            <tbody>
+                        <table cellpadding="0" cellspacing="0" border="1" style="height: 14mm;">
+                            <tbody >
                                 <tr>
                                     <td>
                                         <span class="nf-label">NOME/RAZÃO SOCIAL</span>
-                                        <span class="info"> @Model.Nome </span>
+                                        <span class="info margin-top15"> @Model.Nome </span>
                                     </td>
                                     <td style="width: 40mm">
                                         <span class="nf-label">CNPJ/CPF</span>
-                                        <span class="info">@Model.Cnpj</span>
+                                        <span class="info margin-top15">@Model.Cnpj</span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -479,7 +469,7 @@
                     </td>
                     <td style="width: 22mm">
                         <span class="nf-label">DATA DE EMISSÃO</span>
-                        <span class="info"> @Model.DataEmissao </span>
+                        <span class="info margin-top15"> @Model.DataEmissao </span>
                     </td>
                 </tr>
                 <tr>
@@ -549,7 +539,7 @@
                     <tr class="titles">
                         <th class="cod" style="width: 15.5mm">CÓDIGO</th>
                         <th class="descrit" style="width: 66.1mm">DESCRIÇÃO</th>
-                        <th class="ncmsh">NCM/SH</th>
+                        <th class="ncmsh"></th>
                         <th class="cst">CST</th>
                         <th class="cfop">CFOP</th>
                         <th class="un">UNID.</th>
@@ -561,22 +551,39 @@
                         <th class="valIpi">VALOR DO IPI</th>
                     </tr>
                 </thead>
-                <tbody>
-                <td class="cod" style="width: 15.5mm">CÓDIGO</td>
-                <td class="descrit" style="width: 66.1mm">DESCRIÇÃO</td>
-                <td class="ncmsh">NCM/SH</td>
-                <td class="cst">CST</td>
-                <td class="cfop">CFOP</td>
-                <td class="un">UNID.</td>
-                <td class="amount">QTDE.</td>
-                <td class="valUnit">VALOR UNITÁRIO</td>
-                <td class="valTotal">VALOR TOTAL</td>
-                <td class="bcIcms">ICMS</td>
-                <td class="valIcms">IPI</td>
-                <td class="valIpi">VALOR DO IPI</td>
-
+                <tbody >
+                <td class="cod" style="width: 15.5mm; height: 8mm;">CÓDIGO</td>
+                <td class="descrit" style="width: 66.1mm"> @Model.DescricaoServico </td>
+                <td class="ncmsh">/SH</td>
+                <td class="cst"></td>
+                <td class="cfop"></td>
+                <td class="un"></td>
+                <td class="amount">1</td>
+                <td class="valUnit"> @Model.ValorTotal </td>
+                <td class="valTotal">@Model.ValorTotal</td>
+                <td class="bcIcms"></td>
+                <td class="valIcms"></td>
+                <td class="valIpi"></td>
 
                 </tbody>
+
+                @for (int i = 0; i < 8; i++)
+                {
+                    <tbody>
+                    <td class="cod" style="width: 15.5mm; height: 8mm;"></td>
+                    <td class="descrit" style="width: 66.1mm">  </td>
+                    <td class="ncmsh"></td>
+                    <td class="cst"></td>
+                    <td class="cfop"></td>
+                    <td class="un"></td>
+                    <td class="amount"></td>
+                    <td class="valUnit"> </td>
+                    <td class="valTotal"></td>
+                    <td class="bcIcms"></td>
+                    <td class="valIcms"></td>
+                    <td class="valIpi"></td>
+                    </tbody>
+                }
             </table>
         </div>
 

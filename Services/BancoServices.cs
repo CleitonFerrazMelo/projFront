@@ -3,7 +3,7 @@ using projFront.Repository;
 
 namespace projFront.Services
 {
-    public class BancoServices: IBancoServices
+    public class BancoServices : IBancoServices
     {
         private readonly IBancoRepository _bancoRepository;
 
