@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -15,24 +16,28 @@ using projFront.ViewModels.Mappings;
 
 namespace projFront.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin,Operacao")]
     public class BancosController : Controller
     {
         private readonly AppDbContext _context;
         private readonly IBancoServices _bancoServices;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper)
+        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _bancoServices = bancoServices;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
 
         // GET: Bancos
         public async Task<IActionResult> Index()
         {
+            var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            ViewData["UsuarioLogado"] = usuarioLogado;
             ViewData["PaginaSelecionada"] = "Bancos";
 
             IEnumerable<BancoViewModel> listaBancoViewModel = null;
@@ -43,7 +48,7 @@ namespace projFront.Controllers
                 listaBancoViewModel = _mapper.Map<IEnumerable<BancoViewModel>>(listaBancos);
             }          
 
-            return View(listaBancoViewModel);
+            return View(listaBancoViewModel.Where(x => x.UserName == usuarioLogado));
         }
 
         // GET: Bancos/Details/5
@@ -68,6 +73,10 @@ namespace projFront.Controllers
         // GET: Bancos/Create
         public IActionResult Create()
         {
+            var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            
+            ViewData["usuarioLogado"] = usuarioLogado;
+
             return View();
         }
 

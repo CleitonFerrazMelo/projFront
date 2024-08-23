@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Criar Banco";
+    var usuarioLogado = @ViewData["usuarioLogado"];
 }
 
 <h1>Novo Banco</h1>
@@ -46,6 +47,10 @@
                     <span asp-validation-for="PixNumero" class="text-danger"></span>
                 </div>
 
+                <div class="col-auto col-sm-6">
+                    <input asp-for="UserName" value="@usuarioLogado" class="form-control" hidden />
+                    
+                </div>
             <div class="mt-80">
                 <input type="submit" value="Cadastrar Banco" class="btn btn-success" />
                 <a class="btn btn-warning" asp-action="Index">Voltar</a>

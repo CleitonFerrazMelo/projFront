@@ -29,5 +29,6 @@ namespace projFront.ViewModels
         [Display(Name = "Número do Pix")]
         [Required(ErrorMessage = "Informe número do PIX!")]
         public string PixNumero { get; set; }
+        public string UserName { get; set; }
     }
 }

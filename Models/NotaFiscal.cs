@@ -28,6 +28,7 @@ namespace projFront.Models
         public string FaturaSerie { get; set; }
         public int FaturaNumero { get; set; }
         public string MensagemFisco { get; set; }
+        public string UserName { get; set; }
     }
 }
 

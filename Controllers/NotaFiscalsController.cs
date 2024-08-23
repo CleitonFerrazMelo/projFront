@@ -100,7 +100,7 @@ namespace projFront.Controllers
             notaFiscalVM.Empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscalVM.IdEmpresa));
             notaFiscalVM.Banco   = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
 
-                NotaFiscal notaFiscal = transformaNotafical(notaFiscalVM);
+            NotaFiscal notaFiscal = transformaNotafical(notaFiscalVM);
                
             _context.Add(notaFiscal);
                 await _context.SaveChangesAsync();
