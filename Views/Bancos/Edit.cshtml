@@ -58,6 +58,36 @@
         </div>
     </div>
 </div>
-@section Scripts {
+
+
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <h1> Não Selecionados </h1>
+
+                <select name="ListaUsuariosNaoRelacionados" style="height: 200px; width: 400px;" class="form-select form-select-lg" id="ListaUsuariosNaoRelacionados" multiple>
+                    @foreach (var item in Model.ListaUsuariosNaoRelacionados)
+                    {
+                        <option asp-for="ListaUsuariosNaoRelacionados" value="@item">@item.UserName</option>
+                    }
+                </select>
+
+            </div>
+            <div class="col">
+                <button class="btn btn-warning" id="btnAdicionar">Adicionar</button>
+                <button class="btn btn-warning" id="btnRemover">Remover</button>
+            </div>
+            <div class="col">
+                <h1>  Selecionados </h1>
+                <select name="ListaUsuariosRelacionados" style="height: 200px; width: 400px;" class="form-select form-select-lg" id="ListaUsuariosRelacionados" multiple>
+                    @foreach (var item in Model.ListaUsuariosRelacionados)
+                    {
+                        <option asp-for="ListaUsuarioRelacionados" value="@item">@item.UserName</option>
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+    @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

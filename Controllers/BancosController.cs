@@ -151,7 +151,19 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
+
+            List<IdentityUser> listaUsuariosRelacionadosPorBanco = _IUsuarioRepository.BuscarUserPorBanco(banco.IdBanco);
+            List<IdentityUser> listaUsuarioNaoRelacionadosPorBanco = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
+
+            foreach (var usuarioRelacionado in listaUsuariosRelacionadosPorBanco)
+            {
+                listaUsuarioNaoRelacionadosPorBanco.Remove(usuarioRelacionado);
+            }
+
             var bancoViewModel = _mapper.Map<BancoViewModel>(banco);
+
+            bancoViewModel.ListaUsuariosRelacionados = listaUsuariosRelacionadosPorBanco;
+            bancoViewModel.ListaUsuariosNaoRelacionados = listaUsuarioNaoRelacionadosPorBanco;
 
             return View(bancoViewModel);
         }

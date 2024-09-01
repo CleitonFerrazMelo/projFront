@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.Sqlite;
 using projFront.Data;
 using projFront.Models;
 using System.Data.SQLite;
