@@ -14,7 +14,7 @@ using projFront.ViewModels;
 
 namespace projFront.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class EmpresasController : Controller
     {
         private readonly AppDbContext _context;

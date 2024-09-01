@@ -17,7 +17,7 @@ using Rotativa.AspNetCore;
 
 namespace projFront.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class NotaFiscalsController : Controller
     {
         private readonly AppDbContext _context;

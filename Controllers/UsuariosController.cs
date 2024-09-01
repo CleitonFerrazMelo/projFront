@@ -9,12 +9,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
+using projFront.Repository;
 using projFront.Services;
 using projFront.ViewModels;
 
 namespace projFront.Controllers
 {
-    [Authorize(Roles = "admin")]
+    [Authorize(Roles = "Admin")]
     public class UsuariosController : Controller
     {
         private readonly AppDbContext _context;
@@ -30,12 +31,14 @@ namespace projFront.Controllers
 
 
         // GET: Usuarios
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             ViewData["PaginaSelecionada"] = "Usuarios";
 
+            var listaUsuarioVM = _usuarioServices.ListarTodosUsuarios();
+
             return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
+                          View(_usuarioServices.ListarTodosUsuarios()) :
                           Problem("Entity set 'AppDbContext.Usuarios'  is null.");
         }
 

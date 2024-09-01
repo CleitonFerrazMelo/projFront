@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using projFront.Data;
 using projFront.Models;
+using System.Collections.Generic;
 using System.Data.SQLite;
 
 namespace projFront.Repository
@@ -83,6 +84,13 @@ namespace projFront.Repository
             var sqliteConnection = new SQLiteConnection("Data Source=baseTeste.db; ");
             sqliteConnection.Open();
             return sqliteConnection;
+        }
+
+        public List<UsuarioRegra> BuscarRegraPorUsuario(IdentityUser nomeUsuario)
+        {
+            List<UsuarioRegra> listaUsuarioRegra = new List<UsuarioRegra>();
+            var regra = _userManager.GetRolesAsync(nomeUsuario);
+            return listaUsuarioRegra;
         }
     }
 }
