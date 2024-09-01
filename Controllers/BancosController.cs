@@ -48,6 +48,8 @@ namespace projFront.Controllers
             ViewData["PaginaSelecionada"] = "Bancos";
 
             IEnumerable<BancoViewModel> listaBancoViewModel = null;
+            List<Banco> listaBancoPorUsuario = null;
+            IEnumerable<BancoViewModel> listaBancoPorUsuarioVM = null;
 
             if (_context.Bancos != null)
             {
@@ -56,10 +58,10 @@ namespace projFront.Controllers
             }
             IdentityUser dadosUsuario = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
-            _bancoServices.ListaBancosPorUsuario(dadosUsuario.Id);
+            listaBancoPorUsuario = _bancoServices.ListaBancosPorUsuario(dadosUsuario.Id);
+            listaBancoPorUsuarioVM = _mapper.Map<IEnumerable<BancoViewModel>>(listaBancoPorUsuario);
 
-
-            return View(listaBancoViewModel);
+            return View(listaBancoPorUsuarioVM);
         }
 
         // GET: Bancos/Details/5
