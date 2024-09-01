@@ -40,5 +40,15 @@ namespace projFront.Services
 
             return mensagem;
         }
+
+        public void ValidaIncluiUsuario(List<string> listIdUsuario, int idBanco)
+        {
+            _bancoRepository.ValidaIncluiUsuario(listIdUsuario, idBanco);
+        }
+
+        public List<Banco> ListaBancosPorUsuario(string idUsuario)
+        {
+            return _bancoRepository.ListaBancosPorUsuario(idUsuario);
+        }
     }
 }

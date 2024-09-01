@@ -5,31 +5,36 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
+using projFront.Migrations;
 using projFront.Models;
+using projFront.Repository;
 using projFront.Services;
 using projFront.ViewModels;
 using projFront.ViewModels.Mappings;
 
 namespace projFront.Controllers
 {
-    [Authorize(Roles = "admin,Operacao")]
+    [Authorize(Roles = "Admin,Operador")]
     public class BancosController : Controller
     {
         private readonly AppDbContext _context;
         private readonly IBancoServices _bancoServices;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IUsuarioRepository _IUsuarioRepository;
 
-        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor, IUsuarioRepository iUsuarioRepository)
         {
             _context = context;
             _bancoServices = bancoServices;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _IUsuarioRepository = iUsuarioRepository;
         }
 
 
@@ -37,6 +42,8 @@ namespace projFront.Controllers
         public async Task<IActionResult> Index()
         {
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            //var listaUsuarios = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
+
             ViewData["UsuarioLogado"] = usuarioLogado;
             ViewData["PaginaSelecionada"] = "Bancos";
 
@@ -46,9 +53,13 @@ namespace projFront.Controllers
             {
                 var listaBancos = await _context.Bancos.ToListAsync();
                 listaBancoViewModel = _mapper.Map<IEnumerable<BancoViewModel>>(listaBancos);
-            }          
+            }
+            IdentityUser dadosUsuario = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
-            return View(listaBancoViewModel.Where(x => x.UserName == usuarioLogado));
+            _bancoServices.ListaBancosPorUsuario(dadosUsuario.Id);
+
+
+            return View(listaBancoViewModel);
         }
 
         // GET: Bancos/Details/5
@@ -74,28 +85,55 @@ namespace projFront.Controllers
         public IActionResult Create()
         {
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
-            
+            var listaUsuarios = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
             ViewData["usuarioLogado"] = usuarioLogado;
+            BancoViewModel bancoViewModel = new BancoViewModel();
+            bancoViewModel.ListaUsuariosNaoRelacionados.AddRange(listaUsuarios);
 
-            return View();
+            return View(bancoViewModel);
         }
 
         // POST: Bancos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( BancoViewModel bancoVM)
+        public IActionResult Create(BancoViewModel bancoVM)
         {
             if (ModelState.IsValid)
             {
                 Banco banco = _mapper.Map<Banco>(bancoVM);
                 _context.Add(banco);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
+
+                Banco bancoSalvo = _context.Bancos.FirstOrDefault(b => b.Nome == banco.Nome 
+                                                                    && b.PixNumero == banco.PixNumero
+                                                                    && b.Agencia == banco.Agencia
+                                                                    && b.TipoConta == banco.TipoConta
+                                                                    && b.NumeroConta == banco.NumeroConta
+                                                                    && b.PixChave == banco.PixChave);
+                
+                int idBanco = bancoSalvo.IdBanco;
+
+                List<string> listaUsuariosId = new List<string>();
+
+                foreach (var usuario in bancoVM.ListaUsuariosRelacionados)
+                {
+                    var usuarios = _IUsuarioRepository.BuscarUserPorEmail(usuario.Email);
+
+                    listaUsuariosId.Add(usuarios.Id);
+                }
+
+                ValidaIncluiUsuario(listaUsuariosId, idBanco);
+
                 return RedirectToAction(nameof(Index));
             }
             
             return View(bancoVM);
+        }
+
+        private void ValidaIncluiUsuario(List<string> listIdUsuario, int idBanco)
+        {
+            _bancoServices.ValidaIncluiUsuario(listIdUsuario, idBanco);
         }
 
         // GET: Bancos/Edit/5

@@ -12,7 +12,6 @@ namespace projFront.Models
         public string NumeroConta { get; set; }
         public string PixChave { get; set; }
         public string PixNumero { get; set; }
-        public string UserName { get; set; }
     }
 }
 

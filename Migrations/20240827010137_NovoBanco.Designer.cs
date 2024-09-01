@@ -11,8 +11,8 @@ using projFront.Data;
 namespace projFront.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240801223426_CriandoTelefoneEmpresa")]
-    partial class CriandoTelefoneEmpresa
+    [Migration("20240827010137_NovoBanco")]
+    partial class NovoBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -245,6 +245,10 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.HasKey("IdBanco");
 
                     b.ToTable("Bancos");
@@ -326,9 +330,6 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("BancoIdBanco")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Cep")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -347,9 +348,6 @@ namespace projFront.Migrations
                     b.Property<string>("DescricaoServico")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("EmpresaIdEmpresa")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Endereco")
                         .IsRequired()
@@ -404,14 +402,14 @@ namespace projFront.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("ValorTotal")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BancoIdBanco");
-
-                    b.HasIndex("EmpresaIdEmpresa");
 
                     b.ToTable("NotaFiscal");
                 });
@@ -484,25 +482,6 @@ namespace projFront.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("projFront.Models.NotaFiscal", b =>
-                {
-                    b.HasOne("projFront.Models.Banco", "Banco")
-                        .WithMany()
-                        .HasForeignKey("BancoIdBanco")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("projFront.Models.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("EmpresaIdEmpresa")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Banco");
-
-                    b.Navigation("Empresa");
                 });
 #pragma warning restore 612, 618
         }

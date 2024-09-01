@@ -11,8 +11,8 @@ using projFront.Data;
 namespace projFront.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240823001235_usuariobancoEnota")]
-    partial class usuariobancoEnota
+    [Migration("20240828011201_RetirarUserNameDoBanco")]
+    partial class RetirarUserNameDoBanco
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -242,10 +242,6 @@ namespace projFront.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TipoConta")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
