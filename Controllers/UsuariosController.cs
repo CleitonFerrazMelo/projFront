@@ -84,14 +84,14 @@ namespace projFront.Controllers
         }
 
         // GET: Usuarios/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null || _context.Usuarios == null)
             {
                 return NotFound();
             }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
+            UsuarioViewModel usuario = _usuarioServices.BuscarUsuarioPorID(Convert.ToString(id));
             if (usuario == null)
             {
                 return NotFound();

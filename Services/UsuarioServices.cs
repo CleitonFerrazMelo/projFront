@@ -14,6 +14,18 @@ namespace projFront.Services
             _usuarioRepository = usuarioRepository;
         }
 
+        public UsuarioViewModel BuscarUsuarioPorID(string id)
+        {
+            IdentityUser usuario = _usuarioRepository.BuscarUsuarioPorID(id);
+            Regra regra = _usuarioRepository.BuscarRegraPorUsuario(usuario);
+            UsuarioViewModel usuarioVM = new UsuarioViewModel();
+            usuarioVM.Id = usuario.Id;
+            usuarioVM.UserName = usuario.UserName;
+            usuarioVM.Direito = regra.Nome;
+
+            return usuarioVM;
+        }
+
         public List<UsuarioViewModel> ListarTodosUsuarios()
         {
             List<IdentityUser> listaUsuarios = _usuarioRepository.ListarTodosOsUsuariosAsync();

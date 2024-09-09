@@ -2,6 +2,7 @@
 using projFront.Data;
 using projFront.Models;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.SQLite;
 
 namespace projFront.Repository
@@ -86,11 +87,22 @@ namespace projFront.Repository
             return sqliteConnection;
         }
 
-        public List<UsuarioRegra> BuscarRegraPorUsuario(IdentityUser nomeUsuario)
+        public Regra BuscarRegraPorUsuario(IdentityUser nomeUsuario)
         {
             List<UsuarioRegra> listaUsuarioRegra = new List<UsuarioRegra>();
             var regra = _userManager.GetRolesAsync(nomeUsuario);
-            return listaUsuarioRegra;
+            Regra regraModel = new Regra();
+            foreach (var item in regra.Result)
+            {
+                regraModel.Nome = item;
+            }
+            
+            return regraModel;
+        }
+        
+        public IdentityUser BuscarUsuarioPorID(string id)
+        {
+            return _userManager.Users.FirstOrDefault(x => x.Id == id);
         }
     }
 }

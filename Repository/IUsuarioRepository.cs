@@ -9,6 +9,7 @@ namespace projFront.Repository
         public List<IdentityUser> ListarTodosOsUsuariosAsync();
         public IdentityUser BuscarUserPorEmail(string email);
         public List<IdentityUser> BuscarUserPorBanco(int IdBanco);
-        public List<UsuarioRegra> BuscarRegraPorUsuario(IdentityUser nomeUsuario);
+        public Regra BuscarRegraPorUsuario(IdentityUser nomeUsuario);
+        public IdentityUser BuscarUsuarioPorID(string id);
     }
 }

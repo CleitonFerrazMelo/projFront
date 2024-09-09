@@ -1,4 +1,5 @@
-﻿using projFront.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using projFront.Models;
 using projFront.ViewModels;
 
 namespace projFront.Services
@@ -7,6 +8,8 @@ namespace projFront.Services
     {
         public string ValidarDelecao(Usuario usuario);
         public List<UsuarioViewModel> ListarTodosUsuarios();
-        
+        public UsuarioViewModel BuscarUsuarioPorID(string id);
+
+
     }
 }
