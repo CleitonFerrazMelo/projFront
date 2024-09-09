@@ -35,8 +35,10 @@
           </div>
           <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
           <hr class="my-4">
-          <small class="text-body-secondary">By clicking Sign up, you agree to the terms of use.</small>
-                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
+                    <small class="text-body-secondary">Ao clicar em Cadastrar, você concorda com os termos de uso.</small>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
+                        Registre-se como um novo usuário
+                    </a>
         </form>
       </div>
     </div>
