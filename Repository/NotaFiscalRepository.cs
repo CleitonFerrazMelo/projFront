@@ -1,15 +1,19 @@
-﻿using projFront.Data;
+﻿using Microsoft.AspNetCore.Identity;
+using projFront.Data;
 using projFront.Models;
+using System.Collections.ObjectModel;
 
 namespace projFront.Repository
 {
     public class NotaFiscalRepository : INotaFiscalRepository
     {
         public readonly AppDbContext _repo;
+        public readonly UserManager<IdentityUser> _userManager;
 
-        public NotaFiscalRepository(AppDbContext repo)
+        public NotaFiscalRepository(AppDbContext repo, UserManager<IdentityUser> userManager)
         {
             _repo = repo;
+            _userManager = userManager;
         }
 
         public void Deletar(NotaFiscal notaFiscal)
@@ -32,6 +36,13 @@ namespace projFront.Repository
             if (empresa == null)
                 empresa = new Empresa();
             return empresa;
+        }
+        public List<NotaFiscal> RetornaListaNotaFiscal(string email)
+        {
+            List<NotaFiscal> listaNotaFiscal = _repo.NotaFiscal.Where(x => x.UserName == email).ToList();
+            if (listaNotaFiscal == null)
+                listaNotaFiscal = new List<NotaFiscal>();
+            return listaNotaFiscal;
         }
 
         public void AtualizarUltimoNumeroEmpresa(Empresa empresa)

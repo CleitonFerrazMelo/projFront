@@ -8,6 +8,8 @@ namespace projFront.Services
 
         public NotaFiscal RetornarUltimaNota(string cnpj);
 
+        public List<NotaFiscal> RetornaListaNotaFiscal(string email);
+
         public string Imprimir(NotaFiscal notaFiscal);
     }
 }

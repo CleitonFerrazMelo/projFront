@@ -39,8 +39,9 @@ namespace projFront.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["PaginaSelecionada"] = "NotaFiscal";
-
+            
             IEnumerable<NotaFiscalViewModel> listaNotaFiscalViewModel = null;
+            //_notaFiscalServices.RetornaListaNotaFiscal()
 
             if (_context.Empresas != null)
             {

@@ -36,6 +36,12 @@ namespace projFront.Services
             return notaFiscal;
         }
 
+        public List<NotaFiscal> RetornaListaNotaFiscal(string email)
+        {
+            List<NotaFiscal> listaNotaFiscal = _notaFiscalRepository.RetornaListaNotaFiscal(email);
+            return listaNotaFiscal;
+        }
+
         public string Imprimir(NotaFiscal notaFiscal)
         {
             string mensagem = string.Empty;
