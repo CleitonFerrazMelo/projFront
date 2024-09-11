@@ -65,5 +65,6 @@ namespace projFront.ViewModels
 
         [Display(Name = "Mensagem do Fisco")]
         public string MensagemFisco { get; set; }
+        public string UserName { get; set; }
     }
 }

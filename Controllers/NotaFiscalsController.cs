@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using AutoMapper;
@@ -25,14 +26,16 @@ namespace projFront.Controllers
         private readonly IEmpresaServices _empresaServices;
         private readonly IBancoServices _bancoServices;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper, IEmpresaServices empresaServices, IBancoServices bancoServices)
+        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper, IEmpresaServices empresaServices, IBancoServices bancoServices, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             _notaFiscalServices = notaFiscalServices;
             _mapper = mapper;
             _empresaServices = empresaServices;
             _bancoServices = bancoServices;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         // GET: NotaFiscals
@@ -100,6 +103,7 @@ namespace projFront.Controllers
         {
             notaFiscalVM.Empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscalVM.IdEmpresa));
             notaFiscalVM.Banco   = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
+            notaFiscalVM.UserName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
             NotaFiscal notaFiscal = transformaNotafical(notaFiscalVM);
                
@@ -138,7 +142,7 @@ namespace projFront.Controllers
             notaFiscal.FaturaNumero = notaFiscal.FaturaNumero == null ? 0 : notaFiscal.FaturaNumero;
             notaFiscal.FaturaSerie = notaFiscal.FaturaSerie == null ? "0" : notaFiscal.FaturaSerie;
             notaFiscal.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "0" : notaFiscal.NumeroTelefone;
-
+            notaFiscal.UserName = notaFiscalVM.UserName;
             return notaFiscal;
         }
 
