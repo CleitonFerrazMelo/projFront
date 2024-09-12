@@ -9,7 +9,8 @@ namespace projFront.Services
         public string ValidarDelecao(Usuario usuario);
         public List<UsuarioViewModel> ListarTodosUsuarios();
         public UsuarioViewModel BuscarUsuarioPorID(string id);
-
+        public List<Regra> CarregarListaRegras();
+        public Regra GetRegra(string nomeRegra);
 
     }
 }

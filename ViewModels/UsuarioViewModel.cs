@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using projFront.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace projFront.ViewModels
 {
@@ -9,7 +10,7 @@ namespace projFront.ViewModels
         [Required(ErrorMessage = "Informe nome Usuário!")]
         public string UserName { get; set; }
         public string Email { get; set; }
-        public string Direito { get; set; }
+        public List<Regra> Direito { get; set; } = new();
 
     }
 }

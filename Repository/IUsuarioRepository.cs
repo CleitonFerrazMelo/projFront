@@ -11,5 +11,7 @@ namespace projFront.Repository
         public List<IdentityUser> BuscarUserPorBanco(int IdBanco);
         public Regra BuscarRegraPorUsuario(IdentityUser nomeUsuario);
         public IdentityUser BuscarUsuarioPorID(string id);
+        public List<IdentityRole> BuscarRegras();
+        public Regra BuscarRegraPorNome(string nomeRegra);
     }
 }

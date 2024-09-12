@@ -92,6 +92,13 @@ namespace projFront.Controllers
             }
 
             UsuarioViewModel usuario = _usuarioServices.BuscarUsuarioPorID(Convert.ToString(id));
+
+            Regra regraSelecionada = _usuarioServices.GetRegra(usuario.Direito[0].Nome);
+
+            ViewBag.DireitoSelecionado = regraSelecionada;
+
+            usuario.Direito = _usuarioServices.CarregarListaRegras();
+
             if (usuario == null)
             {
                 return NotFound();

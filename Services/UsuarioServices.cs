@@ -21,7 +21,8 @@ namespace projFront.Services
             UsuarioViewModel usuarioVM = new UsuarioViewModel();
             usuarioVM.Id = usuario.Id;
             usuarioVM.UserName = usuario.UserName;
-            usuarioVM.Direito = regra.Nome;
+
+            usuarioVM.Direito.Add(regra);
 
             return usuarioVM;
         }
@@ -45,9 +46,9 @@ namespace projFront.Services
                 usuarioViewModel.Id = usuario.Id;
                 usuarioViewModel.UserName = usuario.UserName;
                 usuarioViewModel.Email = usuario.Email;
-
-                _usuarioRepository.BuscarRegraPorUsuario(usuario);
-
+                Regra regra = new Regra();
+                regra = _usuarioRepository.BuscarRegraPorUsuario(usuario);
+                usuarioViewModel.Direito.Add(regra);    
 
                 listaUsuarioVM.Add(usuarioViewModel);
             }
@@ -60,6 +61,27 @@ namespace projFront.Services
 
             _usuarioRepository.Deletar(usuario);
             return mensagem;
+        }
+
+        public List<Regra> CarregarListaRegras()
+        {
+            List<IdentityRole> listIdentityRoles = _usuarioRepository.BuscarRegras();
+            List<Regra> listaRegras = new List<Regra>();
+
+            foreach (var rules in listIdentityRoles)
+            {
+                Regra regra = new Regra();
+                regra.IdRegra = rules.Id;
+                regra.Nome = rules.Name;
+                listaRegras.Add(regra);
+            }
+
+            return listaRegras;
+        }
+
+        public Regra GetRegra(string nomeRegra)
+        {
+            return _usuarioRepository.BuscarRegraPorNome(nomeRegra);
         }
     }
 }

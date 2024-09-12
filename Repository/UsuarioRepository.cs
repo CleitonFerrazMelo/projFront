@@ -11,10 +11,12 @@ namespace projFront.Repository
     {
         public readonly AppDbContext _repo;
         private readonly UserManager<IdentityUser> _userManager;
-        public UsuarioRepository(AppDbContext repo, UserManager<IdentityUser> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public UsuarioRepository(AppDbContext repo, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _repo = repo;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public void Deletar(Usuario usuario)
@@ -92,17 +94,33 @@ namespace projFront.Repository
             List<UsuarioRegra> listaUsuarioRegra = new List<UsuarioRegra>();
             var regra = _userManager.GetRolesAsync(nomeUsuario);
             Regra regraModel = new Regra();
+            
             foreach (var item in regra.Result)
             {
-                regraModel.Nome = item;
+                regraModel = BuscarRegraPorNome(item);
             }
             
             return regraModel;
+        }
+
+        public Regra BuscarRegraPorNome(string nomeRegra)
+        {
+            IdentityRole identityRole = _roleManager.Roles.FirstOrDefault(x => x.Name == nomeRegra);
+            Regra regra = new Regra();
+            regra.IdRegra = identityRole.Id;
+            regra.Nome = identityRole.Name;
+            return regra;
         }
         
         public IdentityUser BuscarUsuarioPorID(string id)
         {
             return _userManager.Users.FirstOrDefault(x => x.Id == id);
         }
+
+        public List<IdentityRole> BuscarRegras()
+        {
+            return _roleManager.Roles.ToList();
+        }
+
     }
 }

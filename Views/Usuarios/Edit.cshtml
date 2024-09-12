@@ -8,6 +8,14 @@
 
 <h4>Usuario</h4>
 <hr />
+
+<script>
+    var viewModel = @Html.Raw(Json.Serialize(ViewBag.DireitoSelecionado));
+
+
+</script>
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
@@ -24,10 +32,16 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Direito" class="control-label"></label>
-                <input asp-for="Direito" class="form-control" />
-                <span asp-validation-for="Direito" class="text-danger"></span>
+                <label class="text-label">Direito <span class="text-danger"> * </span></label>
+                <select class="custom-select mr-sm-2" id="direito" name="IdDireito" onchange="selecionaDireito()" required>
+                    <option selected>Escolha o direito</option>
+                    @foreach (var dir in Model.Direito)
+                    {
+                        <option value="@dir.IdRegra">   @dir.Nome </option>
+                    }
+                </select>
             </div>
+
             <div class="form-group">
                 <input type="submit" value="Salvar" class="btn btn-primary" />
             </div>
@@ -38,6 +52,29 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script>
+    
+    var campoSelecao = document.getElementById('direito');
+
+    console.log(viewModel);
+    campoSelecao.value = viewModel.idRegra;
+
+    function selecionaDireito() 
+    {
+
+        var campoSelecaoDireito = document.getElementById('direito');
+
+        var direitoSelecionado = viewModel.direito[campoSelecaoDireito.selectedIndex - 1];
+
+            var banco = bancoSelecionado;
+
+
+        
+    }
+
+</script>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
