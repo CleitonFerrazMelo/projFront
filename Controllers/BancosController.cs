@@ -47,6 +47,9 @@ namespace projFront.Controllers
             ViewData["UsuarioLogado"] = usuarioLogado;
             ViewData["PaginaSelecionada"] = "Bancos";
 
+            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+            Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
+
             IEnumerable<BancoViewModel> listaBancoViewModel = null;
             List<Banco> listaBancoPorUsuario = null;
             IEnumerable<BancoViewModel> listaBancoPorUsuarioVM = null;
@@ -56,6 +59,12 @@ namespace projFront.Controllers
                 var listaBancos = await _context.Bancos.ToListAsync();
                 listaBancoViewModel = _mapper.Map<IEnumerable<BancoViewModel>>(listaBancos);
             }
+
+            if(direitoUsuarioLogado.Nome == "Admin")
+            {
+                return View(listaBancoViewModel);
+            }
+
             IdentityUser dadosUsuario = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
             listaBancoPorUsuario = _bancoServices.ListaBancosPorUsuario(dadosUsuario.Id);
