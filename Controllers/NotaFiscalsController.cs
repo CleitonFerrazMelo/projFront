@@ -189,7 +189,7 @@ namespace projFront.Controllers
             notaFiscalVM.FaturaNumero = notaFiscal.FaturaNumero == null ? 0 : notaFiscal.FaturaNumero;
             notaFiscalVM.FaturaSerie = notaFiscal.FaturaSerie == null ? "0" : notaFiscal.FaturaSerie;
             notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "0" : notaFiscal.NumeroTelefone;
-
+            notaFiscalVM.UserName = notaFiscal.UserName;
             return notaFiscalVM;
         }
 
@@ -223,8 +223,12 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, NotaFiscalViewModel notaFiscalViewModel)
         {
-            NotaFiscal notaFiscal = _mapper.Map<NotaFiscal>(notaFiscalViewModel);
+            notaFiscalViewModel.UserName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+            notaFiscalViewModel.Banco = _bancoServices.GetBanco(notaFiscalViewModel.IdBanco);
+            notaFiscalViewModel.Empresa = _empresaServices.GetEmpresa( Convert.ToInt32( notaFiscalViewModel.IdEmpresa));
 
+            NotaFiscal notaFiscal = transformaNotafical(notaFiscalViewModel);
+            
             if (id != notaFiscal.Id)
             {
                 return NotFound();

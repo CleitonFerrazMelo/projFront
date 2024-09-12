@@ -21,6 +21,7 @@ namespace projFront.Services
             UsuarioViewModel usuarioVM = new UsuarioViewModel();
             usuarioVM.Id = usuario.Id;
             usuarioVM.UserName = usuario.UserName;
+            usuarioVM.Email = usuario.Email;
 
             usuarioVM.Direito.Add(regra);
 
@@ -82,6 +83,11 @@ namespace projFront.Services
         public Regra GetRegra(string nomeRegra)
         {
             return _usuarioRepository.BuscarRegraPorNome(nomeRegra);
+        }
+
+        public void AlterarRegraNoUsuario(string nomeRegra)
+        {
+
         }
     }
 }

@@ -111,34 +111,21 @@ namespace projFront.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Senha")] Usuario usuario)
+        public async Task<IActionResult> Edit(string id, UsuarioViewModel usuarioVM)
         {
-            if (id != usuario.Id)
+            if (id != usuarioVM.Id)
             {
                 return NotFound();
             }
 
+
+
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(usuario);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioExists(usuario.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+               
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuario);
+            return View(usuarioVM);
         }
 
         // GET: Usuarios/Delete/5
