@@ -105,10 +105,15 @@ namespace projFront.Repository
 
         public Regra BuscarRegraPorNome(string nomeRegra)
         {
-            IdentityRole identityRole = _roleManager.Roles.FirstOrDefault(x => x.Name == nomeRegra);
             Regra regra = new Regra();
-            regra.IdRegra = identityRole.Id;
-            regra.Nome = identityRole.Name;
+            if (nomeRegra != null)
+            {
+                IdentityRole identityRole = _roleManager.Roles.FirstOrDefault(x => x.Name == nomeRegra);
+                
+                regra.IdRegra = identityRole.Id;
+                regra.Nome = identityRole.Name;
+            }
+            
             return regra;
         }
         
