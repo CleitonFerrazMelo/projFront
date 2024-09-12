@@ -87,8 +87,16 @@ namespace projFront.Controllers
         public IActionResult Create()
         {
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+
+            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+
+            Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
+
             var listaUsuarios = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
+            
             ViewData["usuarioLogado"] = usuarioLogado;
+            ViewData["direitoUsuarioLogado"] = direitoUsuarioLogado.Nome;
+
             BancoViewModel bancoViewModel = new BancoViewModel();
             bancoViewModel.ListaUsuariosNaoRelacionados.AddRange(listaUsuarios);
 

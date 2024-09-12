@@ -4,6 +4,7 @@
     ViewData["Title"] = "Criar Banco";
     var usuarioLogado = @ViewData["usuarioLogado"];
     var listaUsuarioLogado = @ViewData["listaUsuario"];
+    var direitoUsuarioLogado = @ViewData["direitoUsuarioLogado"];
 
 }
 
@@ -13,13 +14,20 @@
 
 <script>
     var viewModel = @Html.Raw(Json.Serialize(Model));
+    var viewUsuarioLogado = @Html.Raw(Json.Serialize(usuarioLogado));
+
+    var direitoUsuarioLogado = @Html.Raw(Json.Serialize(direitoUsuarioLogado));
+
+    console.log(direitoUsuarioLogado);
+    
+
 </script>
 
 
 <div class="card">
     <div class="card-body">
         <div class="basic-form row gy-2 gx-3 align-items-center">
-            
+           
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col-auto col-sm-8">
                     <label asp-for="Nome" class="control-label"></label>
@@ -74,7 +82,10 @@
          </div>
     <div>
 </div>
-
+        @if (Convert.ToString(direitoUsuarioLogado) != "Operador")
+        {
+            
+        
         <div class="container text-center">
             <div class="row align-items-start">
                 <div class="col">
@@ -102,7 +113,9 @@
                     </select>
                 </div>
             </div>
-        </div>       
+        </div>      
+        
+        }
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -143,42 +156,56 @@
                     var vListaUsuariosRelacionados = document.getElementById('ListaUsuariosRelacionados');
 
                     const listaDeObjetosRelacionados = [];
-
+                    const listaDeObjetosNaoRelacionados = [];
                     console.log(vListaUsuariosRelacionados)
 
-                    // Percorrer as opções selecionadas
-                    for (let i = 0; i < vListaUsuariosRelacionados.options.length; i++) {
-                        if (vListaUsuariosRelacionados.options[i]) {
-                            // Criar um objeto e adicionar ao array
-                            const objListaRelacionado = {
-                                email: vListaUsuariosRelacionados.options[i].value
-                            };
-                            listaDeObjetosRelacionados.push(objListaRelacionado);
+                    if (direitoUsuarioLogado != "Operador") {
+                        // Percorrer as opções selecionadas
+                        for (let i = 0; i < vListaUsuariosRelacionados.options.length; i++) {
+                            if (vListaUsuariosRelacionados.options[i]) {
+                                // Criar um objeto e adicionar ao array
+                                const objListaRelacionado = {
+                                    email: vListaUsuariosRelacionados.options[i].value
+                                };
+                                listaDeObjetosRelacionados.push(objListaRelacionado);
+                            }
                         }
-                    }
-                    console.log("listaDeObjetosRelacionados")
-                    console.log(listaDeObjetosRelacionados)
+                        console.log("listaDeObjetosRelacionados")
+                        console.log(listaDeObjetosRelacionados)
 
-                    var vListaUsuariosNaoRelacionados = document.getElementById('ListaUsuariosNaoRelacionados');
 
-                    // Criar um array para armazenar os objetos
-                    const listaDeObjetosNaoRelacionados = [];
 
-                    // Percorrer as opções selecionadas
-                    for (let ii = 0; ii < vListaUsuariosNaoRelacionados.options.length; ii++) {
-                        if (vListaUsuariosNaoRelacionados.options[ii]) {
-                            
-                            
-                            var valor = vListaUsuariosNaoRelacionados.options[ii].value;
-                            
-                            const obj = {
-                                email: valor
-                            };
+                        var vListaUsuariosNaoRelacionados = document.getElementById('ListaUsuariosNaoRelacionados');
 
-                            listaDeObjetosNaoRelacionados.push(obj);
-                            
+                        // Criar um array para armazenar os objetos
+                       
+
+                        // Percorrer as opções selecionadas
+                        for (let ii = 0; ii < vListaUsuariosNaoRelacionados.options.length; ii++) {
+                            if (vListaUsuariosNaoRelacionados.options[ii]) {
+
+
+                                var valor = vListaUsuariosNaoRelacionados.options[ii].value;
+
+                                const obj = {
+                                    email: valor
+                                };
+
+                                listaDeObjetosNaoRelacionados.push(obj);
+
+                            }
                         }
+
+                    } else {
+                        
+
+                        const obj = {
+                            email: viewUsuarioLogado
+                        };
+                        
+                        listaDeObjetosRelacionados.push(obj);
                     }
+                    
 
                     const banco = {
                         nome: nome,
