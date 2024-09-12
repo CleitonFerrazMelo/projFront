@@ -35,7 +35,7 @@ namespace projFront.ViewModels
         
         [Display(Name = "Valor Total")]
         //[Required(ErrorMessage = "Informe o valor do Serviço!")]
-        public decimal ValorTotal { get; set; }
+        public string ValorTotal { get; set; }
 
         public int IdBanco { get; set; }
         public List<Banco> Banco { get; set; }

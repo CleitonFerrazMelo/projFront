@@ -1,4 +1,5 @@
-﻿@model projFront.ViewModels.NotaFiscalViewModel
+﻿@using System.Globalization
+@model projFront.ViewModels.NotaFiscalViewModel
 
 @{
     ViewData["Title"] = "Edição da Nota";
@@ -106,7 +107,7 @@
                 <div class="form-row">
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="ValorTotal" class="control-label titulo"></label>
-                        <input  asp-for="ValorTotal" class="form-control" />
+                        <input asp-for="ValorTotal" class="form-control" id="ValorTotal" name="ValorTotal" />
                         <span class="text-danger"></span>
                     </div>
 

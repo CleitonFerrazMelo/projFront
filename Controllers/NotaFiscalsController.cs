@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -128,7 +129,7 @@ namespace projFront.Controllers
             notaFiscal.Cep = notaFiscalVM.Cep;
             notaFiscal.NumeroTelefone = notaFiscalVM.NumeroTelefone;
             notaFiscal.DescricaoServico = notaFiscalVM.DescricaoServico;
-            notaFiscal.ValorTotal = notaFiscalVM.ValorTotal;
+            notaFiscal.ValorTotal = Convert.ToDecimal( notaFiscalVM.ValorTotal );
             notaFiscal.IdBanco = notaFiscalVM.IdBanco;
             notaFiscal.Agencia = notaFiscalVM.Banco[0].Agencia;
             notaFiscal.Conta = notaFiscalVM.Banco[0].TipoConta;
@@ -161,7 +162,7 @@ namespace projFront.Controllers
             notaFiscalVM.Cep = notaFiscal.Cep;
             notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone;
             notaFiscalVM.DescricaoServico = notaFiscal.DescricaoServico;
-            notaFiscalVM.ValorTotal = notaFiscal.ValorTotal;
+            notaFiscalVM.ValorTotal = Convert.ToString(notaFiscal.ValorTotal);
             notaFiscalVM.IdBanco = notaFiscal.IdBanco;
 
             var empresas = _empresaServices.GetEmpresas(); // GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
