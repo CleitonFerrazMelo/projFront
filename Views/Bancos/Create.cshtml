@@ -31,21 +31,35 @@
                 <input name="Agencia" asp-for="Agencia" class="form-control" />
                     <span asp-validation-for="Agencia" class="text-danger"></span>
                 </div>
-            <div class="col-auto col-sm-8" >
-                    <label asp-for="TipoConta" class="control-label"></label>
-                    <input name="TipoConta" asp-for="TipoConta" class="form-control" />
-                    <span asp-validation-for="TipoConta" class="text-danger"></span>
-                </div>
+
+            <div class="col-auto col-sm-8">
+                <label asp-for="TipoConta" class="control-label"></label>
+                <select asp-for="TipoConta"  class="custom-select mr-sm-2" id="TipoConta" name="TipoConta" required>
+                    <option value="" selected>Escolha o direito</option>
+                    
+                    <option value="Corrente"> Corrente </option>
+                    <option value="Poupança"> Poupança </option>
+                    
+                </select>
+            </div>
+
             <div class="col-auto col-sm-4" >
                     <label asp-for="NumeroConta" class="control-label"></label>
                     <input name="NumeroConta" asp-for="NumeroConta" class="form-control" />
                     <span asp-validation-for="NumeroConta" class="text-danger"></span>
                 </div>
             <div class="col-auto col-sm-6">
-                    <label asp-for="PixChave" class="control-label"></label>
-                <input name="PixChave" asp-for="PixChave" class="form-control" />
-                    <span asp-validation-for="PixChave" class="text-danger"></span>
-                </div>
+                <label asp-for="PixChave" class="control-label"></label>
+                <select asp-for="PixChave" class="custom-select mr-sm-2" id="PixChave" name="PixChave" required>
+                    <option value="" selected>Escolha o tipo de conta</option>
+
+                    <option value="CPF"> CPF </option>
+                    <option value="CNPJ"> CNPJ </option>
+                    <option value="Telefone"> Telefone </option>
+                    <option value="Chave Aleatória"> Chave Aleatória</option>
+
+                </select>
+            </div>
             <div class="col-auto col-sm-6">
                     <label asp-for="PixNumero" class="control-label"></label>
                     <input name="PixNumero" asp-for="PixNumero" class="form-control" />
@@ -185,10 +199,11 @@
                         data: banco,
                         success: function (response) {
                             console.log("OKKK")
+                            window.location.href = "/Bancos";
                         }
                     });
 
-
+                    
                 }
 
                

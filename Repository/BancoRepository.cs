@@ -56,7 +56,7 @@ namespace projFront.Repository
 
                     using (var reader = cmd.ExecuteReader())
                     {
-                        if (reader.Read())
+                        while (reader.Read())
                         {
                             List<int> listIdBanco = new List<int>();
                             

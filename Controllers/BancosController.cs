@@ -99,7 +99,7 @@ namespace projFront.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        public IActionResult Create(BancoViewModel bancoVM)
+        public async Task<IActionResult> Create(BancoViewModel bancoVM)
         {
             if (ModelState.IsValid)
             {
@@ -127,7 +127,7 @@ namespace projFront.Controllers
 
                 ValidaIncluiUsuario(listaUsuariosId, idBanco);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index");
             }
             
             return View(bancoVM);
