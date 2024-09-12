@@ -13,10 +13,8 @@
     </div>
     <div class="card-body">
 
-    <div class="basic-form">
-
-        <div class="col-md-10">
-            <form asp-action="Edit" class="row gy-2 gx-3 align-items-center">
+        <div class="basic-form row gy-2 gx-3 align-items-center">
+            
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="IdBanco" />
                 <div class="col-auto col-sm-8">
@@ -31,8 +29,13 @@
                 </div>
                 <div class="col-auto col-sm-8">
                     <label asp-for="TipoConta" class="control-label"></label>
-                    <input asp-for="TipoConta" class="form-control" />
-                    <span asp-validation-for="TipoConta" class="text-danger"></span>
+                    <select asp-for="TipoConta" class="custom-select mr-sm-2" id="TipoConta" name="TipoConta" required>
+                        <option value="" selected>Escolha o direito</option>
+
+                        <option value="Corrente"> Corrente </option>
+                        <option value="Poupança"> Poupança </option>
+
+                    </select>
                 </div>
                 <div class="col-auto col-sm-4">
                     <label asp-for="NumeroConta" class="control-label"></label>
@@ -41,8 +44,15 @@
                 </div>
                 <div class="col-auto col-sm-6">
                     <label asp-for="PixChave" class="control-label"></label>
-                    <input asp-for="PixChave" class="form-control" />
-                    <span asp-validation-for="PixChave" class="text-danger"></span>
+                    <select asp-for="PixChave" class="custom-select mr-sm-2" id="PixChave" name="PixChave" required>
+                        <option value="" selected>Escolha o tipo de conta</option>
+
+                        <option value="CPF"> CPF </option>
+                        <option value="CNPJ"> CNPJ </option>
+                        <option value="Telefone"> Telefone </option>
+                        <option value="Chave Aleatória"> Chave Aleatória</option>
+
+                    </select>
                 </div>
                 <div class="col-auto col-sm-6">
                     <label asp-for="PixNumero" class="control-label"></label>
@@ -51,10 +61,11 @@
                 </div>
            
                 <div class="mt-80">
-                    <input type="submit" value="Salvar" class="btn btn-success" />
+                    
+                    <input onclick="EditarBanco()" value="Editar Banco" class="btn btn-success" />
                     <a class="btn btn-warning" asp-action="Index">Voltar</a>
                 </div>
-            </form>
+            
         </div>
     </div>
 </div>
@@ -91,3 +102,106 @@
     @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+
+
+                <script>
+        $(document).ready(function () {
+            $("#btnAdicionar").click(function () {
+                $("#ListaUsuariosNaoRelacionados option:selected").each(function () {
+                    $(this).clone().appendTo("#ListaUsuariosRelacionados");
+
+                    $(this).remove();
+                });
+            });
+
+            $("#btnRemover").click(function () {
+                $("#ListaUsuariosRelacionados option:selected").each(function () {
+                    $(this).clone().appendTo("#ListaUsuariosNaoRelacionados");
+
+
+
+
+
+                    $(this).remove();
+                });
+            });
+        });
+
+
+        function EditarBanco() {
+            var idBanco = document.getElementById('IdBanco').value;
+            var nome = document.getElementById('Nome').value;
+            var agencia = document.getElementById('Agencia').value;
+            var tipoConta = document.getElementById('TipoConta').value;
+            var numeroConta = document.getElementById('NumeroConta').value;
+            var pixChave = document.getElementById('PixChave').value;
+            var pixNumero = document.getElementById('PixNumero').value;
+
+            var vListaUsuariosRelacionados = document.getElementById('ListaUsuariosRelacionados');
+
+            const listaDeObjetosRelacionados = [];
+
+            console.log(vListaUsuariosRelacionados)
+
+            // Percorrer as opções selecionadas
+            for (let i = 0; i < vListaUsuariosRelacionados.options.length; i++) {
+                if (vListaUsuariosRelacionados.options[i]) {
+                    // Criar um objeto e adicionar ao array
+                    const objListaRelacionado = {
+                        email: vListaUsuariosRelacionados.options[i].value
+                    };
+                    listaDeObjetosRelacionados.push(objListaRelacionado);
+                }
+            }
+            console.log("listaDeObjetosRelacionados")
+            console.log(listaDeObjetosRelacionados)
+
+            var vListaUsuariosNaoRelacionados = document.getElementById('ListaUsuariosNaoRelacionados');
+
+            // Criar um array para armazenar os objetos
+            const listaDeObjetosNaoRelacionados = [];
+
+            // Percorrer as opções selecionadas
+            for (let ii = 0; ii < vListaUsuariosNaoRelacionados.options.length; ii++) {
+                if (vListaUsuariosNaoRelacionados.options[ii]) {
+
+
+                    var valor = vListaUsuariosNaoRelacionados.options[ii].value;
+
+                    const obj = {
+                        email: valor
+                    };
+
+                    listaDeObjetosNaoRelacionados.push(obj);
+
+                }
+            }
+
+            const banco = {
+                idBanco : idBanco,
+                nome: nome,
+                agencia: agencia,
+                tipoConta: tipoConta,
+                numeroConta: numeroConta,
+                pixChave: pixChave,
+                pixNumero: pixNumero,
+                listaUsuariosRelacionados: listaDeObjetosRelacionados,
+                listaUsuariosNaoRelacionados: listaDeObjetosNaoRelacionados
+            }
+
+            console.log(banco)
+
+            $.ajax({
+                url: '/Bancos/Edit/'+banco.idBanco,
+                type: 'PUT',
+                data: banco,
+                success: function (response) {
+                    console.log("OKKK")
+                    window.location.href = "/Bancos";
+                }
+            });
+
+
+        }
+                </script>
