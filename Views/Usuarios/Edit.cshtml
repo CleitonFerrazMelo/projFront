@@ -18,7 +18,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -43,9 +43,9 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Salvar" class="btn btn-primary" />
+                <input onclick="EditarUsuario()" value="Editar Usuario" class="btn btn-success" />
             </div>
-        </form>
+        
     </div>
 </div>
 
@@ -67,4 +67,66 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script>
+       
+        function EditarUsuario() {
+            var ID = document.getElementById('Id').value;
+            var userName = document.getElementById('UserName').value;
+            var email = document.getElementById('Email').value;
+            var direito = document.getElementById('direito').value;
+            console.log(ID);
+            console.log(userName);
+            console.log(email);
+            console.log(direito);
+
+            // Obtém o elemento select pelo ID
+            var selectElement = document.getElementById('direito');
+            // Obtém o índice da opção selecionada
+            var selectedIndex = selectElement.selectedIndex;
+            // Obtém o elemento da opção selecionada
+            var selectedOption = selectElement.options[selectedIndex];
+            // Obtém o valor da opção selecionada (o valor de IdRegra)
+            var idRegra = selectedOption.value;
+
+            var nomeRegra = selectedOption.text;
+
+            // Create a Regra object
+            var regra1 = new Regra(idRegra, nomeRegra);
+
+            // Create a Usuario object with a list of Regra objects
+            var usuario = new Usuario(ID, userName, email, [regra1]);
+
+            console.log(" *****usuario *******")
+            console.log(usuario)
+
+            $.ajax({
+                url: '/Usuarios/Edit/' + ID,
+                type: 'PUT',
+                data: usuario,
+                success: function (response) {
+                    console.log("OKKK")
+                    window.location.href = "/Usuarios";
+                }
+            });
+
+
+        }
+
+        function Usuario(id, userName, email, direito) {
+            this.Id = id;
+            this.UserName = userName;
+            this.Email = email;
+            this.Direito = direito || []; // Initialize Direito as an empty array if not provided
+        }
+
+        function Regra(idRegra, nome) {
+            this.IdRegra = idRegra;
+            this.Nome = nome;
+        }
+    </script>
+
+
+
 }

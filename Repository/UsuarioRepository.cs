@@ -122,5 +122,39 @@ namespace projFront.Repository
             return _roleManager.Roles.ToList();
         }
 
+        public void LimparRegraUsuario(string id)
+        {
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    cmd.CommandText = "DELETE from AspNetUserRoles WHERE UserId = @UserId ";
+                    cmd.Parameters.AddWithValue("@UserId", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void CadastrarRegraNoUsuario(string userId, string roleId)
+        {
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    cmd.CommandText = "INSERT INTO AspNetUserRoles (UserId, RoleId ) values (@UserId, @RoleId)";
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    cmd.Parameters.AddWithValue("@RoleId", roleId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

@@ -85,9 +85,12 @@ namespace projFront.Services
             return _usuarioRepository.BuscarRegraPorNome(nomeRegra);
         }
 
-        public void AlterarRegraNoUsuario(string nomeRegra)
+        public void AlterarRegraNoUsuario(UsuarioViewModel usuarioVM)
         {
+            _usuarioRepository.LimparRegraUsuario(usuarioVM.Id);
 
+            _usuarioRepository.CadastrarRegraNoUsuario(usuarioVM.Id, usuarioVM.Direito[0].IdRegra);
         }
+
     }
 }

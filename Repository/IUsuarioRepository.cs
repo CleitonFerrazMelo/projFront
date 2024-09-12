@@ -13,5 +13,7 @@ namespace projFront.Repository
         public IdentityUser BuscarUsuarioPorID(string id);
         public List<IdentityRole> BuscarRegras();
         public Regra BuscarRegraPorNome(string nomeRegra);
+        public void LimparRegraUsuario(string id);
+        public void CadastrarRegraNoUsuario(string userId, string roleId);
     }
 }
