@@ -137,6 +137,10 @@ namespace projFront.Controllers
         {
             _bancoServices.ValidaIncluiUsuario(listIdUsuario, idBanco);
         }
+        private void LimpaEIncluiUsuario(List<string> listIdUsuario, int idBanco)
+        {
+            _bancoServices.LimpaEIncluiUsuario(listIdUsuario, idBanco);
+        }
 
         // GET: Bancos/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -186,6 +190,27 @@ namespace projFront.Controllers
                 {
                     _context.Update(banco);
                     await _context.SaveChangesAsync();
+
+                    Banco bancoSalvo = _context.Bancos.FirstOrDefault(b => b.Nome == banco.Nome
+                                                                    && b.PixNumero == banco.PixNumero
+                                                                    && b.Agencia == banco.Agencia
+                                                                    && b.TipoConta == banco.TipoConta
+                                                                    && b.NumeroConta == banco.NumeroConta
+                                                                    && b.PixChave == banco.PixChave);
+
+                    int idBanco = bancoSalvo.IdBanco;
+
+                    List<string> listaUsuariosId = new List<string>();
+
+                    foreach (var usuario in bancoVM.ListaUsuariosRelacionados)
+                    {
+                        var usuarios = _IUsuarioRepository.BuscarUserPorEmail(usuario.Email);
+
+                        listaUsuariosId.Add(usuarios.Id);
+                    }
+
+                    LimpaEIncluiUsuario(listaUsuariosId, idBanco);
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {

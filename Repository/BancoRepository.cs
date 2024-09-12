@@ -42,7 +42,20 @@ namespace projFront.Repository
                 CadastrarUsuarioBanco(idBanco, idUsario);
             }
         }
-        
+        public void LimpaEIncluiUsuario(List<string> listIdUsuario, int idBanco)
+        {
+            List<string> listaUsuario = RetornaUsuarioPorBanco(idBanco);
+
+            foreach (var idUsario in listaUsuario)
+            {
+                DeletarUsuarioBanco(idBanco, idUsario);
+            }
+            foreach (var idUsario in listIdUsuario)
+            {
+                CadastrarUsuarioBanco(idBanco, idUsario);
+            }
+        }
+
         public List<Banco> ListaBancosPorUsuario(string idUsuario)
         {
             List<Banco> listaBanco = new List<Banco>();
@@ -114,6 +127,61 @@ namespace projFront.Repository
             }
         }
 
+        private void DeletarUsuarioBanco(int idBanco, string idUsuario)
+        {
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    cmd.CommandText = "DELETE from BancoUsuario WHERE IDBanco = @IDBanco AND IDUsuario = @IDUsuario";
+                    cmd.Parameters.AddWithValue("@IDBanco", idBanco);
+                    cmd.Parameters.AddWithValue("@IDUsuario", idUsuario);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        private List<string> RetornaUsuarioPorBanco(int idBanco)
+        {
+            List<string> listIdUsuario = new List<string>();
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    cmd.CommandText = "select * from BancoUsuario where IDBanco = @IdBanco";
+                    cmd.Parameters.AddWithValue("@IdBanco", idBanco);
+                    cmd.ExecuteNonQuery();
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            
+
+                            // Obtendo os índices das colunas pelos nomes
+                            int idBancoUsuarioIndex = reader.GetOrdinal("IDBancoUsuario");
+                            int idBancoIndex = reader.GetOrdinal("IDBanco");
+                            int idUsuarioIndex = reader.GetOrdinal("IDUsuario");
+
+                            // Atribuindo os valores às propriedades do objeto
+                            string idUsuario = reader.GetString(idUsuarioIndex);
+
+                            listIdUsuario.Add(idUsuario);
+
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return listIdUsuario;
+        }
 
     }
 }

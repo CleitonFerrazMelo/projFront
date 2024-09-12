@@ -10,7 +10,8 @@ namespace projFront.Repository
 
         public List<Banco> GetBancos();
         public Banco GetBanco(int id);
-        void ValidaIncluiUsuario(List<string> listIdUsuario, int idBanco);
+        public void ValidaIncluiUsuario(List<string> listIdUsuario, int idBanco);
         public List<Banco> ListaBancosPorUsuario(string idUsuario);
+        public void LimpaEIncluiUsuario(List<string> listIdUsuario, int idBanco);
     }
 }

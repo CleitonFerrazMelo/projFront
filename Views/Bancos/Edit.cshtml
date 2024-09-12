@@ -4,6 +4,10 @@
     ViewData["Title"] = "Editar Banco";
 }
 
+<script>
+    var viewModel = @Html.Raw(Json.Serialize(Model));
+</script>
+
 <h1>Editar Banco</h1>
 
 <hr />
@@ -85,7 +89,7 @@
 
             </div>
             <div class="col">
-                <button class="btn btn-warning" id="btnAdicionar">Adicionar</button>
+                <button class="btn btn-success" id="btnAdicionar">Adicionar</button>
                 <button class="btn btn-warning" id="btnRemover">Remover</button>
             </div>
             <div class="col">
@@ -101,11 +105,11 @@
     </div>
     @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
 
 
 
-                <script>
+
+     <script>
         $(document).ready(function () {
             $("#btnAdicionar").click(function () {
                 $("#ListaUsuariosNaoRelacionados option:selected").each(function () {
@@ -205,3 +209,4 @@
 
         }
                 </script>
+}

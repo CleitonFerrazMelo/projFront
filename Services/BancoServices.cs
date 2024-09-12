@@ -45,6 +45,10 @@ namespace projFront.Services
         {
             _bancoRepository.ValidaIncluiUsuario(listIdUsuario, idBanco);
         }
+        public void LimpaEIncluiUsuario(List<string> listIdUsuario, int idBanco)
+        {
+            _bancoRepository.LimpaEIncluiUsuario(listIdUsuario, idBanco);
+        }
 
         public List<Banco> ListaBancosPorUsuario(string idUsuario)
         {
