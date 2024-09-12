@@ -34,9 +34,14 @@
                     <input asp-for="Ie" class="form-control" />
                     <span asp-validation-for="Ie" class="text-danger"></span>
                 </div>
+                <div class="col-auto col-sm-4">
+                    <label asp-for="Cep" class="control-label"></label>
+                    <input asp-for="Cep" class="form-control" onblur="ConsultaCEP(this.value)"  />
+                    <span asp-validation-for="Cep" class="text-danger"></span>
+                </div>
             <div class="col-auto col-sm-8">
                     <label asp-for="Endereco" class="control-label"></label>
-                    <input asp-for="Endereco" class="form-control" />
+                    <input asp-for="Endereco" class="form-control" id="endereco" name="endereco" />
                     <span asp-validation-for="Endereco" class="text-danger"></span>
                 </div>
             <div class="col-auto col-sm-2">
@@ -46,24 +51,20 @@
                 </div>
             <div class="col-auto col-sm-3">
                     <label asp-for="Bairro" class="control-label"></label>
-                    <input asp-for="Bairro" class="form-control" />
+                    <input asp-for="Bairro" class="form-control" id="bairro" name="bairro" />
                     <span asp-validation-for="Bairro" class="text-danger"></span>
                 </div>
             <div class="col-auto col-sm-5">
                     <label asp-for="NomeCidade" class="control-label"></label>
-                    <input asp-for="NomeCidade" class="form-control" />
+                    <input asp-for="NomeCidade" class="form-control" id="nomeCidade" name="nomeCidade" />
                     <span asp-validation-for="NomeCidade" class="text-danger"></span>
                 </div>
                 <div class="col-auto col-sm-2">
                     <label asp-for="UF" class="control-label"></label>
-                    <input asp-for="UF" class="form-control" />
+                    <input asp-for="UF" class="form-control" id="UF" name="UF" />
                     <span asp-validation-for="NomeCidade" class="text-danger"></span>
                 </div>
-            <div class="col-auto col-sm-4">
-                    <label asp-for="Cep" class="control-label"></label>
-                    <input asp-for="Cep" class="form-control" />
-                    <span asp-validation-for="Cep" class="text-danger"></span>
-                </div>
+            
             <div class="col-auto col-sm-3">
                     <label asp-for="FaturaSerie" class="control-label"></label>
                     <input asp-for="FaturaSerie" class="form-control" />
@@ -90,4 +91,46 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+
+                function ConsultaCEP(valor) {
+
+                    console.log(valor)
+
+                    urlBusca = "https://brasilapi.com.br/api/cep/v1/" + valor;
+
+                    console.log(urlBusca)
+
+                    // Criando um objeto XMLHttpRequest
+                    var xhr = new XMLHttpRequest();
+
+                    // Configurando a requisição (GET para buscar dados)
+                    xhr.open('GET', urlBusca);
+
+                    // Função para lidar com a resposta
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            // Requisição bem-sucedida
+
+                            var dadosEndereco = xhr.responseText;
+                            var dadosEnderecoJson = JSON.parse(dadosEndereco);
+
+                            document.getElementById('endereco').value = dadosEnderecoJson.street;
+
+                            document.getElementById('bairro').value = dadosEnderecoJson.neighborhood;
+                            document.getElementById('nomeCidade').value = dadosEnderecoJson.city;
+                            document.getElementById('UF').value = dadosEnderecoJson.state;
+                        } else {
+                            // Houve um erro
+                            console.error('Erro na requisição:', xhr.statusText);
+                        }
+                    };
+
+                    // Enviando a requisição
+                    xhr.send();
+                }
+
+    </script>
+
 }
