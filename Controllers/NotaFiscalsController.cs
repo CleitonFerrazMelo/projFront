@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -52,8 +53,22 @@ namespace projFront.Controllers
                 var listaNotaFiscal = await _context.NotaFiscal.ToListAsync();
                 listaNotaFiscalViewModel = _mapper.Map<IEnumerable<NotaFiscalViewModel>>(listaNotaFiscal);
             }
+            var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            return View(listaNotaFiscalViewModel);
+            List<Banco> listaBanco =  _bancoServices.ListaBancosPorUsuario(usuarioLogado);
+
+            List<NotaFiscalViewModel> listaFiltrada = new List<NotaFiscalViewModel>();
+
+            foreach (var notas in listaNotaFiscalViewModel)
+            {
+                foreach (var bancosDoUsuario in listaBanco)
+                {
+                    if(bancosDoUsuario.IdBanco == notas.IdBanco)
+                        listaFiltrada.Add(notas);
+                }
+            }
+
+            return View(listaFiltrada);
         }
 
         // GET: NotaFiscals/Details/5
