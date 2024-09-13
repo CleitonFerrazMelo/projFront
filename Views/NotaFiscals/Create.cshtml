@@ -285,8 +285,9 @@
     {
         console.log("Acessou Retorna última nota");
         console.log(cnpj);
-
-        urlBusca = "https://localhost:7066/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
+        
+        urlBusca = "https://localhost:44370/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
+        //urlBusca = "https://localhost:7066/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
         console.log(urlBusca)
         // Criando um objeto XMLHttpRequest
         var xhr = new XMLHttpRequest();

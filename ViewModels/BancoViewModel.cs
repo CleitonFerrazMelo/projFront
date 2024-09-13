@@ -8,7 +8,7 @@ namespace projFront.ViewModels
         public int IdBanco { get; set; }
 
         [Display(Name = "Nome do Banco")]
-        [Required(ErrorMessage = "Informe nome Banco!")]
+        [Required(ErrorMessage = "Informe o nome do Banco!")]
         public string Nome { get; set; }
 
         [Display(Name = "Número da agência")]
