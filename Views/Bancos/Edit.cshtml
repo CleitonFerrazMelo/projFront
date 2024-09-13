@@ -28,12 +28,12 @@
                 <div class="col-auto col-sm-8">
                     <label asp-for="Nome" class="control-label"></label>
                     <input asp-for="Nome" class="form-control" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
+                <span asp-validation-for="Nome" id="erroNome" class="text-danger"></span>
                 </div>
                 <div class="col-auto col-sm-4">
                     <label asp-for="Agencia" class="control-label"></label>
                     <input asp-for="Agencia" class="form-control" />
-                    <span asp-validation-for="Agencia" class="text-danger"></span>
+                <span asp-validation-for="Agencia" id="erroAgencia" class="text-danger"></span>
                 </div>
                 <div class="col-auto col-sm-8">
                     <label asp-for="TipoConta" class="control-label"></label>
@@ -44,11 +44,12 @@
                         <option value="Poupança"> Poupança </option>
 
                     </select>
+                <span id="erroTipoConta" class="text-danger"> </span>
                 </div>
                 <div class="col-auto col-sm-4">
                     <label asp-for="NumeroConta" class="control-label"></label>
                     <input asp-for="NumeroConta" class="form-control" />
-                    <span asp-validation-for="NumeroConta" class="text-danger"></span>
+                <span asp-validation-for="NumeroConta" id="erroNumeroConta" class="text-danger"></span>
                 </div>
                 <div class="col-auto col-sm-6">
                     <label asp-for="PixChave" class="control-label"></label>
@@ -61,16 +62,17 @@
                         <option value="Chave Aleatória"> Chave Aleatória</option>
 
                     </select>
+                <span asp-validation-for="PixChave" id="erroPixChave" class="text-danger"></span>
                 </div>
                 <div class="col-auto col-sm-6">
                     <label asp-for="PixNumero" class="control-label"></label>
                     <input asp-for="PixNumero" class="form-control" />
-                    <span asp-validation-for="PixNumero" class="text-danger"></span>
+                <span asp-validation-for="PixNumero" id="erroPixNumero" class="text-danger"></span>
                 </div>
            
                 <div class="mt-80">
-                    
-                    <input onclick="EditarBanco()" value="Editar Banco" class="btn btn-success" />
+
+                <input onclick="Validacao() " value="Editar Banco" class="btn btn-success" />
                     <a class="btn btn-warning" asp-action="Index">Voltar</a>
                 </div>
             
@@ -137,6 +139,118 @@
                 });
             });
         });
+        var vValidarNome = false;
+        var vValidarAgencia = false;
+        var vValidarNumeroConta = false;
+        var vValidarPixNumero = false;
+        var vValidarTipoConta = false;
+        var vValidarPixChave = false;
+
+
+        function Validacao() {
+            validarNome();
+            validarAgencia();
+            validarNumeroConta();
+            validarPixNumero();
+            validarTipoConta();
+            validarPixChave();
+
+            if (vValidarNome
+                && vValidarAgencia
+                && vValidarNumeroConta
+                && vValidarPixNumero
+                && vValidarTipoConta
+                && vValidarPixChave) {
+                EditarBanco();
+            }
+
+        }
+
+
+        function validarNome() {
+            const nomeDoBanco = document.getElementById('Nome').value;
+            const erroNome = document.getElementById('erroNome');
+
+            if (nomeDoBanco.trim() === '') {
+                erroNome.textContent = 'O nome do banco é obrigatório.';
+                vValidarNome = false;
+            } else {
+                erroNome.textContent = '';
+                vValidarNome = true;
+            }
+        }
+
+        function validarAgencia() {
+            const nomeDaAgencia = document.getElementById('Agencia').value;
+            const erroAgencia = document.getElementById('erroAgencia');
+
+            if (nomeDaAgencia.trim() === '') {
+                erroAgencia.textContent = 'A agência é obrigatória.';
+                vValidarAgencia = false;
+            } else {
+                vValidarAgencia = true;
+                erroAgencia.textContent = '';
+            }
+        }
+
+        function validarNumeroConta() {
+            const NumeroDaConta = document.getElementById('NumeroConta').value;
+            const erroConta = document.getElementById('erroNumeroConta');
+
+            if (NumeroDaConta.trim() === '') {
+                erroConta.textContent = 'O número da Conta é obrigatória.';
+                vValidarNumeroConta = false;
+            } else {
+                vValidarNumeroConta = true;
+                erroConta.textContent = '';
+            }
+        }
+
+        function validarPixNumero() {
+            const PixDoNumero = document.getElementById('PixNumero').value;
+            const erroPixNumero = document.getElementById('erroPixNumero');
+
+            if (PixDoNumero.trim() === '') {
+                erroPixNumero.textContent = 'O número do Pix é obrigatório.';
+                vValidarPixNumero = false;
+            } else {
+                vValidarPixNumero = true;
+                erroPixNumero.textContent = '';
+            }
+        }
+
+        function validarTipoConta() {
+            const TipoDaConta = document.getElementById('TipoConta').value;
+            const erroTipoConta = document.getElementById('erroTipoConta');
+
+            if (TipoDaConta.trim() === '') {
+                erroTipoConta.textContent = 'O tipo de conta é obrigatório.';
+                vValidarTipoConta = false;
+            } else {
+                vValidarTipoConta = true;
+                erroTipoConta.textContent = '';
+            }
+        }
+
+        function validarPixChave() {
+            const PixDaChave = document.getElementById('PixChave').value;
+            const erroPixChave = document.getElementById('erroPixChave');
+
+            if (PixDaChave.trim() === '') {
+                erroPixChave.textContent = 'O Pix Chave é obrigatório.';
+                vValidarPixChave = false;
+            } else {
+                vValidarPixChave = true;
+                erroPixChave.textContent = '';
+            }
+        }
+
+        document.getElementById('Nome').addEventListener('input', validarNome);
+        document.getElementById('Agencia').addEventListener('input', validarAgencia);
+        document.getElementById('NumeroConta').addEventListener('input', validarNumeroConta);
+        document.getElementById('PixNumero').addEventListener('input', validarPixNumero);
+        document.getElementById('TipoConta').addEventListener('input', validarTipoConta);
+        document.getElementById('PixChave').addEventListener('input', validarPixChave);
 
 
         function EditarBanco() {
