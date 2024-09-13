@@ -29,8 +29,9 @@ namespace projFront.Controllers
         private readonly IBancoServices _bancoServices;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper, IEmpresaServices empresaServices, IBancoServices bancoServices, IHttpContextAccessor httpContextAccessor)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public NotaFiscalsController(AppDbContext context, INotaFiscalServices notaFiscalServices, IMapper mapper, IEmpresaServices empresaServices, IBancoServices bancoServices, IHttpContextAccessor httpContextAccessor, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _notaFiscalServices = notaFiscalServices;
@@ -38,13 +39,16 @@ namespace projFront.Controllers
             _empresaServices = empresaServices;
             _bancoServices = bancoServices;
             _httpContextAccessor = httpContextAccessor;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         // GET: NotaFiscals
         public async Task<IActionResult> Index()
         {
             ViewData["PaginaSelecionada"] = "NotaFiscal";
-            
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
+
             IEnumerable<NotaFiscalViewModel> listaNotaFiscalViewModel = null;
             //_notaFiscalServices.RetornaListaNotaFiscal()
 
@@ -353,6 +357,21 @@ namespace projFront.Controllers
         private bool NotaFiscalExists(int id)
         {
           return (_context.NotaFiscal?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private string IdentificaDireitoUsuario()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string direito = "Operador";
+
+            if (userId != null)
+            {
+                var userRoles = _userManager.GetRolesAsync(_userManager.FindByIdAsync(userId).GetAwaiter().GetResult());
+
+                direito = userRoles.Result[0];
+            }
+
+            return direito;
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -21,12 +23,15 @@ namespace projFront.Controllers
         private readonly AppDbContext _context;
         private readonly IUsuarioServices _usuarioServices;
         private readonly IMapper _mapper;
-
-        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices, IMapper mapper)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices, IMapper mapper, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _usuarioServices = usuarioServices;
             _mapper = mapper;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
@@ -34,6 +39,7 @@ namespace projFront.Controllers
         public IActionResult Index()
         {
             ViewData["PaginaSelecionada"] = "Usuarios";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
             var listaUsuarioVM = _usuarioServices.ListarTodosUsuarios();
 
@@ -168,6 +174,21 @@ namespace projFront.Controllers
         private bool UsuarioExists(int id)
         {
           return (_context.Usuarios?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+
+        private string IdentificaDireitoUsuario()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string direito = "Operador";
+
+            if (userId != null)
+            {
+                var userRoles = _userManager.GetRolesAsync(_userManager.FindByIdAsync(userId).GetAwaiter().GetResult());
+
+                direito = userRoles.Result[0];
+            }
+
+            return direito;
         }
     }
 }

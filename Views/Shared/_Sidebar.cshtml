@@ -1,8 +1,7 @@
 ﻿@{
     var paginaSelecionada = @ViewData["PaginaSelecionada"];
+    var DireitoUsuario = @ViewData["DireitoUsuario"];
 }
-
-
 
 <ul class="nav nav-pills flex-column mb-auto">
 
@@ -89,26 +88,29 @@
             </a>
         </li>
     }
+    @if(Convert.ToString(DireitoUsuario) == "Admin")
+    {
+        @if (paginaSelecionada == "Usuarios")
+        {
+            <li>
+                <a class="nav-link active " asp-controller="Usuarios" asp-action="Index">
+                    <img class="bi pe-none me-2" width="16" height="16" src="~/images/users.png" />
 
-    @if (paginaSelecionada == "Usuarios")
-    {
-        <li>
-            <a class="nav-link active " asp-controller="Usuarios" asp-action="Index">
-                <img class="bi pe-none me-2" width="16" height="16" src="~/images/users.png" />
-                
-                Usuários
-            </a>
-        </li>
+                    Usuários
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a class="nav-link " asp-controller="Usuarios" asp-action="Index">
+                    <img class="bi pe-none me-2" width="16" height="16" src="~/images/users.png" />
+                    Usuários
+                </a>
+            </li>
+        }
     }
-    else
-    {
-        <li>
-            <a class="nav-link " asp-controller="Usuarios" asp-action="Index">
-                <img class="bi pe-none me-2" width="16" height="16" src="~/images/users.png" />
-                Usuários
-            </a>
-        </li>
-    }
+    
 
 </ul>
 

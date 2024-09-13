@@ -27,14 +27,17 @@ namespace projFront.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUsuarioRepository _IUsuarioRepository;
-
-        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor, IUsuarioRepository iUsuarioRepository)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor, IUsuarioRepository iUsuarioRepository, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _bancoServices = bancoServices;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _IUsuarioRepository = iUsuarioRepository;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
@@ -46,6 +49,7 @@ namespace projFront.Controllers
 
             ViewData["UsuarioLogado"] = usuarioLogado;
             ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
             IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
             Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
@@ -307,6 +311,20 @@ namespace projFront.Controllers
         private bool BancoExists(int id)
         {
           return (_context.Bancos?.Any(e => e.IdBanco == id)).GetValueOrDefault();
+        }
+        private string IdentificaDireitoUsuario()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string direito = "Operador";
+
+            if (userId != null)
+            {
+                var userRoles = _userManager.GetRolesAsync(_userManager.FindByIdAsync(userId).GetAwaiter().GetResult());
+
+                direito = userRoles.Result[0];
+            }
+
+            return direito;
         }
     }
 }

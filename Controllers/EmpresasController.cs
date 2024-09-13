@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +22,15 @@ namespace projFront.Controllers
         private readonly AppDbContext _context;
         private readonly IEmpresaServices _empresaServices;
         private readonly IMapper _mapper;
-
-        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices, IMapper mapper)
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices, IMapper mapper, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _empresaServices = empresaServices;
             _mapper = mapper;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
 
@@ -33,6 +38,7 @@ namespace projFront.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
             IEnumerable<EmpresaViewModel> listaEmpresaViewModel = null;
 
@@ -186,6 +192,20 @@ namespace projFront.Controllers
         private bool EmpresaExists(int id)
         {
           return (_context.Empresas?.Any(e => e.IdEmpresa == id)).GetValueOrDefault();
+        }
+
+        private string IdentificaDireitoUsuario()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string direito = "Operador";
+            if (userId != null)
+            {
+                var userRoles = _userManager.GetRolesAsync(_userManager.FindByIdAsync(userId).GetAwaiter().GetResult());
+
+                direito = userRoles.Result[0];
+            }
+
+            return direito;
         }
     }
 }

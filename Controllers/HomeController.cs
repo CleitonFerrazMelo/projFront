@@ -2,18 +2,47 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using projFront.Models;
 
 namespace projFront.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+
+        public HomeController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
+            _userManager = userManager;
+            _roleManager = roleManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
+
             ViewData["PaginaSelecionada"] = "Home";
             return View();
+        }
+
+        private string IdentificaDireitoUsuario()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string direito = "Operador";
+
+            if (userId != null)
+            {
+                var userRoles = _userManager.GetRolesAsync(_userManager.FindByIdAsync(userId).GetAwaiter().GetResult());
+
+                direito = userRoles.Result[0]; 
+            }
+
+            return direito;
         }
 
     }
