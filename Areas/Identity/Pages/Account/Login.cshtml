@@ -24,7 +24,7 @@
           </div>
           <div class="form-floating mb-3">
                         <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                        <label asp-for="Input.Password" class="form-label">Password</label>
+                        <label asp-for="Input.Password" class="form-label">Senha</label>
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
           </div>
           <div class="checkbox mb-3">
@@ -33,7 +33,7 @@
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
             </label>
           </div>
-          <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+          <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Acessar</button>
           <hr class="my-4">
                     <small class="text-body-secondary">Ao clicar em Cadastrar, você concorda com os termos de uso.</small>
                     <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
