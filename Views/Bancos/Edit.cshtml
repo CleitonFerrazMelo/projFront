@@ -2,10 +2,14 @@
 
 @{
     ViewData["Title"] = "Editar Banco";
+    var direitoUsuarioLogado = @ViewData["direitoUsuarioLogado"];
 }
 
 <script>
     var viewModel = @Html.Raw(Json.Serialize(Model));
+
+    var direitoUsuarioLogado = @Html.Raw(Json.Serialize(direitoUsuarioLogado));
+
 </script>
 
 <h1>Editar Banco</h1>
@@ -73,36 +77,38 @@
         </div>
     </div>
 </div>
+        @if (Convert.ToString(direitoUsuarioLogado) != "Operador")
+        {
 
+            <div class="container text-center">
+                <div class="row align-items-start">
+                    <div class="col">
+                        <h1> Não Selecionados </h1>
 
-    <div class="container text-center">
-        <div class="row align-items-start">
-            <div class="col">
-                <h1> Não Selecionados </h1>
+                        <select name="ListaUsuariosNaoRelacionados" style="height: 200px; width: 400px;" class="form-select form-select-lg" id="ListaUsuariosNaoRelacionados" multiple>
+                            @foreach (var item in Model.ListaUsuariosNaoRelacionados)
+                            {
+                                <option asp-for="ListaUsuariosNaoRelacionados" value="@item">@item.UserName</option>
+                            }
+                        </select>
 
-                <select name="ListaUsuariosNaoRelacionados" style="height: 200px; width: 400px;" class="form-select form-select-lg" id="ListaUsuariosNaoRelacionados" multiple>
-                    @foreach (var item in Model.ListaUsuariosNaoRelacionados)
-                    {
-                        <option asp-for="ListaUsuariosNaoRelacionados" value="@item">@item.UserName</option>
-                    }
-                </select>
-
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success" id="btnAdicionar">Adicionar</button>
+                        <button class="btn btn-warning" id="btnRemover">Remover</button>
+                    </div>
+                    <div class="col">
+                        <h1>  Selecionados </h1>
+                        <select name="ListaUsuariosRelacionados" style="height: 200px; width: 400px;" class="form-select form-select-lg" id="ListaUsuariosRelacionados" multiple>
+                            @foreach (var item in Model.ListaUsuariosRelacionados)
+                            {
+                                <option asp-for="ListaUsuarioRelacionados" value="@item">@item.UserName</option>
+                            }
+                        </select>
+                    </div>
+                </div>
             </div>
-            <div class="col">
-                <button class="btn btn-success" id="btnAdicionar">Adicionar</button>
-                <button class="btn btn-warning" id="btnRemover">Remover</button>
-            </div>
-            <div class="col">
-                <h1>  Selecionados </h1>
-                <select name="ListaUsuariosRelacionados" style="height: 200px; width: 400px;" class="form-select form-select-lg" id="ListaUsuariosRelacionados" multiple>
-                    @foreach (var item in Model.ListaUsuariosRelacionados)
-                    {
-                        <option asp-for="ListaUsuarioRelacionados" value="@item">@item.UserName</option>
-                    }
-                </select>
-            </div>
-        </div>
-    </div>
+    }
     @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
@@ -145,54 +151,74 @@
             var vListaUsuariosRelacionados = document.getElementById('ListaUsuariosRelacionados');
 
             const listaDeObjetosRelacionados = [];
+            var banco = {};
 
             console.log(vListaUsuariosRelacionados)
 
-            // Percorrer as opções selecionadas
-            for (let i = 0; i < vListaUsuariosRelacionados.options.length; i++) {
-                if (vListaUsuariosRelacionados.options[i]) {
-                    // Criar um objeto e adicionar ao array
-                    const objListaRelacionado = {
-                        email: vListaUsuariosRelacionados.options[i].value
-                    };
-                    listaDeObjetosRelacionados.push(objListaRelacionado);
+            if (direitoUsuarioLogado != "Operador") {
+                // Percorrer as opções selecionadas
+                for (let i = 0; i < vListaUsuariosRelacionados.options.length; i++) {
+                    if (vListaUsuariosRelacionados.options[i]) {
+                        // Criar um objeto e adicionar ao array
+                        const objListaRelacionado = {
+                            email: vListaUsuariosRelacionados.options[i].value
+                        };
+                        listaDeObjetosRelacionados.push(objListaRelacionado);
+                    }
+                }
+                console.log("listaDeObjetosRelacionados")
+                console.log(listaDeObjetosRelacionados)
+
+                var vListaUsuariosNaoRelacionados = document.getElementById('ListaUsuariosNaoRelacionados');
+
+                // Criar um array para armazenar os objetos
+                const listaDeObjetosNaoRelacionados = [];
+
+                // Percorrer as opções selecionadas
+                for (let ii = 0; ii < vListaUsuariosNaoRelacionados.options.length; ii++) {
+                    if (vListaUsuariosNaoRelacionados.options[ii]) {
+
+
+                        var valor = vListaUsuariosNaoRelacionados.options[ii].value;
+
+                        const obj = {
+                            email: valor
+                        };
+
+                        listaDeObjetosNaoRelacionados.push(obj);
+
+                    }
+                }
+
+                  banco = {
+                    idBanco: idBanco,
+                    nome: nome,
+                    agencia: agencia,
+                    tipoConta: tipoConta,
+                    numeroConta: numeroConta,
+                    pixChave: pixChave,
+                    pixNumero: pixNumero,
+                    listaUsuariosRelacionados: listaDeObjetosRelacionados,
+                    listaUsuariosNaoRelacionados: listaDeObjetosNaoRelacionados
+                }
+
+            }
+            else
+            {
+                 banco = {
+                    idBanco: idBanco,
+                    nome: nome,
+                    agencia: agencia,
+                    tipoConta: tipoConta,
+                    numeroConta: numeroConta,
+                    pixChave: pixChave,
+                    pixNumero: pixNumero
                 }
             }
-            console.log("listaDeObjetosRelacionados")
-            console.log(listaDeObjetosRelacionados)
 
-            var vListaUsuariosNaoRelacionados = document.getElementById('ListaUsuariosNaoRelacionados');
+            
 
-            // Criar um array para armazenar os objetos
-            const listaDeObjetosNaoRelacionados = [];
-
-            // Percorrer as opções selecionadas
-            for (let ii = 0; ii < vListaUsuariosNaoRelacionados.options.length; ii++) {
-                if (vListaUsuariosNaoRelacionados.options[ii]) {
-
-
-                    var valor = vListaUsuariosNaoRelacionados.options[ii].value;
-
-                    const obj = {
-                        email: valor
-                    };
-
-                    listaDeObjetosNaoRelacionados.push(obj);
-
-                }
-            }
-
-            const banco = {
-                idBanco : idBanco,
-                nome: nome,
-                agencia: agencia,
-                tipoConta: tipoConta,
-                numeroConta: numeroConta,
-                pixChave: pixChave,
-                pixNumero: pixNumero,
-                listaUsuariosRelacionados: listaDeObjetosRelacionados,
-                listaUsuariosNaoRelacionados: listaDeObjetosNaoRelacionados
-            }
+            
 
             console.log(banco)
 

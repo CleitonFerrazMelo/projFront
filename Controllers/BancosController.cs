@@ -173,6 +173,14 @@ namespace projFront.Controllers
                 return NotFound();
             }
 
+            var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+
+            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+
+            Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
+
+            ViewData["direitoUsuarioLogado"] = direitoUsuarioLogado.Nome;
+
             List<IdentityUser> listaUsuariosRelacionadosPorBanco = _IUsuarioRepository.BuscarUserPorBanco(banco.IdBanco);
             List<IdentityUser> listaUsuarioNaoRelacionadosPorBanco = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
 
@@ -195,6 +203,12 @@ namespace projFront.Controllers
         [HttpPut]
         public async Task<IActionResult> Edit(int id, BancoViewModel bancoVM)
         {
+            var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
+
+            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+
+            Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
+
             if (id != bancoVM.IdBanco)
             {
                 return NotFound();
@@ -208,25 +222,28 @@ namespace projFront.Controllers
                     _context.Update(banco);
                     await _context.SaveChangesAsync();
 
-                    Banco bancoSalvo = _context.Bancos.FirstOrDefault(b => b.Nome == banco.Nome
+                    if(direitoUsuarioLogado.Nome == "Admin")
+                    {
+                        Banco bancoSalvo = _context.Bancos.FirstOrDefault(b => b.Nome == banco.Nome
                                                                     && b.PixNumero == banco.PixNumero
                                                                     && b.Agencia == banco.Agencia
                                                                     && b.TipoConta == banco.TipoConta
                                                                     && b.NumeroConta == banco.NumeroConta
                                                                     && b.PixChave == banco.PixChave);
 
-                    int idBanco = bancoSalvo.IdBanco;
+                        int idBanco = bancoSalvo.IdBanco;
 
-                    List<string> listaUsuariosId = new List<string>();
+                        List<string> listaUsuariosId = new List<string>();
 
-                    foreach (var usuario in bancoVM.ListaUsuariosRelacionados)
-                    {
-                        var usuarios = _IUsuarioRepository.BuscarUserPorEmail(usuario.Email);
+                        foreach (var usuario in bancoVM.ListaUsuariosRelacionados)
+                        {
+                            var usuarios = _IUsuarioRepository.BuscarUserPorEmail(usuario.Email);
 
-                        listaUsuariosId.Add(usuarios.Id);
-                    }
+                            listaUsuariosId.Add(usuarios.Id);
+                        }
 
-                    LimpaEIncluiUsuario(listaUsuariosId, idBanco);
+                        LimpaEIncluiUsuario(listaUsuariosId, idBanco);
+                    }                    
 
                 }
                 catch (DbUpdateConcurrencyException)

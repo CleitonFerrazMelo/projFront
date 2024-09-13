@@ -17,8 +17,6 @@
     var viewUsuarioLogado = @Html.Raw(Json.Serialize(usuarioLogado));
 
     var direitoUsuarioLogado = @Html.Raw(Json.Serialize(direitoUsuarioLogado));
-
-    console.log(direitoUsuarioLogado);
     
 
 </script>
@@ -160,6 +158,7 @@
                     console.log(vListaUsuariosRelacionados)
 
                     if (direitoUsuarioLogado != "Operador") {
+
                         // Percorrer as opções selecionadas
                         for (let i = 0; i < vListaUsuariosRelacionados.options.length; i++) {
                             if (vListaUsuariosRelacionados.options[i]) {
