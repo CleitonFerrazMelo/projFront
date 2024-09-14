@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,7 @@ using projFront.Models;
 
 namespace projFront.Controllers
 {
+    [Authorize(Roles = "Admin, Operador")]
     public class HomeController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;

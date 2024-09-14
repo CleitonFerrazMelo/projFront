@@ -2,9 +2,19 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@{
+    var paginaSelecionada = @ViewData["PaginaSelecionada"];
+    var DireitoUsuario = @ViewData["DireitoUsuario"];
+}
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <!-- <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Manage/Index">Hello @User.Identity.Name!</a></li>-->
+     
+    @if (Convert.ToString(DireitoUsuario) == "Admin")
+    {
+        <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Register">Cadastrar Novo Usuário</a></li>
+    }
+    
     <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Logout">Sair</a></li>
 }
 else
