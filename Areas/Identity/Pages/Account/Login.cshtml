@@ -6,12 +6,16 @@
    
 }
 
+
 <h1>@ViewData["Title"]</h1>
+
+
 <div class="container">
   <div class="container col-xl-10 col-xxl-8 px-4 py-5">
     <div class="row align-items-center g-lg-5 py-5">
       <div class="col-lg-6 text-center text-lg-start">
-        <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Login</h1>
+        
+                <img height="250" width="250" src="~/images/logo_transparente_facchini.png" />
         <p class="col-lg-10 fs-4"></p>
       </div>
       <div class="col-md-10 mx-auto col-lg-6">
@@ -28,22 +32,24 @@
                         <span asp-validation-for="Input.Password" class="text-danger"></span>
           </div>
           <div class="checkbox mb-3">
-                        <label asp-for="Input.RememberMe">
-                            <input class="form-check-input" asp-for="Input.RememberMe" />
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        <label asp-for="Input.RememberMe"> 
+                            <input class="form-check-input" asp-for="Input.RememberMe"  />
+                        Lembrar senha
             </label>
           </div>
           <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Acessar</button>
           <hr class="my-4">
-                    <small class="text-body-secondary">Ao clicar em Cadastrar, você concorda com os termos de uso.</small>
+                  <!--  <small class="text-body-secondary">Ao clicar em Cadastrar, você concorda com os termos de uso.</small>
                     <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">
                         Registre-se como um novo usuário
-                    </a>
+                      </a> -->
         </form>
       </div>
     </div>
   </div>
   </div>
+
+
 <!-- 
 <div class="container">
     <div class="col-md-4">
