@@ -27,9 +27,9 @@ namespace projFront.Controllers
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IUsuarioRepository _IUsuarioRepository;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor, IUsuarioRepository iUsuarioRepository, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public BancosController(AppDbContext context, IBancoServices bancoServices, IMapper mapper, IHttpContextAccessor httpContextAccessor, IUsuarioRepository iUsuarioRepository, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _bancoServices = bancoServices;
@@ -51,7 +51,7 @@ namespace projFront.Controllers
             ViewData["PaginaSelecionada"] = "Bancos";
             ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
-            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+            ApplicationUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
             Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
 
             IEnumerable<BancoViewModel> listaBancoViewModel = null;
@@ -69,7 +69,7 @@ namespace projFront.Controllers
                 return View(listaBancoViewModel);
             }
 
-            IdentityUser dadosUsuario = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+            ApplicationUser dadosUsuario = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
             listaBancoPorUsuario = _bancoServices.ListaBancosPorUsuario(dadosUsuario.Id);
             listaBancoPorUsuarioVM = _mapper.Map<IEnumerable<BancoViewModel>>(listaBancoPorUsuario);
@@ -101,7 +101,7 @@ namespace projFront.Controllers
         {
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
-            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+            ApplicationUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
             Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
 
@@ -179,14 +179,14 @@ namespace projFront.Controllers
 
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
-            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+            ApplicationUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
             Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
 
             ViewData["direitoUsuarioLogado"] = direitoUsuarioLogado.Nome;
 
-            List<IdentityUser> listaUsuariosRelacionadosPorBanco = _IUsuarioRepository.BuscarUserPorBanco(banco.IdBanco);
-            List<IdentityUser> listaUsuarioNaoRelacionadosPorBanco = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
+            List<ApplicationUser> listaUsuariosRelacionadosPorBanco = _IUsuarioRepository.BuscarUserPorBanco(banco.IdBanco);
+            List<ApplicationUser> listaUsuarioNaoRelacionadosPorBanco = _IUsuarioRepository.ListarTodosOsUsuariosAsync();
 
             foreach (var usuarioRelacionado in listaUsuariosRelacionadosPorBanco)
             {
@@ -209,7 +209,7 @@ namespace projFront.Controllers
         {
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
-            IdentityUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
+            ApplicationUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
 
             Regra direitoUsuarioLogado = _IUsuarioRepository.BuscarRegraPorUsuario(userLogado);
 

@@ -23,9 +23,9 @@ namespace projFront.Controllers
         private readonly AppDbContext _context;
         private readonly IUsuarioServices _usuarioServices;
         private readonly IMapper _mapper;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices, IMapper mapper, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UsuariosController(AppDbContext context, IUsuarioServices usuarioServices, IMapper mapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _usuarioServices = usuarioServices;

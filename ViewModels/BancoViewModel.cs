@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using projFront.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace projFront.ViewModels
@@ -30,7 +31,7 @@ namespace projFront.ViewModels
         [Display(Name = "Número do Pix")]
         [Required(ErrorMessage = "Informe número do PIX!")]
         public string PixNumero { get; set; }
-        public List<IdentityUser> ListaUsuariosRelacionados { get; set; } = new List<IdentityUser>();
-        public List<IdentityUser> ListaUsuariosNaoRelacionados { get; set; } = new List<IdentityUser>();
+        public List<ApplicationUser> ListaUsuariosRelacionados { get; set; } = new List<ApplicationUser>();
+        public List<ApplicationUser> ListaUsuariosNaoRelacionados { get; set; } = new List<ApplicationUser>();
     }
 }

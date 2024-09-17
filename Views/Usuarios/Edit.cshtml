@@ -41,7 +41,16 @@
                     }
                 </select>
             </div>
-
+             <div class="form-group">
+                <label asp-for="NumeroDaNotaAtual" class="control-label"></label>
+            <input asp-for="NumeroDaNotaAtual" id="NumeroDaNotaAtual" name="NumeroDaNotaAtual" class="form-control"  />
+            <span asp-validation-for="NumeroDaNotaAtual" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UltimoNumeroDaNota" class="control-label"></label>
+            <input asp-for="UltimoNumeroDaNota" id="UltimoNumeroDaNota" name="UltimoNumeroDaNota" class="form-control"  />
+            <span asp-validation-for="UltimoNumeroDaNota" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input onclick="EditarUsuario()" value="Editar Usuario" class="btn btn-success" />
             </div>
@@ -76,10 +85,15 @@
             var userName = document.getElementById('UserName').value;
             var email = document.getElementById('Email').value;
             var direito = document.getElementById('direito').value;
+            var NumeroDaNotaAtual = document.getElementById('NumeroDaNotaAtual').value;
+            var UltimoNumeroDaNota = document.getElementById('UltimoNumeroDaNota').value;
+
             console.log(ID);
             console.log(userName);
             console.log(email);
             console.log(direito);
+            console.log(NumeroDaNotaAtual);
+            console.log(UltimoNumeroDaNota);
 
             // Obtém o elemento select pelo ID
             var selectElement = document.getElementById('direito');
@@ -96,7 +110,7 @@
             var regra1 = new Regra(idRegra, nomeRegra);
 
             // Create a Usuario object with a list of Regra objects
-            var usuario = new Usuario(ID, userName, email, [regra1]);
+            var usuario = new Usuario(ID, userName, email, [regra1], NumeroDaNotaAtual, UltimoNumeroDaNota);
 
             console.log(" *****usuario *******")
             console.log(usuario)
@@ -114,11 +128,13 @@
 
         }
 
-        function Usuario(id, userName, email, direito) {
+        function Usuario(id, userName, email, direito, NumeroDaNotaAtual, UltimoNumeroDaNota) {
             this.Id = id;
             this.UserName = userName;
             this.Email = email;
             this.Direito = direito || []; // Initialize Direito as an empty array if not provided
+            this.NumeroDaNotaAtual = NumeroDaNotaAtual;
+            this.UltimoNumeroDaNota = UltimoNumeroDaNota;
         }
 
         function Regra(idRegra, nome) {

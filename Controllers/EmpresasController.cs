@@ -22,9 +22,9 @@ namespace projFront.Controllers
         private readonly AppDbContext _context;
         private readonly IEmpresaServices _empresaServices;
         private readonly IMapper _mapper;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices, IMapper mapper, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public EmpresasController(AppDbContext context, IEmpresaServices empresaServices, IMapper mapper, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
             _empresaServices = empresaServices;

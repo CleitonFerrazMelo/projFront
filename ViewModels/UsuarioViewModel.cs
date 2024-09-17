@@ -11,6 +11,8 @@ namespace projFront.ViewModels
         public string UserName { get; set; }
         public string Email { get; set; }
         public List<Regra> Direito { get; set; } = new();
+        public int NumeroDaNotaAtual { get; set; }
+        public int UltimoNumeroDaNota { get; set; }
 
     }
 }

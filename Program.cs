@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using projFront.Data;
+using projFront.Models;
 using projFront.Repository;
 using projFront.Services;
 using projFront.ViewModels.Mappings;
@@ -34,10 +35,7 @@ builder.Services.AddScoped<INotaFiscalRepository, NotaFiscalRepository>();
 builder.Services.AddDbContext<AppDbContext>(x => 
     x.UseSqlite(connection));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-{
-    options.SignIn.RequireConfirmedAccount = true;
-}).AddRoles<IdentityRole>()
+builder.Services.AddDefaultIdentity<ApplicationUser>().AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>();
 
 builder.Services.AddCors();

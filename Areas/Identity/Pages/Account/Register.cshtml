@@ -4,8 +4,10 @@
     ViewData["Title"] = "Register";
 }
 
-<div class="Container ">
-    <div class="container col-md-4 align-items-center">
+
+<div class="container">
+    <div class="container col-xl-10 col-xxl-8 px-4 py-5">
+        <div class="row align-items-center g-lg-5 py-5">
         
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h2>Criar nova conta</h2>
@@ -27,7 +29,15 @@
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Cadastrar</button>
+             <a class="w-100 btn btn-lg btn-warning mt-1" aria-current="page" asp-area="" asp-controller="Home" asp-action="Index">
+                    Voltar
+                </a>
         </form>
+           
+
+               
+            
+        </div>
     </div>
     <br />
     

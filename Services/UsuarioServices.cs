@@ -16,12 +16,14 @@ namespace projFront.Services
 
         public UsuarioViewModel BuscarUsuarioPorID(string id)
         {
-            IdentityUser usuario = _usuarioRepository.BuscarUsuarioPorID(id);
+            ApplicationUser usuario = _usuarioRepository.BuscarUsuarioPorID(id);
             Regra regra = _usuarioRepository.BuscarRegraPorUsuario(usuario);
             UsuarioViewModel usuarioVM = new UsuarioViewModel();
             usuarioVM.Id = usuario.Id;
             usuarioVM.UserName = usuario.UserName;
             usuarioVM.Email = usuario.Email;
+            usuarioVM.NumeroDaNotaAtual = usuario.NumeroDaNotaAtual;
+            usuarioVM.UltimoNumeroDaNota = usuario.UltimoNumeroDaNota;
 
             usuarioVM.Direito.Add(regra);
 
@@ -30,14 +32,14 @@ namespace projFront.Services
 
         public List<UsuarioViewModel> ListarTodosUsuarios()
         {
-            List<IdentityUser> listaUsuarios = _usuarioRepository.ListarTodosOsUsuariosAsync();
+            List<ApplicationUser> listaUsuarios = _usuarioRepository.ListarTodosOsUsuariosAsync();
 
             var listaUsuarioViewModel = MapearUsuarioToUsuarioVM(listaUsuarios);
 
             return listaUsuarioViewModel;
         }
 
-        public List<UsuarioViewModel> MapearUsuarioToUsuarioVM(List<IdentityUser> listaUsuarios)
+        public List<UsuarioViewModel> MapearUsuarioToUsuarioVM(List<ApplicationUser> listaUsuarios)
         {
             List<UsuarioViewModel> listaUsuarioVM = new List<UsuarioViewModel>();            
 
@@ -87,6 +89,13 @@ namespace projFront.Services
 
         public void AlterarRegraNoUsuario(UsuarioViewModel usuarioVM)
         {
+            ApplicationUser usuario = _usuarioRepository.BuscarUsuarioPorID(usuarioVM.Id);
+
+            usuario.NumeroDaNotaAtual = usuarioVM.NumeroDaNotaAtual;
+            usuario.UltimoNumeroDaNota = usuarioVM.UltimoNumeroDaNota;
+
+            _usuarioRepository.AlterarDadosNota(usuario);
+
             _usuarioRepository.LimparRegraUsuario(usuarioVM.Id);
 
             _usuarioRepository.CadastrarRegraNoUsuario(usuarioVM.Id, usuarioVM.Direito[0].IdRegra);

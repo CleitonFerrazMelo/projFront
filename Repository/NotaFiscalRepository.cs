@@ -8,9 +8,9 @@ namespace projFront.Repository
     public class NotaFiscalRepository : INotaFiscalRepository
     {
         public readonly AppDbContext _repo;
-        public readonly UserManager<IdentityUser> _userManager;
+        public readonly UserManager<ApplicationUser> _userManager;
 
-        public NotaFiscalRepository(AppDbContext repo, UserManager<IdentityUser> userManager)
+        public NotaFiscalRepository(AppDbContext repo, UserManager<ApplicationUser> userManager)
         {
             _repo = repo;
             _userManager = userManager;

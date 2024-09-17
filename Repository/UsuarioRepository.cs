@@ -10,9 +10,9 @@ namespace projFront.Repository
     public class UsuarioRepository : IUsuarioRepository
     {
         public readonly AppDbContext _repo;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public UsuarioRepository(AppDbContext repo, UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
+        public UsuarioRepository(AppDbContext repo, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _repo = repo;
             _userManager = userManager;
@@ -25,18 +25,18 @@ namespace projFront.Repository
             _repo.SaveChanges();
         }
 
-        public IdentityUser BuscarUserPorEmail(string email)
+        public ApplicationUser BuscarUserPorEmail(string email)
         {
             return _userManager.FindByEmailAsync(email).Result;
         }
-        public List<IdentityUser> ListarTodosOsUsuariosAsync()
+        public List<ApplicationUser> ListarTodosOsUsuariosAsync()
         {
             return _userManager.Users.ToList();
         }
 
-        public List<IdentityUser> BuscarUserPorBanco(int IdBanco)
+        public List<ApplicationUser> BuscarUserPorBanco(int IdBanco)
         {
-            List<IdentityUser> listaUserPorBanco = new List<IdentityUser>();
+            List<ApplicationUser> listaUserPorBanco = new List<ApplicationUser>();
             List<string> listIdUser = new List<string>();
             try
             {
@@ -76,7 +76,7 @@ namespace projFront.Repository
 
             foreach (string iduser in listIdUser)
             {
-                IdentityUser usuario = _userManager.Users.FirstOrDefault(x => x.Id == iduser);
+                ApplicationUser usuario = _userManager.Users.FirstOrDefault(x => x.Id == iduser);
                 listaUserPorBanco.Add(usuario);
             }
 
@@ -89,7 +89,7 @@ namespace projFront.Repository
             return sqliteConnection;
         }
 
-        public Regra BuscarRegraPorUsuario(IdentityUser nomeUsuario)
+        public Regra BuscarRegraPorUsuario(ApplicationUser nomeUsuario)
         {
             List<UsuarioRegra> listaUsuarioRegra = new List<UsuarioRegra>();
             var regra = _userManager.GetRolesAsync(nomeUsuario);
@@ -117,7 +117,7 @@ namespace projFront.Repository
             return regra;
         }
         
-        public IdentityUser BuscarUsuarioPorID(string id)
+        public ApplicationUser BuscarUsuarioPorID(string id)
         {
             return _userManager.Users.FirstOrDefault(x => x.Id == id);
         }
@@ -144,6 +144,12 @@ namespace projFront.Repository
             }
         }
 
+        public void AlterarDadosNota(ApplicationUser identityUser)
+        {
+            _userManager.UpdateAsync(identityUser);
+            
+        }
+
         public void CadastrarRegraNoUsuario(string userId, string roleId)
         {
             try
@@ -161,5 +167,6 @@ namespace projFront.Repository
                 throw ex;
             }
         }
+
     }
 }
