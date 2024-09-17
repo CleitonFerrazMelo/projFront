@@ -10,8 +10,10 @@ namespace projFront.Repository
         public List<NotaFiscal> RetornaListaNotaFiscal(string email);
 
         public Empresa RetornaEmpresa(int id);
-
+        public ApplicationUser RetornaUsuario(string email);
         public void AtualizarUltimoNumeroEmpresa(Empresa empresa);
+
+        public void AtualizarUltimoNumeroUsuario(ApplicationUser usuario);
 
         public void Atualizar(NotaFiscal notaFiscal);
     }

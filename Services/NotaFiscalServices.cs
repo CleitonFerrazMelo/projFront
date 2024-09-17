@@ -50,16 +50,22 @@ namespace projFront.Services
             
             if (notaFiscal.FaturaNumero == 0)
             {
-                Empresa empresa = RetornaProximoNumero(notaFiscal.IdEmpresa);
+                Empresa empresa = RetornaEmpresa(notaFiscal.IdEmpresa);
+                ApplicationUser usuario = RetornaProximoNumero(notaFiscal.UserName);
                 if (empresa.IdEmpresa > 0)
                 {
                     notaFiscal.FaturaSerie = empresa.FaturaSerie;
-                    notaFiscal.FaturaNumero = empresa.FaturaUltimoNumero;
+                    //notaFiscal.FaturaNumero = empresa.FaturaUltimoNumero;
+                    notaFiscal.FaturaNumero = usuario.NumeroDaNotaAtual;
+
+                    notaFiscal.DataEmissao = DateTime.Now;
                 }
                 else
                 {
                     mensagem = "Não foi possivel localizar empresa";
                 }
+
+
             }
 
             if (notaFiscal.FaturaNumero > 0)
@@ -70,16 +76,27 @@ namespace projFront.Services
             return mensagem;
         }
 
-        private Empresa RetornaProximoNumero(int idEmpresa)
+        private Empresa RetornaEmpresa(int idEmpresa)
         {
             Empresa empresa = _notaFiscalRepository.RetornaEmpresa(idEmpresa);
             if (empresa.IdEmpresa > 0)
             {
                 empresa.FaturaUltimoNumero = empresa.FaturaUltimoNumero + 1;
-                _notaFiscalRepository.AtualizarUltimoNumeroEmpresa(empresa);
+                //_notaFiscalRepository.AtualizarUltimoNumeroEmpresa(empresa);
             }
 
             return empresa;
+        }
+
+        private ApplicationUser RetornaProximoNumero(string email)
+        {
+            ApplicationUser usuario = _notaFiscalRepository.RetornaUsuario(email);
+            if (usuario.Id != null)
+            {
+                usuario.NumeroDaNotaAtual = usuario.NumeroDaNotaAtual + 1;
+                _notaFiscalRepository.AtualizarUltimoNumeroUsuario(usuario);
+            }
+            return usuario;
         }
     }
 }

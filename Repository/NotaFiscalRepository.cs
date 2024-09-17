@@ -37,6 +37,14 @@ namespace projFront.Repository
                 empresa = new Empresa();
             return empresa;
         }
+        public ApplicationUser RetornaUsuario(string email)
+        {
+            ApplicationUser usuario = _userManager.Users.Where(x => x.Email== email).First();
+            if (usuario == null)
+                usuario = new ApplicationUser();
+            return usuario;
+        }
+
         public List<NotaFiscal> RetornaListaNotaFiscal(string email)
         {
             List<NotaFiscal> listaNotaFiscal = _repo.NotaFiscal.Where(x => x.UserName == email).ToList();
@@ -48,6 +56,12 @@ namespace projFront.Repository
         public void AtualizarUltimoNumeroEmpresa(Empresa empresa)
         {
             _repo.Update(empresa);
+            _repo.SaveChanges();
+        }
+
+        public void AtualizarUltimoNumeroUsuario(ApplicationUser usuario)
+        {
+            _repo.Update(usuario);
             _repo.SaveChanges();
         }
 
