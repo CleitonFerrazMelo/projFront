@@ -125,7 +125,10 @@ namespace projFront.Controllers
 
             if (ModelState.IsValid)
             {
-                _usuarioServices.AlterarRegraNoUsuario(usuarioVM);
+                string mensagem = _usuarioServices.AlterarRegraNoUsuario(usuarioVM);
+
+                if (!string.IsNullOrEmpty(mensagem))
+                    return Problem(mensagem);
                 return RedirectToAction(nameof(Index));
             }
             return View(usuarioVM);

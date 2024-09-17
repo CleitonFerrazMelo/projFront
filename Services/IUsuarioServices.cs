@@ -11,6 +11,6 @@ namespace projFront.Services
         public UsuarioViewModel BuscarUsuarioPorID(string id);
         public List<Regra> CarregarListaRegras();
         public Regra GetRegra(string nomeRegra);
-        public void AlterarRegraNoUsuario(UsuarioViewModel usuarioVM);
+        public string AlterarRegraNoUsuario(UsuarioViewModel usuarioVM);
     }
 }

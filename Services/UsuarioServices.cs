@@ -87,18 +87,28 @@ namespace projFront.Services
             return _usuarioRepository.BuscarRegraPorNome(nomeRegra);
         }
 
-        public void AlterarRegraNoUsuario(UsuarioViewModel usuarioVM)
+        public string AlterarRegraNoUsuario(UsuarioViewModel usuarioVM)
         {
+            string mensagem = string.Empty;
             ApplicationUser usuario = _usuarioRepository.BuscarUsuarioPorID(usuarioVM.Id);
 
-            usuario.NumeroDaNotaAtual = usuarioVM.NumeroDaNotaAtual;
-            usuario.UltimoNumeroDaNota = usuarioVM.UltimoNumeroDaNota;
+            if (_usuarioRepository.ValidarNumeroNotaFiscal(usuario))
+            {
+                mensagem = "Já exsite Usuário com essa faixa de Número de Nota Fiscal";
+                throw new Exception(mensagem);
+            }
+            else
+            {
+                usuario.NumeroDaNotaAtual = usuarioVM.NumeroDaNotaAtual;
+                usuario.UltimoNumeroDaNota = usuarioVM.UltimoNumeroDaNota;
 
-            _usuarioRepository.AlterarDadosNota(usuario);
+                _usuarioRepository.AlterarDadosNota(usuario);
 
-            _usuarioRepository.LimparRegraUsuario(usuarioVM.Id);
+                _usuarioRepository.LimparRegraUsuario(usuarioVM.Id);
 
-            _usuarioRepository.CadastrarRegraNoUsuario(usuarioVM.Id, usuarioVM.Direito[0].IdRegra);
+                _usuarioRepository.CadastrarRegraNoUsuario(usuarioVM.Id, usuarioVM.Direito[0].IdRegra);
+            }
+            return mensagem;
         }
 
     }

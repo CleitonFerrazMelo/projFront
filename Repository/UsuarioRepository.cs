@@ -168,5 +168,38 @@ namespace projFront.Repository
             }
         }
 
+        public bool ValidarNumeroNotaFiscal(ApplicationUser identityUser)
+        {
+            bool usuarioDiferente = false;
+            try
+            {
+                List<ApplicationUser> listaIdentityUser = _userManager.Users.Where(x => x.NumeroDaNotaAtual >= identityUser.NumeroDaNotaAtual && x.UltimoNumeroDaNota <= identityUser.NumeroDaNotaAtual).ToList();
+                foreach(ApplicationUser item in listaIdentityUser)
+                {
+                    if (item.Id != identityUser.Id)
+                    {
+                        usuarioDiferente = true;
+                        break;
+                    }
+                }
+                if (!usuarioDiferente)
+                {
+                    listaIdentityUser = _userManager.Users.Where(x => x.NumeroDaNotaAtual >= identityUser.UltimoNumeroDaNota && x.UltimoNumeroDaNota <= identityUser.UltimoNumeroDaNota).ToList();
+                    foreach (ApplicationUser item in listaIdentityUser)
+                    {
+                        if (item.Id != identityUser.Id)
+                        {
+                            usuarioDiferente = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return usuarioDiferente;
+        }
     }
 }

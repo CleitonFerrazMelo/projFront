@@ -16,5 +16,6 @@ namespace projFront.Repository
         public void LimparRegraUsuario(string id);
         public void CadastrarRegraNoUsuario(string userId, string roleId);
         public void AlterarDadosNota(ApplicationUser usuario);
+        public bool ValidarNumeroNotaFiscal(ApplicationUser usuario);
     }
 }
