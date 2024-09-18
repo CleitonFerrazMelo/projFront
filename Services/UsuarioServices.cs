@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using projFront.Models;
+using projFront.Models.Exception;
 using projFront.Repository;
 using projFront.ViewModels;
 
@@ -49,6 +50,8 @@ namespace projFront.Services
                 usuarioViewModel.Id = usuario.Id;
                 usuarioViewModel.UserName = usuario.UserName;
                 usuarioViewModel.Email = usuario.Email;
+                usuarioViewModel.NumeroDaNotaAtual = usuario.NumeroDaNotaAtual;
+                usuarioViewModel.UltimoNumeroDaNota = usuario.UltimoNumeroDaNota;
                 Regra regra = new Regra();
                 regra = _usuarioRepository.BuscarRegraPorUsuario(usuario);
                 usuarioViewModel.Direito.Add(regra);    
@@ -94,8 +97,8 @@ namespace projFront.Services
 
             if (_usuarioRepository.ValidarNumeroNotaFiscal(usuario))
             {
-                mensagem = "Já exsite Usuário com essa faixa de Número de Nota Fiscal";
-                throw new Exception(mensagem);
+                mensagem = "Já existe Usuário com essa faixa de Número de Nota Fiscal";
+                throw new NumeroNotaInvalidoException(mensagem);
             }
             else
             {

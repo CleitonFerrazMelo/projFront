@@ -12,7 +12,6 @@
 <script>
     var viewModel = @Html.Raw(Json.Serialize(ViewBag.DireitoSelecionado));
 
-
 </script>
 
 
@@ -21,6 +20,13 @@
         
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
+
+
+        <div id="mensagemErro" class="alert alert-danger d-none" role="alert">
+            <span style="color: black; font-weight:700; " id="mensagemErroTexto"></span>
+            </div>
+        
+        
             <div class="form-group">
                 <label asp-for="UserName" class="control-label"></label>
                 <input asp-for="UserName" id="UserName" name="UserName" class="form-control" disabled/>
@@ -52,7 +58,7 @@
             <span asp-validation-for="UltimoNumeroDaNota" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input onclick="EditarUsuario()" value="Editar Usuario" class="btn btn-success" />
+                <input onclick="EditarUsuario()" value="Editar Usuário" class="btn btn-success" />
             </div>
         
     </div>
@@ -76,9 +82,11 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
+    
 
     <script>
+
+
        
         function EditarUsuario() {
             var ID = document.getElementById('Id').value;
@@ -87,13 +95,6 @@
             var direito = document.getElementById('direito').value;
             var NumeroDaNotaAtual = document.getElementById('NumeroDaNotaAtual').value;
             var UltimoNumeroDaNota = document.getElementById('UltimoNumeroDaNota').value;
-
-            console.log(ID);
-            console.log(userName);
-            console.log(email);
-            console.log(direito);
-            console.log(NumeroDaNotaAtual);
-            console.log(UltimoNumeroDaNota);
 
             // Obtém o elemento select pelo ID
             var selectElement = document.getElementById('direito');
@@ -112,16 +113,27 @@
             // Create a Usuario object with a list of Regra objects
             var usuario = new Usuario(ID, userName, email, [regra1], NumeroDaNotaAtual, UltimoNumeroDaNota);
 
-            console.log(" *****usuario *******")
-            console.log(usuario)
-
             $.ajax({
                 url: '/Usuarios/Edit/' + ID,
                 type: 'PUT',
+                dataType: "json",
                 data: usuario,
                 success: function (response) {
                     console.log("OKKK")
                     window.location.href = "/Usuarios";
+                },
+                error: function (data) {
+                    
+                    var responseText = JSON.parse(data.responseText);
+
+                    $('#mensagemErroTexto').text(responseText.message);
+                    $('#mensagemErro').removeClass('d-none').addClass('show'); // Adiciona a classe 'show' para animação
+
+                    // Esconde a mensagem após 3 segundos
+                    setTimeout(function () {
+                        $('#mensagemErro').removeClass('show');
+                    }, 3000);
+                    
                 }
             });
 

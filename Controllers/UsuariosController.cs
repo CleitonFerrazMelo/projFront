@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using projFront.Data;
 using projFront.Models;
+using projFront.Models.Exception;
 using projFront.Repository;
 using projFront.Services;
 using projFront.ViewModels;
@@ -122,10 +123,19 @@ namespace projFront.Controllers
             {
                 return NotFound();
             }
+            string mensagem = "";
 
             if (ModelState.IsValid)
             {
-                string mensagem = _usuarioServices.AlterarRegraNoUsuario(usuarioVM);
+                try
+                {
+                    mensagem = _usuarioServices.AlterarRegraNoUsuario(usuarioVM);
+                }
+                catch (NumeroNotaInvalidoException ex)
+                {
+                    return StatusCode(500, new { message = ex.Message });
+                }
+               
 
                 if (!string.IsNullOrEmpty(mensagem))
                     return Problem(mensagem);

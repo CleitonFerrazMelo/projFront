@@ -24,6 +24,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.Direito)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroDaNotaAtual)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UltimoNumeroDaNota)
+            </th>
             <th></th>
             <th></th>
             <th></th>
@@ -44,6 +50,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Direito[0].Nome)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.NumeroDaNotaAtual)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.UltimoNumeroDaNota)
             </td>
             <td>
                 <td>
