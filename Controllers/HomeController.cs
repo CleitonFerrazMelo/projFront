@@ -41,7 +41,8 @@ namespace projFront.Controllers
             {
                 var userRoles = _userManager.GetRolesAsync(_userManager.FindByIdAsync(userId).GetAwaiter().GetResult());
 
-                direito = userRoles.Result[0]; 
+                if (userRoles.Result.Count != 0)
+                    direito = userRoles.Result[0]; 
             }
 
             return direito;
