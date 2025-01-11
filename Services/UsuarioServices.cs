@@ -95,7 +95,7 @@ namespace projFront.Services
             string mensagem = string.Empty;
             ApplicationUser usuario = _usuarioRepository.BuscarUsuarioPorID(usuarioVM.Id);
 
-            if (_usuarioRepository.ValidarNumeroNotaFiscal(usuario))
+            /*if (_usuarioRepository.ValidarNumeroNotaFiscal(usuario))
             {
                 mensagem = "Já existe Usuário com essa faixa de Número de Nota Fiscal";
                 throw new NumeroNotaInvalidoException(mensagem);
@@ -110,7 +110,10 @@ namespace projFront.Services
                 _usuarioRepository.LimparRegraUsuario(usuarioVM.Id);
 
                 _usuarioRepository.CadastrarRegraNoUsuario(usuarioVM.Id, usuarioVM.Direito[0].IdRegra);
-            }
+            }*/
+
+            _usuarioRepository.CadastrarRegraNoUsuario(usuarioVM.Id, usuarioVM.Direito[0].IdRegra);
+
             return mensagem;
         }
 

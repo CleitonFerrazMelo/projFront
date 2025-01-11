@@ -2,13 +2,14 @@
 
 @{
     ViewData["Title"] = "Usuário";
+    
 }
 
 <h1>Usuários</h1>
 
-<p>
+ <!-- <p>
     <a asp-action="Create" class="btn btn-primary">Cadastrar Usuário</a>
-</p>
+</p>-->
 <table class="table">
     <thead>
         <tr>
@@ -62,7 +63,7 @@
                     <a asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                    <a asp-action="AlterarSenha" asp-route-id="@item.Id"> Alterar Senha </a>
                 </td>
                 <td>
                     <a asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>

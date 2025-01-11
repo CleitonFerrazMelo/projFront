@@ -1,0 +1,3 @@
+-- database: c:\Desenvolvimento\projFront\baseTeste.db
+
+SELECT * FROM Usuarios;

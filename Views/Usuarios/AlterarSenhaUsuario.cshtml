@@ -1,0 +1,54 @@
+﻿@model projFront.ViewModels.UsuarioSenhaViewModel
+
+<input type="hidden" asp-for="Id" id="Id" />
+
+<div class="form-group">
+    <label asp-for="UserName" class="control-label"></label>
+    <input asp-for="UserName" class="form-control" id="UserName" readonly />
+</div>
+<div class="form-group">
+    <label asp-for="NewPassword" class="control-label"></label>
+    <input asp-for="NewPassword" class="form-control" id="NewPassword" />
+</div>
+<div class="form-group">
+  
+    <input onclick="AlterarSenha() " value="Salvar" class="btn btn-success" />
+</div>
+
+ @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    function AlterarSenha() {
+        // Obtém os valores dos campos
+        var id = document.getElementById('Id').value;
+        var userName = document.getElementById('UserName').value;
+        var newPassword = document.getElementById('NewPassword').value;
+
+        // Monta o objeto com os dados
+        var usuarioVM = {
+            id: id,
+            userName: userName,
+            newPassword: newPassword
+        };
+
+
+        // Faz a requisição AJAX
+        $.ajax({
+            url: '/Usuarios/AlterarNovaSenha/' + usuarioVM.Id,
+            type: 'PUT',
+            data: usuarioVM,
+            success: function (response) {
+                    alert(response.message);
+                    window.location.href = "/Home";
+                // Redireciona ou atualiza a página, se necessário
+                window.location.reload();
+            },
+            error: function (xhr, status, error) {
+                console.error("Erro ao alterar a senha:", error);
+                alert('Erro ao alterar a senha.');
+            }
+        });
+    }
+
+</script>
+}

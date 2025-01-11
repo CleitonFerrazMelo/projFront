@@ -15,8 +15,7 @@ namespace projFront.ViewModels
         public string Cnpj { get; set; }
 
         [Display(Name = "Inscrição Estadual")]
-        [Required(ErrorMessage = "O campo Inscrição Estadual é obrigatório.")]
-        public string Ie { get; set; }
+        public string? Ie { get; set; } = string.Empty;
 
         [Display(Name = "Endereço")]
         [Required(ErrorMessage = "O campo Endereço é obrigatório.")]
@@ -43,9 +42,8 @@ namespace projFront.ViewModels
         public string Cep { get; set; }
 
         [Display(Name = "Número do Telefone")]
-        [Required(ErrorMessage = "O campo Unidade Federação é obrigatório.")]
-        public string NumeroTelefone { get; set; }
-        
+        public string? NumeroTelefone { get; set; } = string.Empty;
+
         [Display(Name = "Descrição do Serviço")]
         [Required(ErrorMessage = "O campo Descrição do Serviço é obrigatório.")]
         //[Required(ErrorMessage = "Informe a Descrição do Serviço!")]
@@ -53,6 +51,7 @@ namespace projFront.ViewModels
         
         [Display(Name = "Valor Total")]
         [Required(ErrorMessage = "O campo Valor Total é obrigatório.")]
+        [DisplayFormat(DataFormatString = "{0:0,0.00}", ApplyFormatInEditMode = true)]
         //[Required(ErrorMessage = "Informe o valor do Serviço!")]
         public string ValorTotal { get; set; }
 
@@ -83,8 +82,9 @@ namespace projFront.ViewModels
         public int FaturaNumero { get; set; }
 
         [Display(Name = "Mensagem do Fisco")]
-        [Required(ErrorMessage = "O campo Mensagem do Fisco é obrigatório.")]
         public string MensagemFisco { get; set; }
         public string UserName { get; set; }
+		[Display(Name = "Observações (Esse campo irá no rodapé da nota)")]
+		public string? Observacoes { get; set; } 
     }
 }

@@ -117,7 +117,7 @@ namespace projFront.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPut]
-        public async Task<IActionResult> Edit(string id, UsuarioViewModel usuarioVM)
+        public async Task<IActionResult> Edit(string id,[FromBody] UsuarioViewModel usuarioVM)
         {
             if (id != usuarioVM.Id)
             {
@@ -139,6 +139,7 @@ namespace projFront.Controllers
 
                 if (!string.IsNullOrEmpty(mensagem))
                     return Problem(mensagem);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(usuarioVM);
@@ -203,5 +204,55 @@ namespace projFront.Controllers
 
             return direito;
         }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> AlterarSenha(Guid? id)
+        {
+            if (id == null || _context.Usuarios == null)
+            {
+                return NotFound();
+            }
+
+            string idString = Convert.ToString(id);
+
+            var usuario = _userManager.Users.Where(x => x.Id == idString).FirstOrDefault();
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            var usuarioVM = new UsuarioSenhaViewModel
+            {
+                Id = usuario.Id,
+                UserName = usuario.UserName,
+                // Adicione outras propriedades conforme necessário
+            };
+
+            return View("AlterarSenhaUsuario", usuarioVM);
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        public async Task<IActionResult> AlterarNovaSenha(string id, UsuarioSenhaViewModel usuarioVM)
+        {
+            if (id != usuarioVM.Id || _context.Usuarios == null)
+            {
+                return NotFound();
+            }
+
+            var usuario = _userManager.Users.Where(x => x.Id == id).FirstOrDefault();
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            // Lógica para alterar a senha
+            usuario.PasswordHash = _userManager.PasswordHasher.HashPassword(usuario, usuarioVM.NewPassword); // Exemplo de alteração de senha
+            _context.Update(usuario);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Senha alterada com sucesso." });
+        }
+
     }
 }

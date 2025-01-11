@@ -4,7 +4,11 @@
 
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="~/assets/js/color-modes.js"></script>
+
+  <head>
+
+    
+    
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,8 +17,8 @@
     <meta name="generator" content="Hugo 0.122.0">
     <title>FACCHINI EVENTOS</title>
 
+
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
-    
     <link rel="apple-touch-icon" sizes="57x57" href="~/images/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="~/images/apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="~/images/apple-icon-72x72.png">
@@ -32,8 +36,15 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="~/images/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-   
+    
     <link href="~/assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="~/assets/sidebars.css" rel="stylesheet">
+    <script src="~/assets/js/color-modes.js"></script>
+    
+    
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet">
     <style>
@@ -126,9 +137,7 @@
 
     </style>
 
-    
-    <!-- Custom styles for this template -->
-    <link href="~/assets/sidebars.css" rel="stylesheet">
+
   </head>
   <body>
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -247,6 +256,13 @@
     <script src="~/assets/sidebars.js"></script>
    
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var container = document.querySelector('.your-scrollable-element');
+            if (container) {
+                new PerfectScrollbar(container);
+            }
+        });
+
         function mostrarSideBar(){
             var sidebarNormal = document.getElementById("sidebarNormal");
 

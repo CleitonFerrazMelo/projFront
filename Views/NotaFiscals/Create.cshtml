@@ -84,13 +84,11 @@
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="Ie" class="titulo" class="control-label"></label>
                         <input asp-for="Ie" id="Ie" name="Ie" class="form-control" />
-                        <span asp-validation-for="Ie" class="text-danger"></span>
                         <span  class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="NumeroTelefone" class="titulo" class="control-label"></label>
                         <input asp-for="NumeroTelefone" class="form-control" id="NumeroTelefone" name="NumeroTelefone" />
-                        <span asp-validation-for="NumeroTelefone" class="text-danger"></span>
                         <span  class="text-danger"></span>
                     </div>
                   
@@ -219,9 +217,9 @@
                 </div>
                 
                 <div class="form-group col-auto col-sm-10">
-                    <label asp-for="MensagemFisco" class="control-label titulo"></label>
-                    <textarea asp-for="MensagemFisco" id="MensagemFisco" class="form-control"> </textarea>
-                    <span asp-validation-for="MensagemFisco" class="text-danger"></span>
+                    <label asp-for="Observacoes" class="control-label titulo"></label>
+                    <textarea asp-for="Observacoes" id="Observacoes" class="form-control"> </textarea>
+                    
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Cadastrar" class="btn btn-success" />
@@ -237,7 +235,7 @@
 <div id="modalErro" class="modal" style="display: none;">
     <div class="modal-content">
         <div class="modal-header">
-            <h5>Erro</h5>
+            <h5>Alerta</h5>
             <button type="button" class="close" onclick="fecharModal()">&times;</button>
         </div>
         <div class="modal-body">
@@ -392,6 +390,15 @@
     function validarFormulario() {
         var bancoSelecionado = document.getElementById('banco').value;
         var empresaSelecionada = document.getElementById('empresa').value;
+
+        var numeroTelefone = document.getElementById('NumeroTelefone').value
+        var inscricaoEstadual = document.getElementById('Ie').value
+
+        console.log(numeroTelefone)
+        console.log(inscricaoEstadual)
+        document.getElementById('NumeroTelefone').value
+        document.getElementById('Ie').value
+
 
         if (bancoSelecionado === "Escolha o banco" || empresaSelecionada === "Escolha a empresa") {
             // Exibe o modal

@@ -55,8 +55,8 @@ namespace projFront.Services
                 if (empresa.IdEmpresa > 0)
                 {
                     notaFiscal.FaturaSerie = empresa.FaturaSerie;
-                    //notaFiscal.FaturaNumero = empresa.FaturaUltimoNumero;
-                    notaFiscal.FaturaNumero = usuario.NumeroDaNotaAtual;
+                    notaFiscal.FaturaNumero = empresa.FaturaUltimoNumero;
+                    //notaFiscal.FaturaNumero = usuario.NumeroDaNotaAtual;
 
                     notaFiscal.DataEmissao = DateTime.Now;
                 }

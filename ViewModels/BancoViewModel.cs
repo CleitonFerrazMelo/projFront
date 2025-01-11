@@ -25,12 +25,10 @@ namespace projFront.ViewModels
         public string NumeroConta { get; set; }
 
         [Display(Name = "Chave do Pix")]
-        [Required(ErrorMessage = "Informe chave do PIX!")]
-        public string PixChave { get; set; }
+        public string PixChave { get; set; } = string.Empty;
 
         [Display(Name = "Número do Pix")]
-        [Required(ErrorMessage = "Informe número do PIX!")]
-        public string PixNumero { get; set; }
+        public string PixNumero { get; set; } = string.Empty;
         public List<ApplicationUser> ListaUsuariosRelacionados { get; set; } = new List<ApplicationUser>();
         public List<ApplicationUser> ListaUsuariosNaoRelacionados { get; set; } = new List<ApplicationUser>();
     }

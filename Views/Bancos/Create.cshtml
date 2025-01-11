@@ -155,16 +155,12 @@
                     validarNome();
                     validarAgencia();
                     validarNumeroConta();
-                    validarPixNumero();
                     validarTipoConta();
-                    validarPixChave();
 
                     if (   vValidarNome 
                         && vValidarAgencia
                         && vValidarNumeroConta
-                        && vValidarPixNumero
-                        && vValidarTipoConta
-                        && vValidarPixChave) {
+                        && vValidarTipoConta) {
                         CadastrarBanco();
                     }
                     
@@ -210,24 +206,18 @@
                     }
                 }
 
-                function validarPixNumero() {
-                    const PixDoNumero = document.getElementById('PixNumero').value;
-                    const erroPixNumero = document.getElementById('erroPixNumero');
-
-                    if (PixDoNumero.trim() === '') {
-                        erroPixNumero.textContent = 'O número do Pix é obrigatório.';
-                        vValidarPixNumero = false;
-                    } else {
-                        vValidarPixNumero = true;
-                        erroPixNumero.textContent = '';
-                    }
-                }
+                
 
                 function validarTipoConta() {
                     const TipoDaConta = document.getElementById('TipoConta').value;
                     const erroTipoConta = document.getElementById('erroTipoConta');
 
+                    console.log("TipoDaConta")
+                    console.log(TipoDaConta)
                     if (TipoDaConta.trim() === '') {
+                        erroTipoConta.textContent = 'O tipo de conta é obrigatório.';
+                        vValidarTipoConta = false;
+                    } else if (TipoDaConta === 'Escolha o tipo de conta') {
                         erroTipoConta.textContent = 'O tipo de conta é obrigatório.';
                         vValidarTipoConta = false;
                     } else {
@@ -236,18 +226,6 @@
                     }
                 }
 
-                function validarPixChave() {
-                    const PixDaChave = document.getElementById('PixChave').value;
-                    const erroPixChave = document.getElementById('erroPixChave');
-
-                    if (PixDaChave.trim() === '') {
-                        erroPixChave.textContent = 'O Pix Chave é obrigatório.';
-                        vValidarPixChave = false;
-                    } else {
-                        vValidarPixChave = true;
-                        erroPixChave.textContent = '';
-                    }
-                }
 
                 document.getElementById('Nome').addEventListener('input', validarNome);
                 document.getElementById('Agencia').addEventListener('input', validarAgencia);
@@ -319,6 +297,11 @@
                         listaDeObjetosRelacionados.push(obj);
                     }
                     
+                    if(pixChave == "")
+                    {
+                        pixChave = "Essa conta não possui Chave Pix";
+                        pixNumero = "Essa conta não possui Chave Pix";
+                    }
 
                     const banco = {
                         nome: nome,
@@ -332,7 +315,6 @@
                     }
 
                     console.log(banco)
-
 
 
                     $.ajax({

@@ -122,6 +122,7 @@ namespace projFront.Controllers
         public async Task<IActionResult> Create( NotaFiscalViewModel notaFiscalVM)
         {
             notaFiscalVM.Empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscalVM.IdEmpresa));
+            notaFiscalVM.MensagemFisco = notaFiscalVM.Empresa[0].MensagemFisco;
             notaFiscalVM.Banco   = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
             notaFiscalVM.UserName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
@@ -139,16 +140,37 @@ namespace projFront.Controllers
             notaFiscal.Id = notaFiscalVM.Id;
             notaFiscal.Nome = notaFiscalVM.Nome;
             notaFiscal.Cnpj = notaFiscalVM.Cnpj;
-            notaFiscal.IncricaoEstadual = notaFiscalVM.Ie;
+            notaFiscal.IncricaoEstadual = notaFiscalVM.Ie == null ? "" : notaFiscalVM.Ie;
             notaFiscal.Endereco = notaFiscalVM.Endereco;
             notaFiscal.Numero = notaFiscalVM.Numero;
             notaFiscal.Bairro = notaFiscalVM.Bairro;
             notaFiscal.NomeCidade = notaFiscalVM.NomeCidade;
             notaFiscal.Uf = notaFiscalVM.Uf;
             notaFiscal.Cep = notaFiscalVM.Cep;
-            notaFiscal.NumeroTelefone = notaFiscalVM.NumeroTelefone;
+            notaFiscal.NumeroTelefone = notaFiscalVM.NumeroTelefone == null ? "" : notaFiscalVM.NumeroTelefone;
             notaFiscal.DescricaoServico = notaFiscalVM.DescricaoServico;
-            notaFiscal.ValorTotal = Convert.ToDecimal( notaFiscalVM.ValorTotal );
+			CultureInfo culturaBrasileira = new CultureInfo("pt-BR");
+            decimal valorDecimal = 0;
+
+            if (notaFiscalVM.ValorTotal.Contains(","))
+            {
+                notaFiscalVM.ValorTotal = notaFiscalVM.ValorTotal.Replace(",", ".");
+            }
+
+            if (!notaFiscalVM.ValorTotal.Contains("."))
+            {
+                notaFiscalVM.ValorTotal = notaFiscalVM.ValorTotal + ".00";
+            }
+
+            if (decimal.TryParse(notaFiscalVM.ValorTotal, NumberStyles.Any, CultureInfo.InvariantCulture, out valorDecimal))
+			{
+				Console.WriteLine("Valor decimal: " + valorDecimal); // Imprimirá 180.85
+			}
+			else
+			{
+				Console.WriteLine("Falha na conversão.");
+			}
+			notaFiscal.ValorTotal = Math.Round(valorDecimal, 2);
             notaFiscal.IdBanco = notaFiscalVM.IdBanco;
             notaFiscal.Agencia = notaFiscalVM.Banco[0].Agencia;
             notaFiscal.Conta = notaFiscalVM.Banco[0].TipoConta;
@@ -158,11 +180,12 @@ namespace projFront.Controllers
             notaFiscal.DataEmissao = notaFiscalVM.DataEmissao;
             notaFiscal.FaturaSerie = notaFiscalVM.FaturaSerie;
             notaFiscal.FaturaNumero = notaFiscalVM.FaturaNumero;
-            notaFiscal.MensagemFisco = notaFiscalVM.MensagemFisco;
+            notaFiscal.MensagemFisco = notaFiscalVM.MensagemFisco == null ? "" : notaFiscalVM.MensagemFisco;
             notaFiscal.FaturaNumero = notaFiscal.FaturaNumero == null ? 0 : notaFiscal.FaturaNumero;
             notaFiscal.FaturaSerie = notaFiscal.FaturaSerie == null ? "0" : notaFiscal.FaturaSerie;
-            notaFiscal.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "0" : notaFiscal.NumeroTelefone;
+            notaFiscal.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "" : notaFiscal.NumeroTelefone;
             notaFiscal.UserName = notaFiscalVM.UserName;
+            notaFiscal.Observacoes = notaFiscalVM.Observacoes == null ? "" : notaFiscalVM.Observacoes;
             return notaFiscal;
         }
 
@@ -172,16 +195,19 @@ namespace projFront.Controllers
             notaFiscalVM.Id = notaFiscal.Id;
             notaFiscalVM.Nome = notaFiscal.Nome;
             notaFiscalVM.Cnpj = notaFiscal.Cnpj;
-            notaFiscalVM.Ie = notaFiscal.IncricaoEstadual;
+            notaFiscalVM.Ie = notaFiscal.IncricaoEstadual == null ? "" : notaFiscal.IncricaoEstadual;
             notaFiscalVM.Endereco = notaFiscal.Endereco;
             notaFiscalVM.Numero = notaFiscal.Numero;
             notaFiscalVM.Bairro = notaFiscal.Bairro;
             notaFiscalVM.NomeCidade = notaFiscal.NomeCidade;
             notaFiscalVM.Uf = notaFiscal.Uf;
             notaFiscalVM.Cep = notaFiscal.Cep;
-            notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone;
+            notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "" : notaFiscal.NumeroTelefone;
             notaFiscalVM.DescricaoServico = notaFiscal.DescricaoServico;
             notaFiscalVM.ValorTotal = Convert.ToString(notaFiscal.ValorTotal);
+            notaFiscalVM.ValorTotal = notaFiscalVM.ValorTotal + "00000";
+            decimal valor = decimal.Parse(notaFiscalVM.ValorTotal);
+            notaFiscalVM.ValorTotal = valor.ToString("0.00");
             notaFiscalVM.IdBanco = notaFiscal.IdBanco;
 
             var empresas = _empresaServices.GetEmpresas(); // GetEmpresa(Convert.ToInt32(notaFiscal.IdEmpresa));
@@ -208,9 +234,10 @@ namespace projFront.Controllers
             notaFiscalVM.MensagemFisco = notaFiscal.MensagemFisco;
             notaFiscalVM.FaturaNumero = notaFiscal.FaturaNumero == null ? 0 : notaFiscal.FaturaNumero;
             notaFiscalVM.FaturaSerie = notaFiscal.FaturaSerie == null ? "0" : notaFiscal.FaturaSerie;
-            notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "0" : notaFiscal.NumeroTelefone;
+            notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "" : notaFiscal.NumeroTelefone;
             notaFiscalVM.UserName = notaFiscal.UserName;
-            return notaFiscalVM;
+			notaFiscalVM.Observacoes = notaFiscal.Observacoes;
+			return notaFiscalVM;
         }
 
         // GET: NotaFiscals/Edit/5
@@ -350,7 +377,15 @@ namespace projFront.Controllers
                 return NotFound();
             }
             NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
-            notaFiscalVM.Empresa = _empresaServices.GetEmpresa(notaFiscal.IdEmpresa);
+
+			notaFiscalVM.ValorTotal = Convert.ToString(notaFiscal.ValorTotal);
+			notaFiscalVM.ValorTotal = notaFiscalVM.ValorTotal + "00000";
+			decimal valor = decimal.Parse(notaFiscalVM.ValorTotal);
+			notaFiscalVM.ValorTotal = valor.ToString("0.00");
+            var banco = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
+            notaFiscalVM.Banco = banco;
+			notaFiscalVM.Empresa = _empresaServices.GetEmpresa(notaFiscal.IdEmpresa);
+            notaFiscalVM.MensagemFisco = notaFiscalVM.Empresa[0].MensagemFisco;
             return new ViewAsPdf("Impressao", notaFiscalVM) { FileName = "Test.pdf" };
         }
 

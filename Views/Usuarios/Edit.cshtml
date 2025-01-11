@@ -4,6 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
+
 <h1>Edit</h1>
 
 <h4>Usuario</h4>
@@ -72,7 +73,7 @@
     
     var campoSelecao = document.getElementById('direito');
 
-    console.log(viewModel);
+    
     campoSelecao.value = viewModel.idRegra;
 
  
@@ -113,13 +114,28 @@
             // Create a Usuario object with a list of Regra objects
             var usuario = new Usuario(ID, userName, email, [regra1], NumeroDaNotaAtual, UltimoNumeroDaNota);
 
+            console.log("Usuario")
+            console.log(usuario)
+
+
+          /*  $.ajax({
+                url: '/Usuarios/Edit/' + ID,
+                type: 'PUT',
+                data: usuario,
+                success: function (response) {
+
+                    window.location.href = "/Usuarios";
+                }
+            });*/
+            
             $.ajax({
                 url: '/Usuarios/Edit/' + ID,
                 type: 'PUT',
+                contentType: 'application/json',
                 dataType: "json",
-                data: usuario,
+                data: JSON.stringify(usuario),
                 success: function (response) {
-                    console.log("OKKK")
+                    alert(response.message);
                     window.location.href = "/Usuarios";
                 },
                 error: function (data) {
@@ -136,7 +152,7 @@
                     
                 }
             });
-
+            
 
         }
 

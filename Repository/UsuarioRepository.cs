@@ -156,6 +156,22 @@ namespace projFront.Repository
             {
                 using (var cmd = DbConnection().CreateCommand())
                 {
+                    cmd.CommandText = "DELETE FROM AspNetUserRoles WHERE UserId = @UserId";
+                    cmd.Parameters.AddWithValue("@UserId", userId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            try
+            {
+                using (var cmd = DbConnection().CreateCommand())
+                {
+                    
+
                     cmd.CommandText = "INSERT INTO AspNetUserRoles (UserId, RoleId ) values (@UserId, @RoleId)";
                     cmd.Parameters.AddWithValue("@UserId", userId);
                     cmd.Parameters.AddWithValue("@RoleId", roleId);

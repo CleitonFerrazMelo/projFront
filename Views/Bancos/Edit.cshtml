@@ -60,6 +60,7 @@
                         <option value="CNPJ"> CNPJ </option>
                         <option value="Telefone"> Telefone </option>
                         <option value="Chave Aleatória"> Chave Aleatória</option>
+                        <option value="Essa conta não possui Chave Pix"> Essa conta não possui Chave Pix</option>
 
                     </select>
                 <span asp-validation-for="PixChave" id="erroPixChave" class="text-danger"></span>
@@ -72,7 +73,7 @@
            
                 <div class="mt-80">
 
-                <input onclick="Validacao() " value="Editar Banco" class="btn btn-success" />
+                <input onclick="Validacao() " value="Salvar" class="btn btn-success" />
                     <a class="btn btn-warning" asp-action="Index">Voltar</a>
                 </div>
             
@@ -329,12 +330,6 @@
                     pixNumero: pixNumero
                 }
             }
-
-            
-
-            
-
-            console.log(banco)
 
             $.ajax({
                 url: '/Bancos/Edit/'+banco.idBanco,
