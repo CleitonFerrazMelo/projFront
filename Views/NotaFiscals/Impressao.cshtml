@@ -217,6 +217,11 @@
 			font-size: 8pt;
 		}
 
+		.s19 {
+				word-break: break-word; /* Ou "break-all" */
+				white-space: normal;
+			}
+
 		li {
 			display: block;
 		}
@@ -310,7 +315,7 @@
 				<p class="s4"
 				   style="padding-left: 17pt;padding-right: 16pt;text-indent: 0pt;text-align: center;">@Model.Empresa[0].Nome</p>
 				<p class="s4"
-				   style="padding-top: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">@Model.Empresa[0].Endereco</p>
+				   style="padding-top: 8pt;text-indent: 0pt;line-height: 9pt;text-align: center;">@Model.Empresa[0].Endereco , @Model.Empresa[0].Numero</p>
 				<p class="s4"
 				   style="text-indent: 0pt;line-height: 9pt;text-align: center;">@Model.Empresa[0].Bairro - @Model.Empresa[0].NomeCidade</p>
 				<p class="s4"
@@ -557,7 +562,7 @@
 			<td style="width:119pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
 				colspan="2">
 				<p class="s16"
-				   style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">@Model.Empresa[0].Cnpj</p>
+				   style="padding-top: 8pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">@Model.Cnpj</p>
 			</td>
 			<td style="width:79pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
@@ -600,7 +605,7 @@
 		<tr style="height:13pt">
 			<td style="width:198pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt">
 				<p class="s16"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;"> @Model.Endereco</p>
+				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;"> @Model.Endereco , @Model.Numero</p>
 			</td>
 			<td style="width:40pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p style="text-indent: 0pt;text-align: left;">
@@ -630,47 +635,48 @@
 				   style="padding-top: 1pt;padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: center;"> @Html.DisplayFor(model => model.DataEmissao, "{0:dd/MM/yyyy}") </p>
 			</td>
 		</tr>
+
+	</table>
+
+	<table style="border-collapse:collapse;margin-left:6.01999pt" cellspacing="0">
+    <!-- Código original da primeira tabela... -->
+
 		<tr style="height:10pt">
-			<td style="width:198pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-				<p class="s8"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">MUNICÍPIO</p>
+			<td style="width:198pt;border: 1px solid black; border-top: 0px;">
+				<p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: left;">MUNICÍPIO</p>
 			</td>
-			<td style="width:40pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-				<p class="s8"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">UF</p>
+			<td style="width:40pt;border: 1px solid black; border-top: 0px;">
+				<p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: left;">UF</p>
 			</td>
-			<td style="width:99pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-				colspan="2"
-				rowspan="2">
-				<p class="s8"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">FONE / FAX</p>
+			<td style="width:93pt;border: 1px solid black; border-top: 0px;" colspan="2">
+				<p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: left;">FONE / FAX</p>
 			</td>
-			<td style="width:119pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt"
-				colspan="2"
-				rowspan="2">
-				<p class="s8"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">RG / INSCRIÇÃO ESTADUAL</p>
+			<td style="width:111pt;border: 1px solid black; border-top: 0px;" colspan="2">
+				<p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: left;">RG / INSCRIÇÃO ESTADUAL</p>
 			</td>
-			<td style="width:79pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
-				<p class="s8"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: center;">HORA DA SAÍDA / ENTRADA</p>
+			<td style="width:79pt;border: 1px solid black; border-top: 0px;">
+				<p class="s8" style="padding-left: 1pt;text-indent: 0pt;text-align: left;">HORA DA SAÍDA / ENTRADA</p>
 			</td>
 		</tr>
 		<tr style="height:20pt">
-			<td style="width:198pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-				<p class="s16"
-				   style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: left;">@Model.NomeCidade</p>
+			<td style="border: 1px solid black;">
+				<p class="s16" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;"> @Model.NomeCidade</p>
 			</td>
-			<td style="width:40pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-				<p class="s16"
-				   style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"> @Model.Uf </p>
+			<td style="border: 1px solid black;">
+				<p class="s16" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;"> @Model.Uf</p>
 			</td>
-			<td style="width:79pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-				<p class="s16"
-				   style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;"> @Model.DataEmissao</p>
+			<td style="border: 1px solid black;" colspan="2">
+				<p class="s16" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;"> @Model.NumeroTelefone</p>
+			</td>
+			<td style="border: 1px solid black;" colspan="2">
+				<p class="s16" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: center;"> @Model.Ie</p>
+			</td>
+			<td style="border: 1px solid black;">
+				<p class="s16" style="padding-top: 3pt;padding-left: 1pt;text-indent: 0pt;text-align: left;"> @Model.DataEmissao</p>
 			</td>
 		</tr>
-	</table>
+</table>
+
 	<h1 style="padding-top: 2pt;padding-bottom: 2pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">DADOS DO PRODUTO</h1>
 	<table style="border-collapse:collapse;margin-left:6.01999pt"
 		   cellspacing="0">
@@ -1878,7 +1884,7 @@
 		<tr style="height:16pt">
 			<td style="width:99pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
-				   style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: left;">0,00</p>
+				   style="padding-top: 4pt;padding-left: 1pt;text-indent: 0pt;line-height: 10pt;text-align: left;"> @Model.ValorTotal </p>
 			</td>
 		</tr>
 	</table>
@@ -1912,7 +1918,7 @@
 		<tr style="height:13pt">
 			<td style="width:99pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">  @Html.DisplayFor(model => model.ValorTotal, "Currency") </p>
+				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">  0,00 </p>
 			</td>
 			<td style="width:99pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
@@ -1920,7 +1926,7 @@
 			</td>
 			<td style="width:119pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;"> @Html.DisplayFor( model  => model.ValorTotal, "N2") </p>
+				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;"> 0,00 </p>
 			</td>
 		</tr>
 		<tr style="height:7pt">
@@ -1951,11 +1957,11 @@
 		<tr style="height:13pt">
 			<td style="width:99pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">0,00</p>
+				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;"> 0,00 </p>
 			</td>
 			<td style="width:119pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s16"
-				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;">0,00</p>
+				   style="padding-left: 1pt;text-indent: 0pt;text-align: left;"> @Html.DisplayFor(model => model.ValorTotal, "N2") </p>
 			</td>
 		</tr>
 	</table>
@@ -2209,21 +2215,35 @@
 					<br />
 				</p>
 				
-				<p class="s19"
+				@if(Model.Banco[0].Nome == "Boleto")
+				{
+					<p class="s19"
+					style="text-indent: 0pt;text-align: center;"> Forma de pagamento: Boleto </p>
+				}
+				else
+				{
+					<p class="s19"
 				   style="text-indent: 0pt;text-align: center;"> Banco: @Html.DisplayFor(model => model.Banco[0].Nome) </p>
 			
-				<p class="s19"
-				   style="text-indent: 0pt;text-align: center;">  Agência: @Html.DisplayFor(model => model.Agencia) </p>
+					<p class="s19"
+					   style="text-indent: 0pt;text-align: center;"> Tipo: @Html.DisplayFor(model => model.Banco[0].TipoConta) - Agência: @Html.DisplayFor(model => model.Agencia) </p>
 				
-				   <p class="s19"
-				   style="text-indent: 0pt;text-align: center;"> Conta: @Html.DisplayFor(model => model.Conta) </p>
+					   <p class="s19"
+					   style="text-indent: 0pt;text-align: center;"> Conta: @Html.DisplayFor(model => model.Banco[0].NumeroConta) </p>
 				
-				    <p class="s19"
-				   style="text-indent: 0pt;text-align: center;"> Chave PIX:  @Html.DisplayFor(model => model.PixChave) </p>
+						<p class="s19"
+					   style="text-indent: 0pt;text-align: center;"> Chave PIX:  @Html.DisplayFor(model => model.PixChave) </p>
 				   
-				<p class="s19"
-				   style="text-indent: 0pt;text-align: center;"> PIX: @Html.DisplayFor(model => model.PixNumero) </p>
-					   
+					<p class="s19"
+					   style="text-indent: 0pt;text-align: center;"> PIX: @Html.DisplayFor(model => model.PixNumero) </p>
+				}
+
+				@if(!string.IsNullOrEmpty(Model.Vencimento))
+				{
+					<p class="s19"
+					   style="text-indent: 0pt;text-align: center;"> VENCIMENTO: @Html.DisplayFor(model => model.Vencimento) </p>
+				}
+
 			</td>
 			<td style="width:179pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-right-style:solid;border-right-width:1pt">
 				<p class="s8"

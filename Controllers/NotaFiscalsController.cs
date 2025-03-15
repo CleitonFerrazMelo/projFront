@@ -49,15 +49,38 @@ namespace projFront.Controllers
             ViewData["PaginaSelecionada"] = "NotaFiscal";
             ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
-            IEnumerable<NotaFiscalViewModel> listaNotaFiscalViewModel = null;
+            List<NotaFiscalViewModel> listaNotaFiscalViewModel = new List<NotaFiscalViewModel>();
             //_notaFiscalServices.RetornaListaNotaFiscal()
 
             if (_context.Empresas != null)
             {
-                var listaNotaFiscal = await _context.NotaFiscal.ToListAsync();
-                listaNotaFiscalViewModel = _mapper.Map<IEnumerable<NotaFiscalViewModel>>(listaNotaFiscal);
+                // Obter lista de NotaFiscal
+                List<NotaFiscal> listaNotaFiscal = await _context.NotaFiscal.ToListAsync();
+
+                // Mapear para a ViewModel
+                //listaNotaFiscalViewModel = _mapper.Map<IEnumerable<NotaFiscalViewModel>>(listaNotaFiscal);
+
+                foreach (var nota in listaNotaFiscal)
+                {
+                    var nfVm = transformaNotaficalVM(nota);
+                    listaNotaFiscalViewModel.Add(nfVm);
+                }
+
+                // Criar um dicionário para mapear o ID da NotaFiscal para a inscrição estadual
+                var inscricaoEstadualMap = listaNotaFiscal.ToDictionary(nf => nf.Id, nf => nf.IncricaoEstadual);
+
+                // Atribuir a inscrição estadual utilizando o dicionário
+                foreach (var nfViewModel in listaNotaFiscalViewModel)
+                {
+                    if (inscricaoEstadualMap.TryGetValue(nfViewModel.Id, out var inscricaoEstadual))
+                    {
+                        nfViewModel.Ie = inscricaoEstadual;
+                    }
+                }
             }
+
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            List<Empresa> listEmpresa = _empresaServices.GetEmpresas();
 
             List<Banco> listaBanco =  _bancoServices.ListaBancosPorUsuario(usuarioLogado);
 
@@ -65,8 +88,13 @@ namespace projFront.Controllers
 
             foreach (var notas in listaNotaFiscalViewModel)
             {
+                int idEmpresaRelacionada = int.Parse(notas.IdEmpresa);
+                Empresa empresa = listEmpresa.FirstOrDefault(x => x.IdEmpresa == idEmpresaRelacionada);
+                notas.Empresa = new List<Empresa>();
+                notas.Empresa.Add(empresa);
                 foreach (var bancosDoUsuario in listaBanco)
                 {
+
                     if(bancosDoUsuario.IdBanco == notas.IdBanco)
                         listaFiltrada.Add(notas);
                 }
@@ -78,6 +106,8 @@ namespace projFront.Controllers
         // GET: NotaFiscals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.NotaFiscal == null)
             {
                 return NotFound();
@@ -96,6 +126,8 @@ namespace projFront.Controllers
         // GET: NotaFiscals/Create
         public IActionResult Create()
         {
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
             List<Empresa> listEmpresa = new List<Empresa>();
 
@@ -107,7 +139,9 @@ namespace projFront.Controllers
 
             List<Banco> listBanco = new List<Banco>();
 
-            listBanco =_bancoServices.GetBancos();
+            var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            listBanco =_bancoServices.ListaBancosPorUsuario(usuarioLogado);
 
             notaFiscalViewModel.Banco = listBanco;
 
@@ -121,6 +155,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( NotaFiscalViewModel notaFiscalVM)
         {
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             notaFiscalVM.Empresa = _empresaServices.GetEmpresa(Convert.ToInt32(notaFiscalVM.IdEmpresa));
             notaFiscalVM.MensagemFisco = notaFiscalVM.Empresa[0].MensagemFisco;
             notaFiscalVM.Banco   = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
@@ -186,6 +222,7 @@ namespace projFront.Controllers
             notaFiscal.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "" : notaFiscal.NumeroTelefone;
             notaFiscal.UserName = notaFiscalVM.UserName;
             notaFiscal.Observacoes = notaFiscalVM.Observacoes == null ? "" : notaFiscalVM.Observacoes;
+            notaFiscal.Vencimento = notaFiscalVM.Vencimento == null ? "" : notaFiscalVM.Vencimento;
             return notaFiscal;
         }
 
@@ -237,13 +274,15 @@ namespace projFront.Controllers
             notaFiscalVM.NumeroTelefone = notaFiscal.NumeroTelefone == null ? "" : notaFiscal.NumeroTelefone;
             notaFiscalVM.UserName = notaFiscal.UserName;
 			notaFiscalVM.Observacoes = notaFiscal.Observacoes;
+            notaFiscalVM.Vencimento = notaFiscal.Vencimento;
 			return notaFiscalVM;
         }
 
         // GET: NotaFiscals/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.NotaFiscal == null)
             {
                 return NotFound();
@@ -270,6 +309,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, NotaFiscalViewModel notaFiscalViewModel)
         {
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             notaFiscalViewModel.UserName = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
             notaFiscalViewModel.Banco = _bancoServices.GetBanco(notaFiscalViewModel.IdBanco);
             notaFiscalViewModel.Empresa = _empresaServices.GetEmpresa( Convert.ToInt32( notaFiscalViewModel.IdEmpresa));
@@ -308,6 +349,8 @@ namespace projFront.Controllers
         // GET: NotaFiscals/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.NotaFiscal == null)
             {
                 return NotFound();
@@ -328,6 +371,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewData["PaginaSelecionada"] = "NotaFiscal";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (_context.NotaFiscal == null)
             {
                 return Problem("Entity set 'AppDbContext.NotaFiscal'  is null.");
@@ -337,8 +382,13 @@ namespace projFront.Controllers
             {
                 string mensagem = _notaFiscalServices.ValidarDelecao(notaFiscal);
                 if (!string.IsNullOrEmpty(mensagem))
-                    return Problem(mensagem);
-                //_context.NotaFiscal.Remove(notaFiscal);
+                {
+                    NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
+                    TempData["MensagemErro"] = mensagem;
+                    return View(notaFiscalVM);
+                }
+                   
+                _context.NotaFiscal.Remove(notaFiscal);
             }
             
             //await _context.SaveChangesAsync();
@@ -367,6 +417,7 @@ namespace projFront.Controllers
 
             if (id == null || _context.NotaFiscal == null)
             {
+                TempData["MensagemErro"] = "Nota Fiscal não encontrada.";
                 return NotFound();
             }
 
@@ -374,6 +425,7 @@ namespace projFront.Controllers
             _notaFiscalServices.Imprimir(notaFiscal);
             if (notaFiscal == null)
             {
+                TempData["MensagemErro"] = "Nota Fiscal não encontrada.";
                 return NotFound();
             }
             NotaFiscalViewModel notaFiscalVM = _mapper.Map<NotaFiscalViewModel>(notaFiscal);
@@ -384,9 +436,14 @@ namespace projFront.Controllers
 			notaFiscalVM.ValorTotal = valor.ToString("0.00");
             var banco = _bancoServices.GetBanco(notaFiscalVM.IdBanco);
             notaFiscalVM.Banco = banco;
+            notaFiscalVM.Ie = notaFiscal.IncricaoEstadual;
 			notaFiscalVM.Empresa = _empresaServices.GetEmpresa(notaFiscal.IdEmpresa);
             notaFiscalVM.MensagemFisco = notaFiscalVM.Empresa[0].MensagemFisco;
-            return new ViewAsPdf("Impressao", notaFiscalVM) { FileName = "Test.pdf" };
+            string nomePDF = "FATURA."+ notaFiscal.FaturaNumero + "_"+ notaFiscalVM.Nome;
+            nomePDF = nomePDF.Replace(" ", "");
+            TempData["MensagemSucesso"] = "Nota fiscal gerada com sucesso.";
+
+            return new ViewAsPdf("Impressao", notaFiscalVM) { FileName = nomePDF+".pdf" };
         }
 
         private bool NotaFiscalExists(int id)

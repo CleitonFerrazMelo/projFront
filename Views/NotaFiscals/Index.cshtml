@@ -2,181 +2,475 @@
 
 @{
     ViewData["Title"] = "Nota Fiscal";
+
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div id="mensagemSucesso" style="display: none;">@TempData["MensagemSucesso"]</div>
+    }
+
+    @if (TempData["MensagemNotaErro"] != null)
+    {
+        <div id="mensagemErro" style="display: none;">@TempData["MensagemNotaErro"]</div>
+    }
+
+    <style>
+        /* Estilos Gerais */
+        .table-container {
+            margin-top: 20px;
+            
+        }
+
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+            .custom-table thead {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .custom-table th,
+            .custom-table td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .custom-table th {
+                cursor: pointer;
+                user-select: none;
+            }
+
+                .custom-table th:hover {
+                    background-color: #0056b3;
+                }
+
+        .search-bar {
+            width: 400px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        /* Ajuste de Largura das Colunas */
+        .custom-table th.resizable {
+            position: relative;
+        }
+
+            .custom-table th.resizable::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 5px;
+                height: 100%;
+                cursor: ew-resize;
+            }
+
+        .cad{
+            margin-left: 10px;
+        }
+
+        .resize-handle {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 5px;
+            height: 100%;
+            cursor: ew-resize;
+        }
+        td{
+            color: black;
+        }
+
+        table th, table td {
+            width: auto; /* Permitir redimensionamento */
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+            margin-top: 30px;
+            max-width: 1000px; /* Limite máximo de largura */
+            
+
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+            .page-header h1 {
+                flex-shrink: 0; /* Evitar que o título se mova */
+                margin: 0; /* Remover margem padrão */
+            }
+
+        .btn-container {
+            display: flex;
+            gap: 10px; /* Espaçamento entre os botões */
+        }
+
+            .btn-container a,
+            .btn-container button {
+                margin-left: 10px;
+            }
+    </style>
 }
 
-<h1 style="margin-top: 30px;">Notas Fiscais</h1>
+<!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Cadastrar Nota Fiscal</a>
-</p>
+<!-- SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-responsive-sm">
-                    <thead>
-                        <tr>
-                            <th>  </th>
+<div class="page-header">
+    <h1>Notas Fiscais</h1>
+    <div class="btn-container">
+        <a asp-action="Create" class="btn btn-primary">Cadastrar </a>
+        <button id="toggleResumo" class="btn btn-primary" onclick="toggleResumo()">Visão Resumo</button>
+    </div>
+</div>
+
+
+<div class="table-container">
+    <input type="text"
+           id="searchInput"
+           class="search-bar"
+           placeholder="Digite para filtrar resultados..." />
+    <div id="tabelaCompleta">
+    <table id="notaFiscalTable" class="custom-table">
+        <thead>
+            <tr>
+                <th>  </th>
                             <th> </th>
                             <th>  </th>
                             <th>  </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nome)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Cnpj)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Ie)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Endereco)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Numero)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Bairro)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NomeCidade)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Uf)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Cep)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NumeroTelefone)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.DescricaoServico)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ValorTotal)
-                            </th>
-                            <!-- <th>
-                                  Html.DisplayNameFor(model => model.Banco)
-                            </th>-->
-                            <th>
-                                @Html.DisplayNameFor(model => model.Agencia)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Conta)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PixChave)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.PixNumero)
-                            </th>
-                            <!--  <th>
-                               Html.DisplayNameFor(model => model.IdEmpresa)
-                            </th> -->
-                            <th>
-                                @Html.DisplayNameFor(model => model.DataEmissao)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FaturaSerie)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FaturaNumero)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Observacoes)
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td >
-                                    <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
-                                </td>
-                                <td>
-                                    <a data-toggle="tooltip" data-placement="top" title="Detalhes" asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
-                                </td>
-                                <td>
-                                    <a data-toggle="tooltip" data-placement="top" title="Deletar" asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
-                                </td>
-                                <td>
-                                    <a data-toggle="tooltip" data-placement="top" title="PDF" asp-action="ImprimePDF" asp-route-id="@item.Id"><img alt="PDF" class="icones_buttons_index" src="/images/pdf.png" /></a>
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Nome)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cnpj)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Ie)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Endereco)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Numero)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Bairro)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NomeCidade)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Uf)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Cep)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.NumeroTelefone)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DescricaoServico)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.ValorTotal)
-                                </td>
-                                <!-- <td>
-                                       Html.DisplayFor(modelItem => item.Banco)
-                                </td> -->
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Agencia)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Conta)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PixChave)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PixNumero)
-                                </td>
-                                <!--  <td>
-                                      Html.DisplayFor(modelItem => item.IdEmpresa)
-                                </td> -->
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.DataEmissao)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FaturaSerie)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FaturaNumero)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Observacoes)
-                                </td>
+                <th data-column="nome">@Html.DisplayNameFor(model => model.Nome)</th>
+                <th data-column="cnpj">@Html.DisplayNameFor(model => model.Cnpj)</th>
+                <th data-column="faturaNumero">@Html.DisplayNameFor(model => model.FaturaNumero)</th>
+                <th data-column="faturaSerie">@Html.DisplayNameFor(model => model.FaturaSerie)</th>
+                <th data-column="empresa">@Html.DisplayNameFor(model => model.Empresa)</th>
+                <th data-column="ie">@Html.DisplayNameFor(model => model.Ie)</th>
+                <th data-column="endereco">@Html.DisplayNameFor(model => model.Endereco)</th>
+                <th data-column="numero">@Html.DisplayNameFor(model => model.Numero)</th>
+                <th data-column="bairro">@Html.DisplayNameFor(model => model.Bairro)</th>
+                <th data-column="nomeCidade">@Html.DisplayNameFor(model => model.NomeCidade)</th>
+                <th data-column="uf">@Html.DisplayNameFor(model => model.Uf)</th>
+                <th data-column="cep">@Html.DisplayNameFor(model => model.Cep)</th>
+                <th data-column="numeroTelefone">@Html.DisplayNameFor(model => model.NumeroTelefone)</th>
+                <th data-column="descricaoServico">@Html.DisplayNameFor(model => model.DescricaoServico)</th>
+                <th data-column="valorTotal">@Html.DisplayNameFor(model => model.ValorTotal)</th>
+                <th data-column="agencia">@Html.DisplayNameFor(model => model.Agencia)</th>
+                <th data-column="conta">@Html.DisplayNameFor(model => model.Conta)</th>
+                <th data-column="pixChave">@Html.DisplayNameFor(model => model.PixChave)</th>
+                <th data-column="pixNumero">@Html.DisplayNameFor(model => model.PixNumero)</th>
+                <th data-column="dataEmissao">@Html.DisplayNameFor(model => model.DataEmissao)</th>
+                <th data-column="observacoes">@Html.DisplayNameFor(model => model.Observacoes)</th>
+                    <th data-column="vencimento">@Html.DisplayNameFor(model => model.Vencimento)</th>
+                    <th data-column="observacoes"> Usuário </th>
+            </tr>
+        </thead>
 
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
+                    </td>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="top" title="Detalhes" asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                    </td>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="top" title="Deletar" asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                    </td>
+                    <td>
+                            <a data-toggle="tooltip" data-placement="top" title="PDF" onclick="setTimeout(() => location.reload(), 2000)" asp-action="ImprimePDF" asp-route-id="@item.Id"><img alt="PDF" class="icones_buttons_index" src="/images/pdf.png" /></a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cnpj)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FaturaNumero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FaturaSerie)
+                    </td>
+                        <td title="@item.Empresa[0].Nome" >
+                        @Html.DisplayFor(modelItem => item.Empresa[0].Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ie)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Endereco)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Numero)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bairro)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeCidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Uf)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cep)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroTelefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DescricaoServico)
+                    </td>
+                    <td>
+                            @Html.DisplayFor(modelItem => item.ValorTotal)
+                    </td>
+                    <!-- <td>
+                           Html.DisplayFor(modelItem => item.Banco)
+                    </td> -->
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Agencia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Conta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PixChave)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PixNumero)
+                    </td>
+                    <!--  <td>
+                          Html.DisplayFor(modelItem => item.IdEmpresa)
+                    </td> -->
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataEmissao)
+                    </td>
+
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Observacoes)
+                    </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Vencimento)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserName)
+                        </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
     </div>
+
+
+    <div id="tabelaResumo" style="display: none;">
+
+        <table id="notaFiscalTable" class="custom-table">
+            <thead>
+                <tr>
+                    <th>  </th>
+                    <th> </th>
+                    <th>  </th>
+                    <th>  </th>
+                    <th data-column="nome">@Html.DisplayNameFor(model => model.Nome)</th>
+                    <th data-column="cnpj">@Html.DisplayNameFor(model => model.Cnpj)</th>
+                    <th data-column="faturaNumero">@Html.DisplayNameFor(model => model.FaturaNumero)</th>
+                    <th data-column="faturaSerie">@Html.DisplayNameFor(model => model.FaturaSerie)</th>
+                    <th data-column="empresa">@Html.DisplayNameFor(model => model.Empresa)</th>
+                    <th data-column="valorTotal">@Html.DisplayNameFor(model => model.ValorTotal)</th>
+                    <th data-column="dataEmissao">@Html.DisplayNameFor(model => model.DataEmissao)</th>
+                    <th data-column="observacoes">@Html.DisplayNameFor(model => model.Observacoes)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a data-toggle="tooltip" data-placement="top" title="Editar" asp-action="Edit" asp-route-id="@item.Id"> <img alt="Editar" class="icones_buttons_index" src="/images/pencil.svg" />  </a>
+                        </td>
+                        <td>
+                            <a data-toggle="tooltip" data-placement="top" title="Detalhes" asp-action="Details" asp-route-id="@item.Id"><img alt="Detalhes" class="icones_buttons_index" src="/images/details.png" /></a>
+                        </td>
+                        <td>
+                            <a data-toggle="tooltip" data-placement="top" title="Deletar" asp-action="Delete" asp-route-id="@item.Id"><img alt="Deletar" class="icones_buttons_index" src="/images/delete.png" /></a>
+                        </td>
+                        <td>
+                            <a data-toggle="tooltip" data-placement="top" onclick="setTimeout(() => location.reload(), 2000)" title="PDF" asp-action="ImprimePDF" asp-route-id="@item.Id"><img alt="PDF" class="icones_buttons_index" src="/images/pdf.png" /></a>
+                        </td>
+                        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Cnpj)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FaturaNumero)</td>
+                        <td>@Html.DisplayFor(modelItem => item.FaturaSerie)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Empresa[0].Nome)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ValorTotal)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DataEmissao)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Observacoes)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+
 </div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const table = document.getElementById("notaFiscalTable");
+            const searchInput = document.getElementById("searchInput");
+
+            // Adicionar funcionalidade de redimensionamento de colunas
+            const headers = Array.from(table.querySelectorAll("thead th"));
+            headers.forEach((header, index) => {
+                const resizable = document.createElement("div");
+                resizable.classList.add("resize-handle");
+                header.style.position = "relative";
+                header.appendChild(resizable);
+
+                let startX, startWidth;
+
+                resizable.addEventListener("mousedown", (e) => {
+                    startX = e.pageX;
+                    startWidth = header.offsetWidth;
+
+                    document.addEventListener("mousemove", resizeColumn);
+                    document.addEventListener("mouseup", stopResize);
+                });
+
+                function resizeColumn(e) {
+                    const newWidth = startWidth + (e.pageX - startX);
+                    header.style.width = `${newWidth}px`;
+                    table.querySelectorAll(`td:nth-child(${index + 1})`).forEach((cell) => {
+                        cell.style.width = `${newWidth}px`;
+                    });
+                }
+
+                function stopResize() {
+                    document.removeEventListener("mousemove", resizeColumn);
+                    document.removeEventListener("mouseup", stopResize);
+                }
+            });
+
+            // Adicionar funcionalidade de arrastar e soltar colunas
+            headers.forEach((header, index) => {
+                header.setAttribute("draggable", "true");
+
+                header.addEventListener("dragstart", (e) => {
+                    e.dataTransfer.setData("text/plain", index.toString());
+                });
+
+                header.addEventListener("dragover", (e) => {
+                    e.preventDefault();
+                    header.style.backgroundColor = "#f1f1f1";
+                });
+
+                header.addEventListener("dragleave", () => {
+                    header.style.backgroundColor = "";
+                });
+
+                header.addEventListener("drop", (e) => {
+                    e.preventDefault();
+                    const fromIndex = parseInt(e.dataTransfer.getData("text/plain"), 10);
+                    const toIndex = index;
+
+                    if (fromIndex !== toIndex) {
+                        moveColumn(fromIndex, toIndex);
+                    }
+                    header.style.backgroundColor = "";
+                });
+            });
+
+            function moveColumn(fromIndex, toIndex) {
+                const rows = table.querySelectorAll("tr");
+                rows.forEach((row) => {
+                    const cells = Array.from(row.children);
+                    const fromCell = cells[fromIndex];
+                    const toCell = cells[toIndex];
+
+                    if (fromCell && toCell) {
+                        if (toIndex > fromIndex) {
+                            row.insertBefore(fromCell, toCell.nextSibling);
+                        } else {
+                            row.insertBefore(fromCell, toCell);
+                        }
+                    }
+                });
+            }
+
+            // Filtro de busca
+            searchInput.addEventListener("input", () => {
+                const query = searchInput.value.toLowerCase();
+                const rows = table.querySelectorAll("tbody tr");
+
+                rows.forEach((row) => {
+                    const rowText = row.innerText.toLowerCase();
+                    row.style.display = rowText.includes(query) ? "" : "none";
+                });
+            });
+
+            // Alternância entre visões
+            const botaoToggle = document.getElementById("toggleResumo");
+            const tabelaCompleta = document.getElementById("tabelaCompleta");
+            const tabelaResumo = document.getElementById("tabelaResumo");
+
+            botaoToggle.addEventListener("click", () => {
+                if (tabelaCompleta.style.display === "none") {
+                    tabelaCompleta.style.display = "block";
+                    tabelaResumo.style.display = "none";
+                    botaoToggle.textContent = "Visão Resumo";
+                } else {
+                    tabelaCompleta.style.display = "none";
+                    tabelaResumo.style.display = "block";
+                    botaoToggle.textContent = "Visão Completa";
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var mensagemSucesso = document.getElementById("mensagemSucesso");
+            var mensagemErro = document.getElementById("mensagemNotaErro");
+
+            if (mensagemSucesso) {
+                Swal.fire({
+                    title: 'Sucesso',
+                    text: mensagemSucesso.textContent,
+                    icon: 'success',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    // Recarregar página após fechar SweetAlert
+                    location.reload();
+                });
+            }
+
+            if (mensagemErro) {
+                Swal.fire({
+                    title: 'Erro',
+                    text: mensagemErro.textContent,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+            }
+        });
+
+    </script>
+}

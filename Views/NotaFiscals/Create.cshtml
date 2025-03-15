@@ -221,6 +221,12 @@
                     <textarea asp-for="Observacoes" id="Observacoes" class="form-control"> </textarea>
                     
                 </div>
+
+                <div class="form-group col-auto col-sm-10">
+                    <label asp-for="Vencimento" class="control-label titulo"></label>
+                    <textarea asp-for="Vencimento" id="Vencimento" class="form-control"> </textarea>
+
+                </div>
                 <div class="form-group">
                     <input type="submit" value="Cadastrar" class="btn btn-success" />
                     <a class="btn btn-warning" asp-action="Index">Voltar</a>
@@ -307,12 +313,11 @@
     
     function RetornarUltimaNota(cnpj)
     {
-        console.log("Acessou Retorna última nota");
-        console.log(cnpj);
-        
-        urlBusca = "https://localhost:44370/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
+
+        urlBusca = "http://intranet.facchinieventos.com.br/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
+
+        //urlBusca = "https://localhost:44370/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
         //urlBusca = "https://localhost:7066/NotaFiscals/RetornarUltimaNota?cnpj=" + cnpj;
-        console.log(urlBusca)
         // Criando um objeto XMLHttpRequest
         var xhr = new XMLHttpRequest();
         
@@ -321,8 +326,6 @@
         var data = JSON.stringify({
             cnpj: cnpj
         });
-
-        console.log(data);
 
         // Configurando a requisição (GET para buscar dados)
         xhr.open('GET', urlBusca);
@@ -339,8 +342,6 @@
 
                 var dadosEndereco = xhr.responseText;
                 var dadosEnderecoJson = JSON.parse(dadosEndereco);
-                console.log("dadosEndereco");
-                console.log(dadosEnderecoJson)
 
                 document.getElementById('Nome').value = dadosEnderecoJson.nome;
                 document.getElementById('Ie').value = dadosEnderecoJson.ie;
@@ -379,9 +380,6 @@
                 console.error('Erro na requisição:', xhr.statusText);
             }
         };
-
-        console.log("Enviando");
-        console.log(data);
         // Enviando a requisição
         xhr.send(data);
 
@@ -393,12 +391,6 @@
 
         var numeroTelefone = document.getElementById('NumeroTelefone').value
         var inscricaoEstadual = document.getElementById('Ie').value
-
-        console.log(numeroTelefone)
-        console.log(inscricaoEstadual)
-        document.getElementById('NumeroTelefone').value
-        document.getElementById('Ie').value
-
 
         if (bancoSelecionado === "Escolha o banco" || empresaSelecionada === "Escolha a empresa") {
             // Exibe o modal

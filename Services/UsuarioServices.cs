@@ -61,7 +61,7 @@ namespace projFront.Services
             return listaUsuarioVM;
         }
 
-        public string ValidarDelecao(Usuario  usuario)
+        public string ValidarDelecao(Usuario usuario)
         {
             string mensagem = string.Empty;
 

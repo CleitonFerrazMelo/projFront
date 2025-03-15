@@ -30,6 +30,7 @@ namespace projFront.Models
         public string MensagemFisco { get; set; }
         public string UserName { get; set; }
         public string Observacoes { get; set; }
+        public string Vencimento { get; set; }
     }
 }
 

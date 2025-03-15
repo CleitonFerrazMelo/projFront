@@ -1,13 +1,12 @@
 ﻿@model projFront.ViewModels.UsuarioViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar usuário";
 }
 
+<h1>Editar</h1>
 
-<h1>Edit</h1>
-
-<h4>Usuario</h4>
+<h4>Usuário</h4>
 <hr />
 
 <script>
@@ -48,7 +47,7 @@
                     }
                 </select>
             </div>
-             <div class="form-group">
+            <!-- <div class="form-group">
                 <label asp-for="NumeroDaNotaAtual" class="control-label"></label>
             <input asp-for="NumeroDaNotaAtual" id="NumeroDaNotaAtual" name="NumeroDaNotaAtual" class="form-control"  />
             <span asp-validation-for="NumeroDaNotaAtual" class="text-danger"></span>
@@ -58,28 +57,26 @@
             <input asp-for="UltimoNumeroDaNota" id="UltimoNumeroDaNota" name="UltimoNumeroDaNota" class="form-control"  />
             <span asp-validation-for="UltimoNumeroDaNota" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input onclick="EditarUsuario()" value="Editar Usuário" class="btn btn-success" />
-            </div>
-        
+           
+        -->
+        <div class="form-group">
+            <button onclick="EditarUsuario()" class="btn btn-success"> Salvar</button>
+            <a class="btn btn-warning" asp-action="Index">Voltar para lista</a>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 <script>
     
     var campoSelecao = document.getElementById('direito');
 
-    
     campoSelecao.value = viewModel.idRegra;
-
- 
-
 </script>
 
+@if (TempData["Mensagem"] != null)
+{
+    <div id="mensagem" style="display: none;">@TempData["Mensagem"]</div>
+}
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
@@ -94,9 +91,7 @@
             var userName = document.getElementById('UserName').value;
             var email = document.getElementById('Email').value;
             var direito = document.getElementById('direito').value;
-            var NumeroDaNotaAtual = document.getElementById('NumeroDaNotaAtual').value;
-            var UltimoNumeroDaNota = document.getElementById('UltimoNumeroDaNota').value;
-
+            
             // Obtém o elemento select pelo ID
             var selectElement = document.getElementById('direito');
             // Obtém o índice da opção selecionada
@@ -112,21 +107,7 @@
             var regra1 = new Regra(idRegra, nomeRegra);
 
             // Create a Usuario object with a list of Regra objects
-            var usuario = new Usuario(ID, userName, email, [regra1], NumeroDaNotaAtual, UltimoNumeroDaNota);
-
-            console.log("Usuario")
-            console.log(usuario)
-
-
-          /*  $.ajax({
-                url: '/Usuarios/Edit/' + ID,
-                type: 'PUT',
-                data: usuario,
-                success: function (response) {
-
-                    window.location.href = "/Usuarios";
-                }
-            });*/
+            var usuario = new Usuario(ID, userName, email, [regra1], 0, 0);
             
             $.ajax({
                 url: '/Usuarios/Edit/' + ID,
@@ -169,8 +150,7 @@
             this.IdRegra = idRegra;
             this.Nome = nome;
         }
+
     </script>
-
-
 
 }

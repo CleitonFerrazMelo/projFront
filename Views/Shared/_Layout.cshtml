@@ -5,10 +5,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 
-  <head>
-
-    
-    
+  <head>   
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,6 +14,12 @@
     <meta name="generator" content="Hugo 0.122.0">
     <title>FACCHINI EVENTOS</title>
 
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
     <link rel="apple-touch-icon" sizes="57x57" href="~/images/apple-icon-57x57.png">
@@ -81,7 +84,7 @@
         fill: currentColor;
       }
 
-      .nav-scroller {
+     /* .nav-scroller {
         position: relative;
         z-index: 2;
         height: 2.75rem;
@@ -98,7 +101,7 @@
         white-space: nowrap;
         -webkit-overflow-scrolling: touch;
       }
-
+*/
       .btn-bd-primary {
         --bd-violet-bg: #712cf9;
         --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
@@ -256,12 +259,7 @@
     <script src="~/assets/sidebars.js"></script>
    
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var container = document.querySelector('.your-scrollable-element');
-            if (container) {
-                new PerfectScrollbar(container);
-            }
-        });
+     
 
         function mostrarSideBar(){
             var sidebarNormal = document.getElementById("sidebarNormal");

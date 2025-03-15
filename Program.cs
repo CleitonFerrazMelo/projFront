@@ -38,7 +38,17 @@ builder.Services.AddDbContext<AppDbContext>(x =>
 builder.Services.AddDefaultIdentity<ApplicationUser>().AddRoles<IdentityRole>()
 .AddEntityFrameworkStores<AppDbContext>();
 
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder =>
+        {
+            builder.WithOrigins("http://intranet.facchinieventos.com.br")
+                   .AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .AllowCredentials();
+        });
+});
 
 var app = builder.Build();
 
@@ -46,7 +56,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseCors(option => option.AllowCredentials());
+app.UseCors("AllowSpecificOrigin");
+
 
 app.UseAuthentication();
 

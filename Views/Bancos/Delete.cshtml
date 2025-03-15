@@ -4,7 +4,11 @@
     ViewData["Title"] = "Deletar Banco";
 }
 
+<!-- SweetAlert CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
+<!-- SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <h3>Deseja Realmente Deletar o banco? </h3>
 <div>
@@ -55,3 +59,21 @@
     
    
 </div>
+@if (TempData["Mensagem"] != null)
+{
+    <div id="mensagem" style="display: none;">@TempData["Mensagem"]</div>
+}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var mensagem = document.getElementById("mensagem");
+        if (mensagem) {
+            Swal.fire({
+                title: 'Aviso',
+                text: mensagem.textContent,
+                icon: 'warning',
+                confirmButtonText: 'Ok'
+            });
+        }
+    });
+</script>

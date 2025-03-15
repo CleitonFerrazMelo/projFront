@@ -54,6 +54,8 @@ namespace projFront.Controllers
         // GET: Empresas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.Empresas == null)
             {
                 return NotFound();
@@ -72,6 +74,8 @@ namespace projFront.Controllers
         // GET: Empresas/Create
         public IActionResult Create()
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             return View();
         }
 
@@ -82,6 +86,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Telefone,Cnpj,Ie,Endereco,Numero,Bairro,NomeCidade,UF,Cep,FaturaSerie,FaturaUltimoNumero,MensagemFisco")] EmpresaViewModel empresaVM)
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (ModelState.IsValid)
             {
                 Empresa empresa = _mapper.Map<Empresa>(empresaVM);
@@ -96,6 +102,8 @@ namespace projFront.Controllers
         // GET: Empresas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.Empresas == null)
             {
                 return NotFound();
@@ -118,6 +126,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, EmpresaViewModel empresaVM)
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id != empresaVM.IdEmpresa)
             {
                 return NotFound();
@@ -152,6 +162,8 @@ namespace projFront.Controllers
         // GET: Empresas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.Empresas == null)
             {
                 return NotFound();
@@ -172,6 +184,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewData["PaginaSelecionada"] = "Empresas";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (_context.Empresas == null)
             {
                 return Problem("Entity set 'AppDbContext.Empresas'  is null.");
@@ -181,11 +195,12 @@ namespace projFront.Controllers
             {
                 string mensagem  = _empresaServices.ValidarDelecao(empresa);
                 if (!string.IsNullOrEmpty(mensagem))
-                    return Problem(mensagem);
-                //_context.Empresas.Remove(empresa);
+                {
+                    EmpresaViewModel empresaVM = _mapper.Map<EmpresaViewModel>(empresa);
+                    TempData["Mensagem"] = mensagem;
+                    return View(empresaVM);
+                }
             }
-            
-            //await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

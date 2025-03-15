@@ -12,6 +12,33 @@
 
 </script>
 
+<style>
+    .d-flex {
+        display: flex;
+    }
+
+    .flex-column {
+        flex-direction: column;
+    }
+
+    .mb-2 {
+        margin-bottom: 10px; /* Espaço entre os botões */
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 25px;
+        max-width: 1000px;
+        margin: 0 auto; /* Centraliza o contêiner dentro da página */
+    }
+
+        .button-container .btn {
+            margin-left: 10px; /* Espaçamento entre os botões */
+        }
+</style>
+
 <h1>Editar Banco</h1>
 
 <hr />
@@ -71,11 +98,7 @@
                 <span asp-validation-for="PixNumero" id="erroPixNumero" class="text-danger"></span>
                 </div>
            
-                <div class="mt-80">
-
-                <input onclick="Validacao() " value="Salvar" class="btn btn-success" />
-                    <a class="btn btn-warning" asp-action="Index">Voltar</a>
-                </div>
+               
             
         </div>
     </div>
@@ -96,8 +119,8 @@
                         </select>
 
                     </div>
-                    <div class="col">
-                        <button class="btn btn-success" id="btnAdicionar">Adicionar</button>
+            <div style="margin-top: 95px;" class="col d-flex flex-column justify-content-center align-items-center" class="col">
+                <button class="btn btn-success mb-2" id="btnAdicionar">Adicionar</button>
                         <button class="btn btn-warning" id="btnRemover">Remover</button>
                     </div>
                     <div class="col">
@@ -112,6 +135,13 @@
                 </div>
             </div>
     }
+
+<div style="margin-top: 30px;" class="button-container mt-80">
+
+    <input onclick="Validacao() " value="Salvar" class="btn btn-success" />
+    <a class="btn btn-warning" asp-action="Index">Voltar</a>
+</div>
+
     @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 

@@ -38,7 +38,7 @@
     <div class="card-body">
         <div class="basic-form">
 
-            <form asp-action="Edit" class="row gy-2 gx-3 align-items-center">
+            <form asp-action="Edit" class="row gy-2 gx-3 align-items-center" onsubmit="return validarFormulario()">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
 
@@ -62,7 +62,7 @@
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="NumeroTelefone" class="titulo" class="control-label"></label>
-                        <input asp-for="NumeroTelefone" class="form-control" id="telefone" name="telefone" />
+                        <input asp-for="NumeroTelefone" class="form-control" id="NumeroTelefone" name="NumeroTelefone" />
                         <span class="text-danger"></span>
                     </div>
 
@@ -113,7 +113,7 @@
 
                     <div class="form-group col-auto col-sm-10">
                         <label asp-for="DescricaoServico" class="control-label titulo"></label>
-                        <textarea asp-for="DescricaoServico" class="form-control"> </textarea>
+                        <textarea asp-for="DescricaoServico" id="DescricaoServico" name="DescricaoServico" class="form-control"> </textarea>
                         <span class="text-danger"></span>
                     </div>
                 </div>
@@ -166,20 +166,20 @@
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="FaturaNumero" class="control-label"></label>
-                        <input asp-for="FaturaNumero" class="form-control" placeholder="000000" readonly disabled />
+                        <input asp-for="FaturaNumero" class="form-control" id="faturaNumero" name="faturaNumero" placeholder="000000" readonly />
                         <span class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-2">
                         <label asp-for="FaturaSerie" class="control-label"></label>
-                        <input asp-for="FaturaSerie" class="form-control" placeholder="000000" readonly disabled />
+                        <input asp-for="FaturaSerie" class="form-control" id="faturaSerie" name="faturaSerie" placeholder="000000" readonly />
                         <span class="text-danger"></span>
                     </div>
                     <div class="form-group col-auto col-sm-3">
                         <label asp-for="DataEmissao" class="control-label"></label>
-                        <input asp-for="DataEmissao" class="form-control" disabled />
+                        <input asp-for="DataEmissao" class="form-control" readonly />
                         <span class="text-danger"></span>
                     </div>
-                    <div class="form-group col-auto col-sm-3">
+                    <div style="display: none" class="form-group col-auto col-sm-3">
                         <input  asp-for="UserName" class="form-control" disabled />
                         <span class="text-danger"></span>
                     </div>
@@ -189,6 +189,11 @@
                     <label asp-for="Observacoes" class="control-label titulo"></label>
                     <textarea asp-for="Observacoes" class="form-control"> </textarea>
                     <span class="text-danger"></span>
+                </div>
+                <div class="form-group col-auto col-sm-10">
+                    <label asp-for="Vencimento" class="control-label titulo"></label>
+                    <textarea asp-for="Vencimento" id="Vencimento" class="form-control"> </textarea>
+
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Salvar" class="btn btn-success" />
@@ -223,6 +228,25 @@
         document.getElementById('pixchave').value = bancoSelecionado.pixChave;
         document.getElementById('pixnumero').value = bancoSelecionado.pixNumero;
 
+    }
+
+    function validarFormulario() {
+        var bancoSelecionado = document.getElementById('banco').value;
+        var empresaSelecionada = document.getElementById('empresa').value;
+
+        var numeroTelefone = document.getElementById('NumeroTelefone').value
+        var inscricaoEstadual = document.getElementById('Ie').value
+
+        var faturaNumero = document.getElementById('faturaNumero').value
+        var faturaSerie = document.getElementById('faturaSerie').value
+
+        if (bancoSelecionado === "Escolha o banco" || empresaSelecionada === "Escolha a empresa") {
+            // Exibe o modal
+            var modal = new bootstrap.Modal(document.getElementById('modalErro'));
+            mostrarModal();
+            return false; // Impede o envio do formulário
+        }
+        return true; // Permite o envio do formulário
     }
 
     function ConsultaCEP(valor) {

@@ -80,6 +80,8 @@ namespace projFront.Controllers
         // GET: Bancos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.Bancos == null)
             {
                 return NotFound();
@@ -99,6 +101,7 @@ namespace projFront.Controllers
         // GET: Bancos/Create
         public IActionResult Create()
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
             ApplicationUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
@@ -109,6 +112,7 @@ namespace projFront.Controllers
             
             ViewData["usuarioLogado"] = usuarioLogado;
             ViewData["direitoUsuarioLogado"] = direitoUsuarioLogado.Nome;
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
 
             BancoViewModel bancoViewModel = new BancoViewModel();
             bancoViewModel.ListaUsuariosNaoRelacionados.AddRange(listaUsuarios);
@@ -122,6 +126,8 @@ namespace projFront.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(BancoViewModel bancoVM)
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (ModelState.IsValid)
             {
                 Banco banco = _mapper.Map<Banco>(bancoVM);
@@ -166,6 +172,8 @@ namespace projFront.Controllers
         // GET: Bancos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.Bancos == null)
             {
                 return NotFound();
@@ -207,6 +215,8 @@ namespace projFront.Controllers
         [HttpPut]
         public async Task<IActionResult> Edit(int id, BancoViewModel bancoVM)
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             var usuarioLogado = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name).Value;
 
             ApplicationUser userLogado = _IUsuarioRepository.BuscarUserPorEmail(usuarioLogado);
@@ -269,6 +279,8 @@ namespace projFront.Controllers
         // GET: Bancos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (id == null || _context.Bancos == null)
             {
                 return NotFound();
@@ -291,6 +303,8 @@ namespace projFront.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewData["PaginaSelecionada"] = "Bancos";
+            ViewData["DireitoUsuario"] = IdentificaDireitoUsuario();
             if (_context.Bancos == null)
             {
                 return Problem("Entity set 'AppDbContext.Bancos'  is null.");
@@ -300,8 +314,13 @@ namespace projFront.Controllers
             {
                 string mensagem = _bancoServices.ValidarDelecao(banco);
                 if (!string.IsNullOrEmpty(mensagem))
-                    return Problem(mensagem);
-                //_context.Bancos.Remove(banco);
+                {
+                    BancoViewModel bancoVM = _mapper.Map<BancoViewModel>(banco);
+                    TempData["Mensagem"] = mensagem;
+                    return View(bancoVM);
+                }
+                   
+                _context.Bancos.Remove(banco);
             }
             
             //await _context.SaveChangesAsync();

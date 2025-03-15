@@ -8,22 +8,34 @@
     var DireitoUsuario = @ViewData["DireitoUsuario"];
 }
 
-@if (SignInManager.IsSignedIn(User))
-{
-     
-    @if (Convert.ToString(DireitoUsuario) == "Admin")
+<ul class="nav nav-pills flex-column mb-auto">
+    @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Register">Cadastrar Novo Usuário</a></li>
-    }
+     
+        @if (Convert.ToString(DireitoUsuario) == "Admin")
+        {
+            <li class="nav-link"> <img class="bi pe-none me-2" width="16" height="16" src="~/images/users.png" /><a style="color: #0d6efd" asp-area="Identity" asp-page="/Account/Register">Cadastrar Novo Usuário</a></li>
+           
+        }
 
-    <li class="nav-item">
-        <a asp-controller="Usuarios" asp-action="AlterarSenha" asp-route-id="@UserManager.GetUserId(User)">Redefinir senha</a>
-    </li>
-    
-    <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Logout">Sair</a></li>
-}
-else
-{
-    <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Register">Cadastrar</a></li>
-    <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Login">Entrar</a></li>
-}
+        @if (paginaSelecionada == "alterarSenha")
+        {
+            <li class="nav-link active"> <img class="bi pe-none me-2" width="16" height="16" src="~/images/icons8-senha-50.png" /><a style="color: #0d6efd" asp-controller="Usuarios" asp-action="AlterarSenha" asp-route-id="@UserManager.GetUserId(User)">Redefinir senha</a></li>
+        }
+        else
+        {
+            <li class="nav-link"> <img class="bi pe-none me-2" width="16" height="16" src="~/images/icons8-senha-50.png" /><a style="color: #0d6efd" asp-controller="Usuarios" asp-action="AlterarSenha" asp-route-id="@UserManager.GetUserId(User)">Redefinir senha</a></li>
+        }
+
+
+        <li class="nav-link"> 
+                <img class="bi pe-none me-2" width="16" height="16" src="~/images/sair.png" /><a style="color: #0d6efd" asp-area="Identity" asp-page="/Account/Logout">Sair</a>
+            </li>
+    }
+    else
+    {
+        <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Register">Cadastrar</a></li>
+        <li class="nav-link active link-body-emphasis"><a asp-area="Identity" asp-page="/Account/Login">Entrar</a></li>
+    }
+</ul>
+

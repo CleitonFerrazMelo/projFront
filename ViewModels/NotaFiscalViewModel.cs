@@ -85,6 +85,7 @@ namespace projFront.ViewModels
         public string MensagemFisco { get; set; }
         public string UserName { get; set; }
 		[Display(Name = "Observações (Esse campo irá no rodapé da nota)")]
-		public string? Observacoes { get; set; } 
+		public string? Observacoes { get; set; }
+        public string? Vencimento { get; set; }
     }
 }
